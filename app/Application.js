@@ -1,3 +1,10 @@
+/**
+SmartWFM is a web based file manager. It is highly extensible by plugins and widgets. There is also a exchangeable backend.<br/>
+<br/>
+<b>License:</b> GPLv3<br/>
+<b>URL:</b> <a href="https://github.com/SmartWFM/swfm">https://github.com/SmartWFM/swfm</a>
+*/
+
 // enabling Ext.Loader to dynamically loading needed classes
 Ext.Loader.setConfig({enabled:true});
 
