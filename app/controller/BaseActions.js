@@ -121,6 +121,16 @@ Ext.define('SmartWFM.controller.BaseActions', {
 		var paste = Ext.extend(Ext.menu.Item, {
 			text: SmartWFM.lib.I18n.get('plugin.baseActions', 'Paste'),
 			icon: SmartWFM.lib.Icon.get('paste', 'action', '32x32'),
+			disabled: true,
+			initComponent: function() {
+				this.callParent();
+
+				var content = SmartWFM.lib.Clipboard.get();
+
+				// show only if clipboard isn't empty and contains supported command
+				if(content != undefined && Ext.Array.contains(Array('move', 'copy'), content['command']))
+					this.setDisabled(false);
+			},
 			handler: function(){
 				// getting content from clipboard
 				var content = SmartWFM.lib.Clipboard.get();
@@ -128,6 +138,8 @@ Ext.define('SmartWFM.controller.BaseActions', {
 				if(content != undefined) {
 					var supportedCommands = Array('move', 'copy');
 					if(Ext.Array.contains(supportedCommands, content['command'])) {
+						// remove from clipboard
+						SmartWFM.lib.Clipboard.pop();
 						var path = Ext.ComponentQuery.query('viewport > browser')[0].getActiveTab().getPath();
 						Ext.callback(
 							content['callback'], 		// function
