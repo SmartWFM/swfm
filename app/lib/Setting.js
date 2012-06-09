@@ -114,20 +114,19 @@ Ext.define('SmartWFM.lib.Setting', {
 					t[k] = this.setting[k]['type'];
 				}
 			}
-			Ext.Ajax.request({
-				url: SmartWFM.lib.Config.get('baseUrl'),
-				params: {
-					data: SmartWFM.lib.RPC.encode('setting.load', t)
-				},
-				callback: function (options, success, response) {
-					var obj = SmartWFM.lib.RPC.decode(response.responseText);
-					if (obj['success'] === true) {
-						for (var k in obj['result']) {
-							if (typeof(k) === 'string') {
-								SmartWFM.lib.Setting.setValue(k, obj['result'][k]);
-							}
+			SmartWFM.lib.RPC.request({
+				action: 'setting.load',
+				params: t,
+				successCallback: function(result) {
+					console.warn(result);
+					for (var k in result) {
+						if (typeof(k) === 'string') {
+							SmartWFM.lib.Setting.setValue(k, result[k]);
 						}
 					}
+				},
+				successScope: this,
+				callback: function() {
 					if (this.swfmCallback !== undefined) {
 						this.swfmCallback();
 					}
