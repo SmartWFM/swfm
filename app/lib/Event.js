@@ -59,9 +59,9 @@ Ext.define('SmartWFM.lib.Event', {
 			console.groupEnd();
 			for (i = 0; i < this.events[eventName].length; i++) {
 				ev = this.events[eventName][i];
-				if (component !== ev['component']) {
+				//if (component !== ev['component']) {
 					ev['callback'].apply(ev['scope'], args);
-				}
+				//}
 			}
 		} else {
 			console.groupEnd();
@@ -92,7 +92,7 @@ Ext.define('SmartWFM.lib.Event', {
 		if (this.events[eventName] !== undefined) {
 			this.events[eventName].push({
 				callback: callback,
-				component: component,
+				//component: component,
 				scope: scope
 			});
 		} else {
