@@ -19,7 +19,8 @@ Ext.define('SmartWFM.lib.Config', {
 		'baseUrl':							'',
 		'homePath': 						'/',
 		'theme':							'default',
-		'setting.load.enable':				false,
+		'setting.save.enable':				true,
+		'setting.load.enable':				true,
 		'i18n.useBrowserLang':				true,
 		'sidePanel.items':					[
 												'SmartWFM.view.treeMenu.TreeMenu',

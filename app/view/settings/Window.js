@@ -61,14 +61,18 @@ Ext.define('SmartWFM.view.settings.Window', {
 				for(var optName in group['items']) {
 					var option = group['items'][optName];
 					var setting = SmartWFM.lib.Setting.get(option);
-					var type = '';
 					switch(setting['type']) {
 						case 'bool':
-							type = 'Ext.form.field.Checkbox';
+							options.push(Ext.create('Ext.form.field.Checkbox', {
+								swfmSettingId: 	option,
+								fieldLabel: 	setting['label'],
+								checked: 		setting['value'], // todo seems to be a bug - see comment on doc for this config
+								width: 			350,
+								labelWidth:		150
+							}));
+							break;
 						case 'integer':
-							if( type == '')
-								type = 'Ext.form.field.Number';
-							options.push(Ext.create(type, {
+							options.push(Ext.create('Ext.form.field.Number', {
 								swfmSettingId: 	option,
 								fieldLabel: 	setting['label'],
 								value: 			setting['value'],

@@ -44,6 +44,7 @@ Ext.application({
 	],
 
 	launch: function() {
+		SmartWFM.lib.Setting.load();
 		var conf = {remove: true, duration: 1500};
 		// fade out loading mask
 		Ext.get('loading').fadeOut(conf);
