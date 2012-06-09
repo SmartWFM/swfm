@@ -66,7 +66,10 @@ Ext.define('SmartWFM.view.settings.Window', {
 							options.push(Ext.create('Ext.form.field.Checkbox', {
 								swfmSettingId: 	option,
 								fieldLabel: 	setting['label'],
-								checked: 		setting['value'], // todo seems to be a bug - see comment on doc for this config
+								checked: 		setting['value'],
+								// seems to be a bug - see comment on doc for this config
+								// checked seems to be leading instead of value
+								// http://www.sencha.com/forum/showthread.php?176561-checkbox-default-value
 								width: 			350,
 								labelWidth:		150
 							}));
