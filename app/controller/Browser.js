@@ -303,6 +303,9 @@ Ext.define('SmartWFM.controller.Browser', {
 		if (Ext.Array.contains(settings, 'widget.browser.defaultView')) {
 			tab.setViewMode(SmartWFM.lib.Setting.getValue('widget.browser.defaultView', 1));
 		}
+		if (Ext.Array.contains(settings, 'swfm.files.showHidden')) {
+			this.onRefresh();
+		}
 	},
 
 	onActivateFolder: function(path, newHistoryIndex) {
