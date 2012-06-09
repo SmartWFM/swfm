@@ -28,7 +28,7 @@ Ext.application({
 
 	controllers: [
 		'General',
-		'Browser' // adding controllers to load here
+		'Browser' // controllers to load added behind this line
 		,'TreeMenu'
 		,'Settings'
 		,'BaseActions'
@@ -40,6 +40,7 @@ Ext.application({
 		,'Archives'
 		,'Bookmarks'
 		,'Search'
+		,'AFSActions'
 	],
 
 	launch: function() {
