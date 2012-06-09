@@ -71,32 +71,8 @@ Ext.define('SmartWFM.controller.AFSActions', {
 						' ('+result.percent_used+')';
 				var percentage = result.used/result.total;
 				this.getQuotaProgressBar().updateProgress(percentage, msg, true);
-				//this.getSearchView().getStore().loadData(result);
 			},
 			successScope: this
 		});
-
-		/*Ext.Ajax.request({
-			url: SWFM.Config.get('command_url'),
-			params: {
-				data: SWFM.RPC.encode('quota.get', path)
-			},
-			callback: function(options, success, response) {
-				var obj = SWFM.RPC.decode(response.responseText);
-				var percentage = 0;
-				if(obj.error === undefined) {
-					var msg = Math.round(obj.result.used/1000)+' MB '+
-						SWFM.I18N.get('plugin.afs_actions', 'of')+' '+
-						Math.round(obj.result.total/1000)+' MB '+
-						SWFM.I18N.get('plugin.afs_actions', 'used')+
-						' ('+obj.result.percent_used+')';
-					percentage = obj.result.used/obj.result.total;
-				} else {
-					var msg = SWFM.I18N.get('plugin.afs_actions.error', obj.error.message);
-				}
-
-				Ext.getCmp('swfm-statusbar').getBottomToolbar().find('name','quota.progress')[0].updateProgress(percentage,msg, true);
-			}
-		});*/
 	}
 });
