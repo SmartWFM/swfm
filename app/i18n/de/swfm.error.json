@@ -1,4 +1,5 @@
 {
-	"An error occurs": "Es ist ein Fehler aufgetreten",
-	"Permission denied": "Zugriff verweigert"
+	"An error occured": "Es ist ein Fehler aufgetreten",
+	"Permission denied": "Zugriff verweigert",
+	"Method not found": "Methode wurde nicht gefunden"
 }
