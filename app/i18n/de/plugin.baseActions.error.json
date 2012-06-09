@@ -1,0 +1,23 @@
+{
+	"Can't create directories recursively": "Kann Verzeichnisse nicht rekursiv erstellen",
+	"Can't create the directory": "Verzeichnis konnte nicht erstellt werden",
+	"Can't delete the file.": "Datei konnte nicht gelöscht werden.",
+	"Can't open dir.": "Verzeichnis konnte nicht geöffnet werden",
+	"Destination exists": "Ziel existiert",
+	"Destination is inside source path.": "Ziel ist innerhalb der Quelle",
+	"Directories couldn't be downloaded, archive it first and then download this file.": "Verzeichnisse können nicht direkt heruntergeladen werden, packe das Verzeichnis in ein Archiv und lade diese dann herunter.",
+	"Directory doesn't exists": "Ordner existiert nicht",
+	"Error deleting file ...": "Fehler beim Löschen ...",
+	"File exists ...": "Datei existiert ...",
+	"Folder exists": "Ordner existiert",
+	"No file or folder selected": "Keine Datei oder Ordner ausgewählt.",
+	"No files selected.": "Keine Dateien ausgewählt.",
+	"Please select a file or folder to rename.": "Wählen Sie bitte eine Datei oder einen Ordner zum Umbenennen aus.",
+	"Please select only one file to rename it.": "Wählen Sie bitte nur eine Datei zum Umbenennen aus",
+	"Source doesn't exists": "Quelle existiert nicht",
+	"The file already exists.": "Die Datei existiert bereits",
+	"The file doesn't exists. Maybe it was deleted elsewhere.": "Die Datei existiert nicht. Sie wurde vielleicht bereits gelöscht.",
+	"The folder already exists.": "Der Ordner exisitert bereits.",
+	"There is nothing in the clipboard to paste. Copy or move previously.": "Die Zwischenablage ist leer. Bitte kopieren oder verschieben sie vorher etwas.",
+	"Too many selected files": "Zu viele ausgewählte Dateien"
+}

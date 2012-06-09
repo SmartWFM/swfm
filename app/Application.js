@@ -1,0 +1,61 @@
+// enabling Ext.Loader to dynamically loading needed classes
+Ext.Loader.setConfig({enabled:true});
+
+// Version
+SmartWFMMajorVersion = 0;
+SmartWFMMinorVersion = 10;
+SmartWFMBuildDate = '2012-06-09';
+
+/**
+ * @class SmartWFM
+ * The one and only SmartWFM-Application.
+ * @singleton
+ */
+Ext.application({
+	name: 'SmartWFM',
+	autoCreateViewport: true,
+	requires: [
+		'SmartWFM.lib.Config',
+		'SmartWFM.lib.RPCProxy'
+	],
+
+	controllers: [
+		'General',
+		'Browser' // adding controllers to load here
+		,'TreeMenu'
+		,'Settings'
+		,'BaseActions'
+		,'SubMenus'
+		,'ImageViewer'
+		,'FileInfo'
+		,'Feedback'
+		,'SourceCodeViewer'
+		,'Archives'
+		,'Bookmarks'
+		,'Search'
+	],
+
+	launch: function() {
+		var conf = {remove: true, duration: 1500};
+		// fade out loading mask
+		Ext.get('loading').fadeOut(conf);
+		Ext.get('loading-mask').fadeOut(conf);
+		// global access to application
+		SmartWFM.app = this;
+		// initial tab
+		this.getController('Browser').addTab('/');
+		this.getController('Browser').addTab(); // this tab exists after launch
+
+		// workaround - fix loading issue if only one initial tab - todo
+		var view = this.getController('Browser').getBrowserView();
+		view.setActiveTab(0);
+		view.getActiveTab().close();
+		// workaround end
+
+		// workaroung for initial tree menu selection - todo
+		var path = view.getActiveTab().getPath();
+		this.getController('TreeMenu').onActivateFolder(path); // this tab exists after launch
+		// workaround end
+
+	}
+});

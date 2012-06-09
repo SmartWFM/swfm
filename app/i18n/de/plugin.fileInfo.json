@@ -1,0 +1,16 @@
+{
+	"access time": "Letzter Zugriff",
+	"change time": "Letzte Statusänderung",
+	"File info": "Dateiinformationen",
+	"file permissions": "Zugriffsrechte",
+	"file size": "Dateigröße",
+	"filename": "Dateiname",
+	"full path": "Dateipfad",
+	"group id": "Gruppen-ID",
+	"group name": "Gruppen-Name",
+	"modification time": "Letzte Änderung",
+	"owner id": "Besitzer-ID",
+	"owner name": "Besitzer-Name",
+	"Property": "Eigenschaft",
+	"Value": "Wert"
+}

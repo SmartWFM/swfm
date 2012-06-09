@@ -1,0 +1,30 @@
+{
+	"Action": "Aktion",
+	"Context menu": "Kontextmenü",
+	"Controls": "Steuerung",
+	"Double click": "Doppelklick",
+	"Double click + Modifier key": "Doppelklick + Hilfstaste",
+	"Double click delay": "Verzögerung für Doppelklick",
+	"Edit": "Bearbeiten",
+	"Extras": "Extras",
+	"File": "Datei",
+	"File Options": "Datei-Optionen",											// TODO
+	"Folders": "Ordner",
+	"Language": "Sprache",
+	"Language Options": "Sprach-Optionen",
+	"Left click": "Linksklick",
+	"Left click + Modifier key": "Linksklick + Hilfstaste",
+	"Loading ...": "Lade ...",
+	"Loading SmartWFM ...": "Lade SmartWFM ...",
+	"Loading styles and scripts ...": "Lade Stylesheets und Skripte ...",
+	"Please wait": "Bitte warten",
+	"Powered by": "Unter der Haube:",											// TODO
+	"Right click": "Rechtsklick",
+	"Right click + Modifier key": "Rechtsklick + Hilfstaste",
+	"Select": "Auswahl",
+	"Show hidden files": "Zeige versteckte Dateien",
+	"SidePanel": "Seitenleiste",
+	"Starting SmartWFM ...": "Starte SmartWFM ...",
+	"Tools": "Werkzeuge",
+	"View": "Ansicht"
+}

@@ -1,0 +1,13 @@
+{
+	"A file with the given name already exists": "Eine Datei mit diesem Namen existiert bereits",
+	"A file with the given name doesn't exists": "Eine Datei mit diesem Namen gibt es nicht",
+	"Couldn't add file to archive": "Konnte Datei nicht zum Archiv hinzufügen",
+	"Couldn't create archive": "Konnte Verzeichnis nicht erstellen",
+	"Couldn't extract archive": "Konnte Archiv nicht entpacken",
+	"Couldn't open and extract archive": "Konnte Archiv nicht öffnen und entpacken",
+	"Permission denied.": "Zugriff verweigert",
+	"Please select some files or directories to extract.": "Bitte wählen sie Dateien oder Ordner zum Entpacken aus.",
+	"Wrong archive path": "Falscher Archivpfad",
+	"Wrong archive type": "Falscher Verzeichnistyp",
+	"Wrong directory name": "Falsche Pfadangabe"
+}

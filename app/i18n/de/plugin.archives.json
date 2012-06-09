@@ -1,0 +1,14 @@
+{
+	"Absolute paths in archive": "Absolute Pfadangaben im Archiv",
+	"Archive successful created": "Archiv erfolgreich erstellt",
+	"Archive Viewer": "Archiv-Inhalt anzeigen",
+	"Create": "Erstellen",
+	"Create archive": "Archiv erstellen",
+	"Extract selected": "Markierte entpacken",
+	"Extract all": "Alle entpacken",
+	"Please enter the name of the new archive": "Bitte geben sie den Namen des neuen Archives ein",
+	"TAR-BIP2-Archive (.tar.bz2)": "TAR-BIP2-Archiv (.tar.bz2)",
+	"TAR-GZ-Archive (.tar.gz)": "TAR-GZ-Archiv (.tar.gz)",
+	"Type of archive": "Archiv-Typ",
+	"ZIP-Archive (.zip)": "ZIP-Archiv (.zip)"
+}
