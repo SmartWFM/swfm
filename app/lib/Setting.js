@@ -118,7 +118,6 @@ Ext.define('SmartWFM.lib.Setting', {
 				action: 'setting.load',
 				params: t,
 				successCallback: function(result) {
-					console.warn(result);
 					for (var k in result) {
 						if (typeof(k) === 'string') {
 							SmartWFM.lib.Setting.setValue(k, result[k]);
