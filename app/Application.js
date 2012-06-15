@@ -63,7 +63,7 @@ Ext.application({
 
 		// workaroung for initial tree menu selection - todo
 		var path = view.getActiveTab().getPath();
-		this.getController('TreeMenu').onActivateFolder(path); // this tab exists after launch
+		this.getController('TreeMenu').onActivateFolder(path);
 		// workaround end
 
 	}
