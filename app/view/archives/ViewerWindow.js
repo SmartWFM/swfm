@@ -1,5 +1,5 @@
 /**
- * Window to display source code
+ * Window to display archive content
  */
 Ext.define('SmartWFM.view.archives.ViewerWindow', {
 	extend: 'Ext.window.Window',

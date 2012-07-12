@@ -38,6 +38,7 @@ Ext.define('SmartWFM.lib.Config', {
 												'createNew',
 												'fileInfo',
 												'base.download',
+												'archives.create',
 												'|',
 												'base.rename',
 												'base.copy',

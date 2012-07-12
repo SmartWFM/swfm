@@ -11,9 +11,20 @@ Ext.define('SmartWFM.controller.Archives', {
 	],
 
 	refs: [{
+		ref: 'browserView',
+		selector: 'viewport > browser'
+	},{
 		ref: 'archiveViewer',
 		selector: 'archiveViewer'
+	},{
+		ref: 'createArchiveWindow',
+		selector: 'createArchive'
+	},{
+		ref: 'createArchiveForm',
+		selector: 'createArchive > form'
 	}],
+
+	createArchiveData: {}, // stores data of items
 
 	init: function() {
 		this.registerMenuItems();
@@ -23,11 +34,15 @@ Ext.define('SmartWFM.controller.Archives', {
 			},
 			'archiveViewer button[action=extractSelected]': {
 				click: this.extractSelected
+			},
+			'createArchive button[action=create]': {
+				click: this.create
 			}
 		});
 	},
 
 	registerMenuItems: function() {
+		// viewer
 		var archiveViewer = Ext.extend(Ext.menu.Item, {
 			text: SmartWFM.lib.I18n.get('plugin.archives', 'Archive Viewer'),
 			icon: SmartWFM.lib.Icon.get('archive.extract', 'action', '32x32'),
@@ -57,6 +72,31 @@ Ext.define('SmartWFM.controller.Archives', {
 			}
 		});
 		SmartWFM.lib.Menu.add('archives.viewer', archiveViewer);
+
+		// create archives
+		var archiveCreate = Ext.extend(Ext.menu.Item, {
+			text: SmartWFM.lib.I18n.get('plugin.archives', 'Create archive'),
+			icon: SmartWFM.lib.Icon.get('archive.insert', 'action', '32x32'),
+			handler: function () {
+				var selection = Ext.ComponentQuery.query('viewport > browser')[0].getActiveTab().down('dataview, gridpanel').getSelectionModel().getSelection();
+				if(selection.length >= 1) {
+					var root = '/';
+					var items = new Array();
+					for(var i = 0; i < selection.length; i++) {
+						var item = selection[i].getData();
+						root = item['path'];
+						items.push(item['name']);
+					}
+					var controller = SmartWFM.app.getController('Archives');
+					controller.createArchiveData = {
+						path: root,
+						files: items
+					};
+					Ext.create('SmartWFM.view.archives.CreateWindow').show();
+				}
+			}
+		});
+		SmartWFM.lib.Menu.add('archives.create', archiveCreate);
 	},
 
 	load: function() {
@@ -172,6 +212,33 @@ Ext.define('SmartWFM.controller.Archives', {
 				}
 			},
 			callbackScope: this
+		});
+	},
+
+	create: function(button) {
+		var browserView = this.getBrowserView();
+		browserView.setLoading({msg: SmartWFM.lib.I18n.get('swfm', 'Loading ...')});
+		var values = this.getCreateArchiveForm().getForm().getValues();
+		this.createArchiveData['archiveName'] = values['name'];
+		this.createArchiveData['archiveType'] = values['type'];
+		this.createArchiveData['fullPath'] = values['absolutePaths'] || false;
+		var path = this.createArchiveData['root'];
+		SmartWFM.lib.RPC.request({
+			action: 'archive.create',
+			params: this.createArchiveData,
+			successCallback: function(result) { // called on success
+				SmartWFM.lib.Event.fire('', 'refresh', path);
+				this.window.close();
+			},
+			successScope: {
+				window: button.up('createArchive')
+			},
+			callback: function() {	// called allways
+				this.browserView.setLoading(false);
+			},
+			scope: {
+				browserView: browserView
+			}
 		});
 	}
 });
