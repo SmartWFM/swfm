@@ -8,7 +8,6 @@ Ext.define('SmartWFM.view.baseActions.RenameWindow', {
 
 	title: SmartWFM.lib.I18n.get('plugin.baseActions', 'Rename'),
 
-	basePath: '',
 	plain: true,
 	border: false,
 
@@ -30,6 +29,12 @@ Ext.define('SmartWFM.view.baseActions.RenameWindow', {
 					}
 				}
 			}
+		},{
+			xtype: 'hiddenfield',
+			name: 'path'
+		},{
+			xtype: 'hiddenfield',
+			name: 'oldName'
 		}]
 	},
 

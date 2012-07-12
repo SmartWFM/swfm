@@ -17,6 +17,7 @@
 	"Source doesn't exists": "Quelle existiert nicht",
 	"The file already exists.": "Die Datei existiert bereits",
 	"The file doesn't exists. Maybe it was deleted elsewhere.": "Die Datei existiert nicht. Sie wurde vielleicht bereits gelöscht.",
+	"The filename has not changed.": "Der Dateiname hat sich nicht geändert.",
 	"The folder already exists.": "Der Ordner exisitert bereits.",
 	"There is nothing in the clipboard to paste. Copy or move previously.": "Die Zwischenablage ist leer. Bitte kopieren oder verschieben sie vorher etwas.",
 	"Too many selected files": "Zu viele ausgewählte Dateien"

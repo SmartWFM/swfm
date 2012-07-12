@@ -27,8 +27,8 @@ Ext.define('SmartWFM.controller.BaseActions', {
 		ref: 'browserView',
 		selector: 'viewport > browser'
 	},{
-		ref: 'renameField',
-		selector: 'rename > form > textfield[name=name]'
+		ref: 'renameForm',
+		selector: 'rename > form'
 	}],
 
 	init: function() {
@@ -245,7 +245,13 @@ Ext.define('SmartWFM.controller.BaseActions', {
 			handler: function(){
 				var selection = Ext.ComponentQuery.query('viewport > browser')[0].getActiveTab().down('dataview, gridpanel').getSelectionModel().getSelection();
 				var win = Ext.create('SmartWFM.view.baseActions.RenameWindow');
-				win.down('textfield[name=name]').setValue(selection[0].get('name'));
+				var name = selection[0].get('name');
+				var path = selection[0].get('path');
+				win.down('form').getForm().setValues({
+					name: name,
+					path: path,
+					oldName: name
+				});
 				win.show();
 			}
 		});
@@ -271,25 +277,44 @@ Ext.define('SmartWFM.controller.BaseActions', {
 		});
 	},
 
-	rename: function() {
-		this.getBrowserView().setLoading({msg: SmartWFM.lib.I18n.get('swfm', 'Loading ...')});
-		// todo https://github.com/SmartWFM/swfm/issues/1
-		console.log(this.getRenameField().getRawValue());
+	rename: function(button) {
+		var browserView = this.getBrowserView();
+		browserView.setLoading({msg: SmartWFM.lib.I18n.get('swfm', 'Loading ...')});
+		var values = this.getRenameForm().getForm().getValues();
 
-		/*SmartWFM.lib.RPC.request({
+		if(values['name'] == values['oldName']) {
+			Ext.Msg.show({
+				title: SmartWFM.lib.I18n.get('plugin.baseActions', 'Rename'),
+				msg: SmartWFM.lib.I18n.get('plugin.baseActions.error', 'The filename has not changed.'),
+				buttons: Ext.Msg.OK,
+				icon: Ext.Msg.INFO
+			});
+			browserView.setLoading(false);
+			return;
+		}
+
+		SmartWFM.lib.RPC.request({
 			action: 'file.rename',
 			params: {
-				path: path,
-				name: name_old,
-				name_new: name_new,
+				path: values['path'],
+				name: values['oldName'],
+				name_new: values['name'],
 				overwrite: false
 			},
 			successCallback: function() { // called on success
-				SmartWFM.lib.Event.fire('', 'refresh', basePath);
-				// ToDo: specify which window has to be closed
-				Ext.ComponentQuery.query('window[basePath="'+basePath+'"]')[0].close();
+				SmartWFM.lib.Event.fire('', 'refresh', values['path']);
+				this.window.close();
+			},
+			successScope: {
+				window: button.up('rename')
+			},
+			callback: function() {	// called allways
+				this.browserView.setLoading(false);
+			},
+			scope: {
+				browserView: browserView
 			}
-		});*/
+		});
 	},
 
 	createNewFolder: function(basePath, name) {
