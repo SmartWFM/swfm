@@ -168,6 +168,7 @@ Ext.define('SmartWFM.view.browser.Tab', {
 							path: this.history[i]
 						},
 						handler: function () {
+							buttonBack.hideMenu();
 							SmartWFM.lib.Event.fire('', 'activateFolder', this.path, this.historyIndex);
 						}
 					})
@@ -189,6 +190,7 @@ Ext.define('SmartWFM.view.browser.Tab', {
 							path: this.history[i]
 						},
 						handler: function () {
+							buttonForward.hideMenu();
 							SmartWFM.lib.Event.fire('', 'activateFolder', this.path, this.historyIndex);
 						}
 					})
