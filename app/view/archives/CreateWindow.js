@@ -46,7 +46,7 @@ Ext.define('SmartWFM.view.archives.CreateWindow', {
 			forceSelection: true,
 			store: [
 				[ 'zip', SmartWFM.lib.I18n.get('plugin.archives', 'ZIP-Archive (.zip)') ],
-				[ 'tarbz2',	SmartWFM.lib.I18n.get('plugin.archives', 'TAR-BIP2-Archive (.tar.bz2)') ],
+				[ 'tarbz2',	SmartWFM.lib.I18n.get('plugin.archives', 'TAR-BZIP2-Archive (.tar.bz2)') ],
 				[ 'targz', SmartWFM.lib.I18n.get('plugin.archives', 'TAR-GZ-Archive (.tar.gz)') ]
 			]
 		},{
