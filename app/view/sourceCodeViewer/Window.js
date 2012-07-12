@@ -17,7 +17,9 @@ Ext.define('SmartWFM.view.sourceCodeViewer.Window', {
 
 	initComponent: function() {
 		// see comment in ExtJS 4.1 doc for Ext.getBody()
-		this.height 	= Ext.getBody().getHeight() / 1.2;
+		var body = Ext.getBody();
+		this.height 	= body.getHeight() / 1.2;
+		this.width 		= body.getWidth() / 1.2;
 		this.callParent(arguments);
 	},
 
