@@ -26,11 +26,11 @@ Ext.define('SmartWFM.view.sourceCodeViewer.Window', {
 	buttonAlign: 'center',
 	buttons: [
 		{
-			text: SmartWFM.lib.I18n.get('plugin.sourceCodeViewer', 'Previous'),
+			text: SmartWFM.lib.I18n.get('swfm.button', 'Previous'),
 			action: 'previous'
 		},
 		{
-			text: SmartWFM.lib.I18n.get('plugin.sourceCodeViewer', 'Next'),
+			text: SmartWFM.lib.I18n.get('swfm.button', 'Next'),
 			action: 'next'
 		}
 	],

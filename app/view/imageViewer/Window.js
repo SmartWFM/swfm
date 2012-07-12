@@ -25,11 +25,11 @@ Ext.define('SmartWFM.view.imageViewer.Window', {
 	buttonAlign: 'center',
 	buttons: [
 		{
-			text: SmartWFM.lib.I18n.get('plugin.imageViewer', 'Previous'),
+			text: SmartWFM.lib.I18n.get('swfm.button', 'Previous'),
 			action: 'previous'
 		},
 		{
-			text: SmartWFM.lib.I18n.get('plugin.imageViewer', 'Next'),
+			text: SmartWFM.lib.I18n.get('swfm.button', 'Next'),
 			action: 'next'
 		},
 		{
