@@ -3,6 +3,8 @@
  */
 Ext.define('SmartWFM.view.settings.Window', {
 	extend: 'Ext.window.Window',
+	alias: 'widget.settingsWindow',
+
 	requires: [
 		'SmartWFM.lib.I18n',
 		'SmartWFM.lib.Event',
@@ -15,6 +17,7 @@ Ext.define('SmartWFM.view.settings.Window', {
 	buttons: [
 		Ext.create('Ext.button.Button', {
 			text: SmartWFM.lib.I18n.get('plugin.setting', 'Apply'),
+			action: 'apply',
 			handler: function(b) {
 				var window = b.up('window');
 				// apply settings
@@ -40,9 +43,7 @@ Ext.define('SmartWFM.view.settings.Window', {
 		}),
 		Ext.create('Ext.button.Button', {
 			text: SmartWFM.lib.I18n.get('swfm.button', 'Cancel'),
-			handler: function(b) {
-				b.up('window').close();
-			}
+			action: 'cancel'
 		})
 	],
 

@@ -9,8 +9,21 @@ Ext.define('SmartWFM.controller.Settings', {
 		'SmartWFM.lib.Icon'
 	],
 
+	refs: [{
+		ref: 'settingsWindow',
+		selector: 'settingsWindow'
+	}],
+
 	init: function() {
 		this.registerMenuItems();
+		this.control({
+			'settingsWindow button[action=apply]': {
+				click: this.applySettings
+			},
+			'settingsWindow button[action=cancel]': {
+				click: this.cancel
+			}
+		});
 	},
 
 	registerMenuItems: function() {
@@ -22,5 +35,13 @@ Ext.define('SmartWFM.controller.Settings', {
 			}
 		});
 		SmartWFM.lib.Menu.add('setting.edit', settingEdit);
+	},
+
+	applySettings: function() {
+
+	},
+
+	cancel: function() {
+		this.getSettingsWindow().close();
 	}
 });
