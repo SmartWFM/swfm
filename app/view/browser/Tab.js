@@ -18,6 +18,7 @@ Ext.define('SmartWFM.view.browser.Tab', {
 	tbar: [],
 
 	title: '',
+	header: false,
 
 	initComponent: function() {
 		if (this.path === undefined)
