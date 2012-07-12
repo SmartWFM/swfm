@@ -25,6 +25,7 @@ Ext.define('SmartWFM.view.browser.IconView', {
 	overItemCls: 'x-item-over',
 	//simpleSelect: true,			// select multiple elements without holding modifier key
 	multiSelect: true,
+	autoScroll: true,
 
 	plugins: [],
 
