@@ -61,7 +61,9 @@ Ext.define('SmartWFM.lib.Config', {
 												'iconview',
 												'listview'
 											],
-		'menu.main.tools':					[],
+		'menu.main.tools':					[
+												'afs.manageGroups'
+											],
 		'menu.main.extras':					[
 												'setting.edit'
 											],

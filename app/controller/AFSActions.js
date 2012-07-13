@@ -4,17 +4,34 @@
 Ext.define('SmartWFM.controller.AFSActions', {
 	extend: 'Ext.app.Controller',
 	requires: [
-		'SmartWFM.lib.I18n'
+		'SmartWFM.lib.I18n',
+		'SmartWFM.view.afsActions.ManageGroupsWindow'
 	],
 
 	refs: [{
+		ref: 'groupsWindow',
+		selector: 'manageGroupsWindow'
+	},{
 		ref: 'quotaProgressBar',
 		selector: 'viewport statusPanel progressbar[name=quota.progress]'
 	}],
 
 	init: function() {
+		this.registerMenuItems();
 		this.registerComponents();
 		this.registerEvents();
+	},
+
+	registerMenuItems: function() {
+		var manageGroups = Ext.extend(Ext.menu.Item, {
+			text: SmartWFM.lib.I18n.get('plugin.afsActions', 'Manage AFS groups'),
+			icon: SmartWFM.lib.Icon.get('afs.groups.manage', 'action', '32x32'),
+			handler: function () {
+				Ext.create('SmartWFM.view.afsActions.ManageGroupsWindow').show();
+				SmartWFM.app.getController('AFSActions').loadGroups();
+			}
+		});
+		SmartWFM.lib.Menu.add('afs.manageGroups', manageGroups);
 	},
 
 	registerComponents: function() {
@@ -74,5 +91,9 @@ Ext.define('SmartWFM.controller.AFSActions', {
 			},
 			successScope: this
 		});
+	},
+
+	loadGroups: function() {
+		this.getGroupsWindow().setLoading({msg: SmartWFM.lib.I18n.get('swfm', 'Loading ...')});
 	}
 });
