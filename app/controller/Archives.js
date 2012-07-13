@@ -101,7 +101,7 @@ Ext.define('SmartWFM.controller.Archives', {
 
 	load: function() {
 		var v = this.getArchiveViewer();
-		v.setLoading(true);
+		v.setLoading({msg: SmartWFM.lib.I18n.get('swfm', 'Loading ...')});
 
 		// getting first file in list (only one we need)
 		var f = this.files[0];

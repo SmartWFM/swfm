@@ -54,5 +54,5 @@ Ext.define('SmartWFM.view.archives.CreateWindow', {
 			fieldLabel: SmartWFM.lib.I18n.get('plugin.archives', 'Absolute paths in archive'),
 			name: 'absolutePaths'
 		}]
-	},
+	}
 });
