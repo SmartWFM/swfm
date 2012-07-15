@@ -18,7 +18,7 @@ Ext.define('SmartWFM.lib.RPC', {
 	 * @since 0.10
 	 */
 	decode: function(encodedData) {
-		console.groupCollapsed('SWFM.RPC.decode()');
+		console.groupCollapsed('SmartWFM.lib.RPC.decode()');
 		console.debug('Arguments: ', arguments);
 
 		var data = Ext.JSON.decode(encodedData);
@@ -85,7 +85,7 @@ Ext.define('SmartWFM.lib.RPC', {
 	 * @since 0.10
 	*/
 	encode: function(method, params) {
-		console.groupCollapsed('SWFM.RPC.encode()');
+		console.groupCollapsed('SmartWFM.lib.RPC.encode()');
 		console.debug('Arguments: ', arguments);
 		var data = Ext.JSON.encode({
 			jsonrpc: '2.0',
