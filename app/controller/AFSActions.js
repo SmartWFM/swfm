@@ -13,6 +13,12 @@ Ext.define('SmartWFM.controller.AFSActions', {
 		ref: 'groupsWindow',
 		selector: 'manageGroupsWindow'
 	},{
+		ref: 'addGroupWindow',
+		selector: 'addGroupDialog'
+	},{
+		ref: 'addUserWindow',
+		selector: 'addUserDialog'
+	},{
 		ref: 'quotaProgressBar',
 		selector: 'viewport statusPanel progressbar[name=quota.progress]'
 	}],
@@ -24,6 +30,12 @@ Ext.define('SmartWFM.controller.AFSActions', {
 		this.control({
 			'addGroupDialog button[action=create]': {
 				click: this.createGroup
+			},
+			'addUserDialog button[action=add]': {
+				click: this.addUser
+			},
+			'manageGroupsWindow button[action=deleteSelected]': {
+				click: this.deleteSelected
 			}
 		});
 	},
@@ -99,7 +111,8 @@ Ext.define('SmartWFM.controller.AFSActions', {
 		});
 	},
 
-	loadGroups: function() {
+	loadGroups: function(expandedGroups) {
+		expandedGroups = expandedGroups || new Array();
 		var window = this.getGroupsWindow();
 		window.setLoading({msg: SmartWFM.lib.I18n.get('swfm', 'Loading ...')});
 
@@ -107,6 +120,8 @@ Ext.define('SmartWFM.controller.AFSActions', {
 			action: 'groups.get',
 			params: new Array(),
 			successCallback: function(result) { // called on success
+				// clear all items in window (i.e. previous - outdated - tree panel)
+				this.window.removeAll();
 				var rootNode = {
 					expanded: true,
 					children: []
@@ -121,7 +136,7 @@ Ext.define('SmartWFM.controller.AFSActions', {
 						expandable: true,
 						leaf: false,
 						checked: false,
-						expanded: false,
+						expanded: false, // ToDo #20
 						children: [{}]
 					});
 				}
@@ -149,7 +164,11 @@ Ext.define('SmartWFM.controller.AFSActions', {
 							if (node.data.text == SmartWFM.lib.I18n.get('plugin.afsActions', 'Add group')) {
 								Ext.create('SmartWFM.view.afsActions.AddGroupDialog').show();
 							} else if (node.data.text == SmartWFM.lib.I18n.get('plugin.afsActions', 'Add user(s)')) {
-								console.log('ToDo');
+								var window = Ext.create('SmartWFM.view.afsActions.AddUserDialog');
+								window.down('form').getForm().setValues({
+									group: node.data.parentId
+								});
+								window.show();
 							}
 						},
 						beforeitemexpand: function(node) {
@@ -208,6 +227,63 @@ Ext.define('SmartWFM.controller.AFSActions', {
 	},
 
 	createGroup: function() {
-		console.warn('todo');
+		var window = this.getGroupsWindow();
+		window.setLoading({msg: SmartWFM.lib.I18n.get('swfm', 'Loading ...')});
+		var addWindow = this.getAddGroupWindow();
+		var values = addWindow.down('form').getForm().getValues();
+
+		SmartWFM.lib.RPC.request({
+			action: 'groups.create',
+			params: values['name'],
+			successCallback: function(result) { // called on success
+				this.addWindow.close();
+				this.window.setLoading(false);
+				this.controller.loadGroups();
+			},
+			successScope: {
+				controller: this,
+				window: window,
+				addWindow: addWindow
+			},
+			errorCallback: function() {	// called on error
+				// to be splitted up for race conditions
+				this.setLoading(false);
+			},
+			errorScope: window
+		});
+	},
+
+	addUser: function() {
+		var window = this.getGroupsWindow();
+		window.setLoading({msg: SmartWFM.lib.I18n.get('swfm', 'Loading ...')});
+		var addWindow = this.getAddUserWindow();
+		var values = addWindow.down('form').getForm().getValues();
+
+		SmartWFM.lib.RPC.request({
+			action: 'groups.members.add',
+			params: {
+				group: values['group'],
+				user: values['user']
+			},
+			successCallback: function(result) { // called on success
+				this.addWindow.close();
+				this.window.setLoading(false);
+				this.controller.loadGroups([values['group']]);
+			},
+			successScope: {
+				controller: this,
+				window: window,
+				addWindow: addWindow
+			},
+			errorCallback: function() {	// called on error
+				// to be splitted up for race conditions
+				this.setLoading(false);
+			},
+			errorScope: window
+		});
+	},
+
+	deleteSelected: function() {
+		console.warn('ToDo');
 	}
 });
