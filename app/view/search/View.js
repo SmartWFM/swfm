@@ -5,6 +5,7 @@ Ext.define('SmartWFM.view.search.View', {
 	title: SmartWFM.lib.I18n.get('widget.search', 'Search'),
 	autoscroll: true,
 	displayField: 'name',
+	forceFit: true,
 
 	requires: [
 		'SmartWFM.lib.I18n',

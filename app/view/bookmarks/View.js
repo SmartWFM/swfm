@@ -19,9 +19,8 @@ Ext.define('SmartWFM.view.bookmarks.View', {
 		this.callParent(arguments);
 	},
 
-	// store: Ext.create('SmartWFM.store.bookmarks.Bookmarks'),
-
 	hideHeaders: true,
+	forceFit: true,
 
 	columns: [{
 		header: 'Name',

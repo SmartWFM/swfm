@@ -31,5 +31,12 @@ Ext.define('SmartWFM.view.SidePanel', {
 				Ext.create(items[i])
 			);
 		}
+	},
+
+	listeners: {
+		'resize': function() {
+			// just a workaround, because layout isn't done correct
+			this.doLayout();
+		}
 	}
 });
