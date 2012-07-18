@@ -6,7 +6,10 @@ Ext.define('SmartWFM.controller.AFSActions', {
 	requires: [
 		'SmartWFM.lib.I18n',
 		'SmartWFM.view.afsActions.ManageGroupsWindow',
-		'SmartWFM.view.afsActions.AddGroupDialog'
+		'SmartWFM.view.afsActions.AddGroupDialog',
+		'SmartWFM.view.afsActions.AddUserDialog',
+		'SmartWFM.view.afsActions.ManageACLsWindow',
+		'SmartWFM.store.afsActions.Permissions'
 	],
 
 	refs: [{
@@ -24,6 +27,9 @@ Ext.define('SmartWFM.controller.AFSActions', {
 	},{
 		ref: 'quotaProgressBar',
 		selector: 'viewport statusPanel progressbar[name=quota.progress]'
+	},{
+		ref: 'ACLsWindow',
+		selector: 'manageACLsWindow'
 	}],
 
 	init: function() {
@@ -39,6 +45,15 @@ Ext.define('SmartWFM.controller.AFSActions', {
 			},
 			'manageGroupsWindow button[action=deleteSelected]': {
 				click: this.deleteSelected
+			},
+			'manageACLsWindow button[action=addNewRule]': {
+				click: this.addNewRule
+			},
+			'manageACLsWindow button[action=setRights]': {
+				click: this.setRights
+			},
+			'manageACLsWindow button[action=reset]': {
+				click: this.reset
 			}
 		});
 	},
@@ -53,6 +68,39 @@ Ext.define('SmartWFM.controller.AFSActions', {
 			}
 		});
 		SmartWFM.lib.Menu.add('afs.manageGroups', manageGroups);
+		var setACL = Ext.extend(Ext.menu.Item, {
+			text: SmartWFM.lib.I18n.get('plugin.afsActions', 'AFS rights'),
+			icon: SmartWFM.lib.Icon.get('afs.rights', 'action', '32x32'),
+			disabled: true,
+			initComponent: function() {
+				this.callParent();
+
+				var selection = Ext.ComponentQuery.query('viewport > browser')[0].getActiveTab().down('dataview, gridpanel').getSelectionModel().getSelection();
+				// show if only one item is selected
+				if(selection.length <= 1)
+					this.setDisabled(false);
+			},
+			handler: function () {
+				var activeTab = Ext.ComponentQuery.query('viewport > browser')[0].getActiveTab(),
+					selection = activeTab.down('dataview, gridpanel').getSelectionModel().getSelection(),
+					path;
+				if(selection.length == 0)
+					path = activeTab.path
+				else {
+					path = selection[0].get('path');
+					if (path != '/')
+						path += '/';
+					path += selection[0].get('name');
+				}
+				var win = Ext.create('SmartWFM.view.afsActions.ManageACLsWindow');
+				win.down('form').getForm().setValues({
+					path: path
+				});
+				win.show();
+				SmartWFM.app.getController('AFSActions').loadACLs(path);
+			}
+		});
+		SmartWFM.lib.Menu.add('afs.setACL', setACL);
 	},
 
 	registerComponents: function() {
@@ -307,5 +355,52 @@ Ext.define('SmartWFM.controller.AFSActions', {
 			},
 			errorScope: window
 		});
+	},
+
+	loadACLs: function(path) {
+		var window = this.getACLsWindow();
+		window.setLoading({msg: SmartWFM.lib.I18n.get('swfm', 'Loading ...')});
+
+		SmartWFM.lib.RPC.request({
+			action: 'acl.get',
+			params: path,
+			successCallback: function(result) { // called on success
+				var form = this.down('form');
+
+				for(var user in result) {
+					form.add({
+						xtype: 'combobox',
+						displayField: 'name',
+						valueField: 'value',
+						forceSelection: true,
+						store: Ext.create('SmartWFM.store.afsActions.Permissions'),
+						fieldLabel: user,
+						name: user,
+						value: result[user],
+						anchor: '100%'
+					});
+				 }
+				this.setLoading(false);
+			},
+			successScope: window,
+			errorCallback: function() {	// called on error
+				// close "manage afs acls" window
+				this.close();
+			},
+			errorScope: window
+		});
+	},
+
+	addNewRule: function() {
+		// todo
+	},
+
+	setRights: function() {
+		//this.getACLsWindow().down('form').getValues()
+		// todo
+	},
+
+	reset: function() {
+		// todo
 	}
 });
