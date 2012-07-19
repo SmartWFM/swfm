@@ -76,8 +76,9 @@ Ext.define('SmartWFM.controller.AFSActions', {
 				this.callParent();
 
 				var selection = Ext.ComponentQuery.query('viewport > browser')[0].getActiveTab().down('dataview, gridpanel').getSelectionModel().getSelection();
-				// show if only one item is selected
-				if(selection.length <= 1)
+				// show if only no item is selected or the only selected item is a dir
+				if( (selection.length == 1 && selection[0].getData().isDir)
+					|| selection.length == 0 )
 					this.setDisabled(false);
 			},
 			handler: function () {
@@ -401,6 +402,6 @@ Ext.define('SmartWFM.controller.AFSActions', {
 	},
 
 	reset: function() {
-		// todo
+		this.getACLsWindow().down('form').getForm().reset();
 	}
 });
