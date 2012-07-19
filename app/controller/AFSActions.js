@@ -9,6 +9,7 @@ Ext.define('SmartWFM.controller.AFSActions', {
 		'SmartWFM.view.afsActions.AddGroupDialog',
 		'SmartWFM.view.afsActions.AddUserDialog',
 		'SmartWFM.view.afsActions.ManageACLsWindow',
+		'SmartWFM.view.afsActions.AddRuleDialog',
 		'SmartWFM.store.afsActions.Permissions'
 	],
 
@@ -30,6 +31,9 @@ Ext.define('SmartWFM.controller.AFSActions', {
 	},{
 		ref: 'ACLsWindow',
 		selector: 'manageACLsWindow'
+	},{
+		ref: 'addRuleWindow',
+		selector: 'addRuleDialog'
 	}],
 
 	init: function() {
@@ -54,6 +58,9 @@ Ext.define('SmartWFM.controller.AFSActions', {
 			},
 			'manageACLsWindow button[action=reset]': {
 				click: this.reset
+			},
+			'addRuleDialog button[action=add]': {
+				click: this.addRule
 			}
 		});
 	},
@@ -393,7 +400,7 @@ Ext.define('SmartWFM.controller.AFSActions', {
 	},
 
 	addNewRule: function() {
-		// todo
+		Ext.create('SmartWFM.view.afsActions.AddRuleDialog').show();
 	},
 
 	setRights: function() {
@@ -403,5 +410,21 @@ Ext.define('SmartWFM.controller.AFSActions', {
 
 	reset: function() {
 		this.getACLsWindow().down('form').getForm().reset();
+	},
+
+	addRule: function(button) {
+		var values = this.getAddRuleWindow().down('form').getForm().getValues();
+		var form = this.getACLsWindow().down('form').add({
+			xtype: 'combobox',
+			displayField: 'name',
+			valueField: 'value',
+			forceSelection: true,
+			store: Ext.create('SmartWFM.store.afsActions.Permissions'),
+			fieldLabel: values['name'],
+			name: values['name'],
+			value: '',
+			anchor: '100%'
+		});
+		button.up('window').close();
 	}
 });
