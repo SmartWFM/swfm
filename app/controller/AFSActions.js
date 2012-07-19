@@ -404,8 +404,34 @@ Ext.define('SmartWFM.controller.AFSActions', {
 	},
 
 	setRights: function() {
-		//this.getACLsWindow().down('form').getValues()
-		// todo
+		var values = this.getACLsWindow().down('form').getValues(),
+			acls = {},
+			window = this.getACLsWindow();
+		window.setLoading({msg: SmartWFM.lib.I18n.get('swfm', 'Loading ...')});
+		for(var i in values) {
+			if(i != 'path' && i != 'subfolders') {
+				acls[i] = values[i];
+			}
+		}
+
+		SmartWFM.lib.RPC.request({
+			action: 'acl.set',
+			params: {
+				path: values['path'],
+				subdirs: values['subfolders'] || false,
+				acl: acls
+			},
+			successCallback: function(result) { // called on success
+				// close "manage afs acls" window
+				this.close();
+			},
+			successScope: window,
+			errorCallback: function() {	// called on error
+				// unset loading in "manage afs acls" window
+				this.setLoading(false);
+			},
+			errorScope: window
+		});
 	},
 
 	reset: function() {
