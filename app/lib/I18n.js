@@ -161,8 +161,26 @@ Ext.define('SmartWFM.lib.I18n', {
 	replaceLoadingTitle: function() {
 		var el = Ext.get('loadingTitle');
 		el.update(this.get('swfm', el.dom.innerHTML));
+	},
+
+	/**
+	 * Translates the buttontext of the Ext.MessageBox
+	 *
+	 * @private
+	 *
+	 * @since 0.10
+	 */
+	translateMessageBox: function() {
+		Ext.Msg.buttonText = {
+			yes: SmartWFM.lib.I18n.get('swfm.button', 'Yes'),
+			no: SmartWFM.lib.I18n.get('swfm.button', 'No'),
+			ok: SmartWFM.lib.I18n.get('swfm.button', 'OK'),
+			cancel: SmartWFM.lib.I18n.get('swfm.button', 'Cancel')
+		};
 	}
 });
 
 // translate initial loading mask
 SmartWFM.lib.I18n.replaceLoadingTitle();
+// translate Ext.MessageBox buttons
+SmartWFM.lib.I18n.translateMessageBox();
