@@ -10,6 +10,7 @@ Ext.define('SmartWFM.view.afsActions.AddUserDialog', {
 
 	plain: true,
 	border: false,
+	constrain: true,
 
 	items: {
 		xtype: 'form',

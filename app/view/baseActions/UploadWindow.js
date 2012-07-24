@@ -13,6 +13,7 @@ Ext.define('SmartWFM.view.baseActions.UploadWindow', {
 	plain: true,
 	border: false,
 	closable: false,
+	constrain: true,
 	items: [{
 		xtype: 'form',
 		border: false,

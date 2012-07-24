@@ -10,6 +10,7 @@ Ext.define('SmartWFM.view.afsActions.AddGroupDialog', {
 
 	plain: true,
 	border: false,
+	constrain: true,
 
 	items: {
 		xtype: 'form',

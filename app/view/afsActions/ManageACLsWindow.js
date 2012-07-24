@@ -12,6 +12,7 @@ Ext.define('SmartWFM.view.afsActions.ManageACLsWindow', {
 	layout: 'fit',
 	maximizable: true,
 	border: false,
+	constrain: true,
 	plain: true,
 	height: 500,
 	width: 420,

@@ -15,6 +15,7 @@ Ext.define('SmartWFM.view.archives.CreateWindow', {
 	plain: true,
 	height: 200,
 	width: 300,
+	constrain: true,
 
 	buttonAlign: 'right',
 	buttons: [

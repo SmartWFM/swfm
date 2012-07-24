@@ -14,6 +14,7 @@ Ext.define('SmartWFM.view.feedback.Window', {
 	border: false,
 	plain: true,
 	autoScroll: true,
+	constrain: true,
 
 	initComponent: function() {
 		// see comment in ExtJS 4.1 doc for Ext.getBody()

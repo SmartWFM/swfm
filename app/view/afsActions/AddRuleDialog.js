@@ -10,6 +10,7 @@ Ext.define('SmartWFM.view.afsActions.AddRuleDialog', {
 
 	plain: true,
 	border: false,
+	constrain: true,
 
 	items: {
 		xtype: 'form',

@@ -20,5 +20,6 @@ Ext.define('SmartWFM.view.baseActions.ProgressWindow', {
 	closable: false,
 	resizable: false,
 	plain: true,
+	constrain: true,
 	border: false
 });

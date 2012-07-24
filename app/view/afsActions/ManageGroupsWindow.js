@@ -12,6 +12,7 @@ Ext.define('SmartWFM.view.afsActions.ManageGroupsWindow', {
 	layout: 'fit',
 	maximizable: true,
 	border: false,
+	constrain: true,
 	plain: true,
 	height: 500,
 	width: 420,

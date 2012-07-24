@@ -13,6 +13,7 @@ Ext.define('SmartWFM.view.archives.ViewerWindow', {
 	maximizable: true,
 	border: false,
 	plain: true,
+	constrain: true,
 
 	initComponent: function() {
 		// see comment in ExtJS 4.1 doc for Ext.getBody()

@@ -10,6 +10,7 @@ Ext.define('SmartWFM.view.bookmarks.AddWindow', {
 	basePath: '',
 	plain: true,
 	border: false,
+	constrain: true,
 
 	items: {
 		xtype: 'form',
