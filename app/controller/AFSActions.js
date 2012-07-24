@@ -355,9 +355,13 @@ Ext.define('SmartWFM.controller.AFSActions', {
 			action: 'groups.members.delete',
 			params: nodes,
 			successCallback: function() { // called on success
-				this.close();
+				this.window.setLoading(false);
+				this.controller.loadGroups();
 			},
-			successScope: window,
+			successScope: {
+				controller: this,
+				window: window
+			},
 			errorCallback: function() {	// called on error
 				this.setLoading(false);
 			},
