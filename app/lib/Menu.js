@@ -86,7 +86,12 @@ Ext.define('SmartWFM.lib.Menu', {
 						context: context
 					});
 					if (menuItem.disabled === false) {
-						menu.push(menuItem);
+						// if "open with" submenu has only one children, push this instead
+						if (actionName == 'openWith' && menuItem.menu.items.items.length == 1) {
+							menu.push(menuItem.menu.items.items[0]);
+						} else {
+							menu.push(menuItem);
+						}
 					}
 				}
 			}
