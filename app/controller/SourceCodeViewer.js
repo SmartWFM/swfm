@@ -4,6 +4,7 @@
 Ext.define('SmartWFM.controller.SourceCodeViewer', {
 	extend: 'Ext.app.Controller',
 	requires: [
+		'Ext.util.KeyNav',
 		'SmartWFM.lib.Menu',
 		'SmartWFM.lib.I18n',
 		'SmartWFM.lib.Icon',
@@ -54,21 +55,25 @@ Ext.define('SmartWFM.controller.SourceCodeViewer', {
 			handler: function () {
 				Ext.create('SmartWFM.view.sourceCodeViewer.Window').show();
 				var controller = SmartWFM.app.getController('SourceCodeViewer');
-				controller.initButtons();
+				if(controller.sourceCodeFiles.length == 1) {
+					var previousButton = window.query('button[action=previous]')[0];
+					var nextButton = window.query('button[action=next]')[0];
+					previousButton.destroy();
+					nextButton.destroy();
+				} else {
+					Ext.create('Ext.util.KeyNav', {
+						target: window.getEl(),
+						left: controller.previous,
+						right: controller.next,
+						pageUp: controller.previous,
+						pageDown: controller.next,
+						scope: controller
+					});
+				}
 				controller.load();
 			}
 		});
 		SmartWFM.lib.Menu.add('sourceCodeViewer', sourceCodeViewer);
-	},
-
-	initButtons: function() {
-		if(this.sourceCodeFiles.length == 1) {
-			var viewer = Ext.ComponentQuery.query('sourceCodeViewer')[0];
-			var previousButton = viewer.query('button[action=previous]')[0];
-			var nextButton = viewer.query('button[action=next]')[0];
-			previousButton.destroy();
-			nextButton.destroy();
-		}
 	},
 
 	previous: function() {

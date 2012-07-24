@@ -4,6 +4,7 @@
 Ext.define('SmartWFM.controller.ImageViewer', {
 	extend: 'Ext.app.Controller',
 	requires: [
+		'Ext.util.KeyNav',
 		'SmartWFM.lib.Menu',
 		'SmartWFM.lib.I18n',
 		'SmartWFM.lib.Icon',
@@ -67,23 +68,28 @@ Ext.define('SmartWFM.controller.ImageViewer', {
 				controller.imageIndex = 0;
 			},
 			handler: function () {
-				Ext.create('SmartWFM.view.imageViewer.Window').show();
+				var window = Ext.create('SmartWFM.view.imageViewer.Window');
+				window.show();
 				var controller = SmartWFM.app.getController('ImageViewer');
-				controller.initButtons();
+				if(controller.imageFiles.length == 1) {
+					var previousButton = window.query('button[action=previous]')[0];
+					var nextButton = window.query('button[action=next]')[0];
+					previousButton.destroy();
+					nextButton.destroy();
+				} else {
+					Ext.create('Ext.util.KeyNav', {
+						target: window.getEl(),
+						left: controller.previous,
+						right: controller.next,
+						pageUp: controller.previous,
+						pageDown: controller.next,
+						scope: controller
+					});
+				}
 				controller.load();
 			}
 		});
 		SmartWFM.lib.Menu.add('imageViewer', imageViewer);
-	},
-
-	initButtons: function() {
-		if(this.imageFiles.length == 1) {
-			var viewer = Ext.ComponentQuery.query('imageViewer')[0];
-			var previousButton = viewer.query('button[action=previous]')[0];
-			var nextButton = viewer.query('button[action=next]')[0];
-			previousButton.destroy();
-			nextButton.destroy();
-		}
 	},
 
 	previous: function() {
