@@ -36,7 +36,7 @@ Ext.define('SmartWFM.controller.SourceCodeViewer', {
 				this.callParent();
 
 				var files = this.context.files;
-				var regex = new RegExp("(text/.*)|(application/x(-empty|ml|-httpd-php|-shellscript))");
+				var regex = new RegExp("(text/.*)|(application/(x(-empty|ml|-httpd-php|-shellscript))|javascript)");
 				var sourceCodeFiles = [];
 
 				for(var i in files) {
