@@ -1026,6 +1026,10 @@ SmartWFM.lib.Icon.load(
 
 		"image/png": {				// copy of image/x-generic
 			image: "image-x-generic.png"
+		},
+
+		"image/gif": {				// copy of image/x-generic
+			image: "image-x-generic.png"
 		}
 
 	},
