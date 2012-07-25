@@ -73,7 +73,7 @@ Ext.define('SmartWFM.view.browser.Tab', {
 			Ext.create('Ext.form.field.Text', {
 				name: 'path',
 				value: this.path,
-				minWidth: 100,
+				minWidth: 200,
 				listeners: {
 					specialkey: function (self, e) {
 						if (e.getKey() === e.ENTER) {

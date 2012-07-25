@@ -76,6 +76,9 @@ Ext.define('SmartWFM.store.treeMenu.Folders', {
 		name: SmartWFM.lib.Config.get('widget.treeMenu.rootNodeName')
 	},
 
+	// just for checking if it's the initial call
+	initialCall: true,
+
 	proxy: Ext.create('SmartWFM.lib.RPCProxy', {
 		generateExtraParams: function(me, operation) {
 			// node path
@@ -144,7 +147,13 @@ Ext.define('SmartWFM.store.treeMenu.Folders', {
 		beforeappend: function(me, node, refNode, eOpts) {
 			// setting custom icon in tree view
 			node.data.icon = SmartWFM.lib.Icon.get('folder', 'place', '16x16');
-
+		},
+		load: function() {
+			if(this.initialCall) { // workaround for initial tree menu selection
+				this.initialCall = false;
+				var path = SmartWFM.app.getController('Browser').getBrowserView().getActiveTab().getPath();
+				SmartWFM.app.getController('TreeMenu').onActivateFolder(path);
+			}
 		}
 	}
 });

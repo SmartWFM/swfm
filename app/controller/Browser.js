@@ -29,13 +29,21 @@ Ext.define('SmartWFM.controller.Browser', {
 		'Files'
 	],
 
+	// just for checking if it's the initial call
+	initialCall: true,
+
 	addTab: function(path, activate) {
 		var browser = this.getBrowserView();
 
 		var tab = Ext.create('widget.browser.Tab', {path: path});
 		browser.add(tab);
-		if (activate)
+		if (activate) {
 			browser.setActiveTab(tab);
+			if(this.initialCall) {
+				this.initialCall = false;
+				tab.fireEvent('activate');
+			}
+		}
 	},
 
 	init: function() {

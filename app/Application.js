@@ -11,7 +11,7 @@ Ext.Loader.setConfig({enabled:true});
 // Version
 SmartWFMMajorVersion = 0;
 SmartWFMMinorVersion = 11;
-SmartWFMBuildDate = '2012-07-24';
+SmartWFMBuildDate = '2012-07-25';
 
 /**
  * @class SmartWFM
@@ -52,19 +52,7 @@ Ext.application({
 		// global access to application
 		SmartWFM.app = this;
 		// initial tab
-		this.getController('Browser').addTab('/');
-		this.getController('Browser').addTab(); // this tab exists after launch
-
-		// workaround - fix loading issue if only one initial tab - todo
-		var view = this.getController('Browser').getBrowserView();
-		view.setActiveTab(0);
-		view.getActiveTab().close();
-		// workaround end
-
-		// workaroung for initial tree menu selection - todo
-		var path = view.getActiveTab().getPath();
-		this.getController('TreeMenu').onActivateFolder(path);
-		// workaround end
+		this.getController('Browser').addTab(undefined, true);
 
 	}
 });
