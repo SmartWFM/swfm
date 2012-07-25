@@ -69,11 +69,10 @@ Ext.define('SmartWFM.view.browser.Tab', {
 
 			}),
 			'-',
-			SmartWFM.lib.I18n.get('widget.browser', 'Path:'),
 			Ext.create('Ext.form.field.Text', {
 				name: 'path',
 				value: this.path,
-				minWidth: 200,
+				minWidth: 250,
 				listeners: {
 					specialkey: function (self, e) {
 						if (e.getKey() === e.ENTER) {
@@ -92,9 +91,9 @@ Ext.define('SmartWFM.view.browser.Tab', {
 				}
 			}),
 			'->',
-			SmartWFM.lib.I18n.get('widget.browser', 'Filter:'),
 			Ext.create('Ext.form.TextField' ,{
 				name: 'filter',
+				emptyText: SmartWFM.lib.I18n.get('widget.browser', 'Filter'),
 				listeners: {
 					specialkey: function (self, e) {
 						if (e.getKey() === e.ENTER) {
