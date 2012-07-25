@@ -5,6 +5,7 @@ Ext.define('SmartWFM.controller.AFSActions', {
 	extend: 'Ext.app.Controller',
 	requires: [
 		'SmartWFM.lib.I18n',
+		'SmartWFM.lib.Resource',
 		'SmartWFM.view.afsActions.ManageGroupsWindow',
 		'SmartWFM.view.afsActions.AddGroupDialog',
 		'SmartWFM.view.afsActions.AddUserDialog',
@@ -37,6 +38,7 @@ Ext.define('SmartWFM.controller.AFSActions', {
 	}],
 
 	init: function() {
+		SmartWFM.lib.Resource.loadCSS('resources', 'afs.css');
 		this.registerMenuItems();
 		this.registerComponents();
 		this.registerEvents();

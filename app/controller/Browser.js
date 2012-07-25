@@ -11,6 +11,7 @@ Ext.define('SmartWFM.controller.Browser', {
 		'SmartWFM.lib.Icon',
 		'SmartWFM.lib.Menu',
 		'SmartWFM.lib.Path',
+		'SmartWFM.lib.Resource',
 		'SmartWFM.lib.Setting'
 	],
 
@@ -38,6 +39,7 @@ Ext.define('SmartWFM.controller.Browser', {
 	},
 
 	init: function() {
+		SmartWFM.lib.Resource.loadCSS('resources', 'browser.css');
 		this.registerSettings();
 		this.control({
 			'browser dataview': {
