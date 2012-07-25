@@ -192,11 +192,6 @@ Ext.define('SmartWFM.controller.BaseActions', {
 				var selection = Ext.ComponentQuery.query('viewport > browser')[0].getActiveTab().down('dataview, gridpanel').getSelectionModel().getSelection();
 
 				if(selection.length == 1) {
-					if(selection[0].data.isDir) {
-						SmartWFM.app.getController('BaseActions').downloadMultipleFiles();
-						return;
-					}
-
 					window.open(
 						SmartWFM.lib.Url.encode(
 							SmartWFM.lib.Config.get('commandUrl'),
