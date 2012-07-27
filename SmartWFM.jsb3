@@ -815,6 +815,11 @@
                     "path": "app/lib/"
                 },
                 {
+                    "clsName": "SmartWFM.lib.I18n",
+                    "name": "I18n.js",
+                    "path": "app/lib/"
+                },
+                {
                     "clsName": "SmartWFM.lib.RPC",
                     "name": "RPC.js",
                     "path": "app/lib/"
@@ -1487,10 +1492,10 @@
             ]
         },
         {
-            "name": "Application - Production",
-            "target": "app-all.js",
-            "debug": false,
-            "compress": true,
+            "name": "Application - Development",
+            "target": "app-all-dev.js",
+            "debug": true,
+            "compress": false,
             "files": [
                 {
                     "path": "extjs/",
@@ -1501,8 +1506,20 @@
                     "name": "all-classes.js"
                 },
                 {
-                    "path": "",
-                    "name": "app.js"
+                    "path": "app/",
+                    "name": "Application.js"
+                }
+            ]
+        },
+        {
+            "name": "Application - Production",
+            "target": "app-all.js",
+            "debug": false,
+            "compress": true,
+            "files": [
+                {
+                    "path": "build/",
+                    "name": "app-all-dev.js"
                 }
             ]
         }
