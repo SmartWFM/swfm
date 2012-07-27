@@ -1489,10 +1489,15 @@
         {
             "name": "Application - Production",
             "target": "app-all.js",
+            "debug": false,
             "compress": true,
             "files": [
                 {
-                    "path": "",
+                    "path": "extjs/",
+                    "name": "ext-debug.js"
+                },
+                {
+                    "path": "build/",
                     "name": "all-classes.js"
                 },
                 {
