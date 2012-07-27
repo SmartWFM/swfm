@@ -8,7 +8,8 @@ Ext.define('SmartWFM.lib.I18n', {
 	singleton: true,
 
 	requires: [
-		'SmartWFM.lib.Config'
+		'SmartWFM.lib.Config',
+		'Ext.window.MessageBox'
 	],
 
 	/**

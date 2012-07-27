@@ -114,7 +114,7 @@ Ext.define('SmartWFM.controller.AFSActions', {
 	},
 
 	registerComponents: function() {
-		var quotaBar = Ext.create(Ext.ProgressBar, {
+		var quotaBar = Ext.create('Ext.ProgressBar', {
 			animate: false,
 			value: 0.0,
 			text: '',

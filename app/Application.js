@@ -23,6 +23,7 @@ Ext.application({
 	autoCreateViewport: true,
 	requires: [
 		'SmartWFM.lib.Config',
+		'SmartWFM.lib.I18n',
 		'SmartWFM.lib.RPCProxy'
 	],
 
