@@ -172,8 +172,7 @@ Ext.define('SmartWFM.controller.AFSActions', {
 		});
 	},
 
-	loadGroups: function(expandedGroups) {
-		expandedGroups = expandedGroups || new Array();
+	loadGroups: function() {
 		var window = this.getGroupsWindow();
 		window.setLoading({msg: SmartWFM.lib.I18n.get('swfm', 'Loading ...')});
 
@@ -181,8 +180,20 @@ Ext.define('SmartWFM.controller.AFSActions', {
 			action: 'groups.get',
 			params: new Array(),
 			successCallback: function(result) { // called on success
+				var me = this,
+					expandedNodes = new Array(),
+					treepanel = me.window.down('treepanel');
+
+				// getting expanded nodes to expand them after reload again
+				if(treepanel){
+					treepanel.getRootNode().eachChild(function(node){
+						if(node.isExpanded()){
+							expandedNodes.push(node.getPath());
+						}
+					});
+				}
 				// clear all items in window (i.e. previous - outdated - tree panel)
-				this.window.removeAll();
+				me.window.removeAll();
 				var rootNode = {
 					expanded: true,
 					children: []
@@ -207,7 +218,7 @@ Ext.define('SmartWFM.controller.AFSActions', {
 					iconCls: 'manage-afs-groups-icon',
 					leaf: true
 				});
-				this.window.add({
+				me.window.add({
 					xtype: 'treepanel',
 					autoScroll: true,
 					useArrows: true,
@@ -272,7 +283,15 @@ Ext.define('SmartWFM.controller.AFSActions', {
 						}
 					}
 				});
-				this.window.setLoading(false);
+				me.window.setLoading(false);
+				// expand previously expanded nodes
+				if(expandedNodes.length != 0) {
+					me.window.down('treepanel').getRootNode().eachChild(function(node){
+						if(Ext.Array.contains(expandedNodes, node.getPath())){
+							node.expand();
+						}
+					});
+				}
 			},
 			successScope: {
 				controller: this,
@@ -296,9 +315,10 @@ Ext.define('SmartWFM.controller.AFSActions', {
 			action: 'groups.create',
 			params: values['name'],
 			successCallback: function(result) { // called on success
-				this.addWindow.close();
-				this.window.setLoading(false);
-				this.controller.loadGroups();
+				var me = this;
+				me.addWindow.close();
+				me.window.setLoading(false);
+				me.controller.loadGroups();
 			},
 			successScope: {
 				controller: this,
@@ -328,7 +348,7 @@ Ext.define('SmartWFM.controller.AFSActions', {
 			successCallback: function() { // called on success
 				this.addWindow.close();
 				this.window.setLoading(false);
-				this.controller.loadGroups([values['group']]);
+				this.controller.loadGroups();
 			},
 			successScope: {
 				controller: this,
@@ -351,7 +371,6 @@ Ext.define('SmartWFM.controller.AFSActions', {
 		Ext.Array.each(checkedNodes, function(item) {
 			nodes.push(item.getData().id);
 		});
-		console.warn(nodes);
 
 		SmartWFM.lib.RPC.request({
 			action: 'groups.members.delete',

@@ -11,7 +11,7 @@ Ext.Loader.setConfig({enabled:true});
 // Version
 SmartWFMMajorVersion = 0;
 SmartWFMMinorVersion = 11;
-SmartWFMBuildDate = '2012-07-27';
+SmartWFMBuildDate = '2012-08-03';
 
 /**
  * @class SmartWFM
