@@ -181,7 +181,9 @@ Ext.define('SmartWFM.lib.I18n', {
 	}
 });
 
-// translate initial loading mask
-SmartWFM.lib.I18n.replaceLoadingTitle();
-// translate Ext.MessageBox buttons
-SmartWFM.lib.I18n.translateMessageBox();
+Ext.onReady(function() {
+	// translate initial loading mask
+	SmartWFM.lib.I18n.replaceLoadingTitle();
+	// translate Ext.MessageBox buttons
+	SmartWFM.lib.I18n.translateMessageBox();
+});

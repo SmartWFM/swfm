@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="SmartWFM" default="prod" basedir=".">
+
+	<description>SmartWFM ANT build file</description>
+
+	<!-- build date -->
+	<tstamp>
+		<format property="build.date" pattern="yyyy-MM-dd HH:mm:ss" />
+	</tstamp>
+
+	<!-- set properties for build -->
+	<property description="Build directory" name="build.dir" value="build" />
+	<property description="Build file name" name="build.file" value="SmartWFM.js" />
+	<property description="Build file name minified" name="build.file.min" value="SmartWFM.min.js" />
+
+
+	<!-- perpare build directory -->
+	<target name="-init" description="Create build directory structure">
+		<!-- delete previous build directory -->
+		<delete dir="build" />
+
+		<!-- recreate build directory -->
+		<mkdir dir="${build.dir}" />
+
+		<echo>Finished</echo>
+	</target>
+
+	<target name="-concat-js" depends="-init" description="Concatenate all js files">
+		<concat destfile="${build.dir}/${build.file}" encoding="UTF-8" outputencoding="UTF-8">
+			<fileset dir="." includes="app/**/*.js ux/**/*.js" />
+		</concat>
+
+		<echo>Finished</echo>
+	</target>
+
+	<target name="-copy-resources" depends="-init" description="Copy used resource files">
+		<concat destfile="${build.dir}/tmp-ux.js" encoding="UTF-8" outputencoding="UTF-8">
+			<fileset dir="ux">
+				<include name="**/*.js" />
+			</fileset>
+		</concat>
+		<concat destfile="${build.dir}/tmp-lib.js" encoding="UTF-8" outputencoding="UTF-8">
+			<fileset dir="app/lib">
+				<include name="**/*.js" />
+			</fileset>
+		</concat>
+		<concat destfile="${build.dir}/tmp-model-store-view.js" encoding="UTF-8" outputencoding="UTF-8">
+			<fileset dir="app">
+				<include name="model/**/*.js" />
+				<include name="store/**/*.js" />
+				<include name="view/**/*.js" />
+				<exclude name="view/baseActions/ErrorWindow.js view/baseActions/ProgressWindow.js" />
+			</fileset>
+		</concat>
+		<concat destfile="${build.dir}/tmp-controller.js" encoding="UTF-8" outputencoding="UTF-8">
+			<fileset dir="app/controller">
+				<include name="**/*.js" />
+			</fileset>
+		</concat>
+		<concat destfile="${build.dir}/${build.file}" encoding="UTF-8" outputencoding="UTF-8">
+			<filelist dir=".">
+				<file name="${build.dir}/tmp-ux.js" />
+				<file name="${build.dir}/tmp-lib.js" />
+				<file name="app/config/Icons.js" />
+				<file name="app/view/baseActions/ErrorWindow.js" />
+				<file name="app/view/baseActions/ProgressWindow.js" />
+				<file name="${build.dir}/tmp-model-store-view.js" />
+				<file name="${build.dir}/tmp-controller.js" />
+				<file name="app/Application.js" />
+			</filelist>
+		</concat>
+		<delete>
+			<fileset dir="${build.dir}" includes="tmp-*.js" />
+		</delete>
+
+		<echo message="Removing development-only stuff ..."/>
+		<replaceregexp match="// development-only-begin.*?// development-only-end" replace="" flags="gs" byline="false">
+			<fileset dir="${build.dir}" includes="SmartWFM.js" />
+		</replaceregexp>
+
+		<echo message="Removing 'requires' stuff ..."/>
+		<replaceregexp match="requires.*?\]," replace="" flags="gs" byline="false">
+			<fileset dir="${build.dir}" includes="SmartWFM.js" />
+		</replaceregexp>
+
+		<echo>Finished</echo>
+	</target>
+
+	<target name="prod" depends="-copy-resources">
+		<echo>${build.date}</echo>
+	</target>
+</project>

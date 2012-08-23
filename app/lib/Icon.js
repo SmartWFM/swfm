@@ -33,6 +33,8 @@ Ext.define('SmartWFM.lib.Icon', {
 		}
 	},
 
+
+	// development-only-begin
 	/* Adding stuff to the constructor to load dynamically all specified icons */
 	constructor: function() {
 		this.callParent();
@@ -40,6 +42,7 @@ Ext.define('SmartWFM.lib.Icon', {
 		// loading config file
 		Ext.require('SmartWFM.config.Icons');
 	},
+	// development-only-end
 
 	/**
 	 * Get the URL for the specified icon.
