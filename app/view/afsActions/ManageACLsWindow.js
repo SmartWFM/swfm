@@ -52,5 +52,5 @@ Ext.define('SmartWFM.view.afsActions.ManageACLsWindow', {
 			name: 'subfolders',
 			anchor: '100%'
 		}]
-	},
+	}
 });

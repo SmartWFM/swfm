@@ -64,5 +64,5 @@ Ext.define('SmartWFM.controller.Search', {
 			},
 			scope: this
 		});
-	},
+	}
 });

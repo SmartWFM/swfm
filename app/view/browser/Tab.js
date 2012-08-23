@@ -79,7 +79,7 @@ Ext.define('SmartWFM.view.browser.Tab', {
 							SmartWFM.lib.Event.fire('', 'activateFolder', self.value);
 						}
 					}
-				},
+				}
 			}),
 			Ext.create('Ext.button.Button', {
 				text: SmartWFM.lib.I18n.get('widget.browser', 'Go'),
