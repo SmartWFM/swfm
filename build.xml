@@ -10,7 +10,7 @@
 
 	<!-- set properties for build -->
 	<property description="Build directory" name="build.dir" value="build" />
-	<property description="Build file name" name="build.file" value="SmartWFM.js" />
+	<property description="Build file name" name="tmp.build.file" value="SmartWFM.js" />
 	<property description="Build css file name" name="build.css.file" value="SmartWFM.css" />
 
 
@@ -52,7 +52,7 @@
 				<include name="**/*.js" />
 			</fileset>
 		</concat>
-		<concat destfile="${build.dir}/${build.file}" encoding="UTF-8" outputencoding="UTF-8">
+		<concat destfile="${build.dir}/${tmp.build.file}" encoding="UTF-8" outputencoding="UTF-8">
 			<filelist dir=".">
 				<file name="${build.dir}/tmp-date.js" />
 				<file name="${build.dir}/tmp-ux.js" />
@@ -83,18 +83,18 @@
 	<target name="-cleanup" depends="-concat-js" description="Removes unused code">
 		<echo message="Removing development-only stuff ..."/>
 		<replaceregexp match="// development-only-begin.*?// development-only-end" replace="" flags="gs" byline="false">
-			<fileset dir="${build.dir}" includes="${build.file}" />
+			<fileset dir="${build.dir}" includes="${tmp.build.file}" />
 		</replaceregexp>
 
 		<echo message="Removing 'requires' stuff ..."/>
 		<replaceregexp match="\s*requires:\s*\[.*?\]," replace="" flags="gs" byline="false">
-			<fileset dir="${build.dir}" includes="${build.file}" />
+			<fileset dir="${build.dir}" includes="${tmp.build.file}" />
 		</replaceregexp>
 
-		<copy file="${build.dir}/${build.file}" tofile="${build.dir}/SmartWFM.dev.js" />
+		<copy file="${build.dir}/${tmp.build.file}" tofile="${build.dir}/SmartWFM.dev.js" />
 		<echo message="Removing 'console' stuff ..."/>
 		<replaceregexp match="console\.([^ ]*?) *\(.*?\).*?;" replace="" flags="gs" byline="false">
-			<fileset dir="${build.dir}" includes="${build.file}" />
+			<fileset dir="${build.dir}" includes="${tmp.build.file}" />
 		</replaceregexp>
 
 		<echo>Finished</echo>
@@ -104,7 +104,7 @@
 		<!--Compress JavaScript-files with YUICompressor -->
 		<echo message="Compressing JavaScript files ..."/>
 		<apply executable="java" parallel="false" dest="${build.dir}">
-			<fileset dir="${build.dir}" includes="${build.file}"/>
+			<fileset dir="${build.dir}" includes="${tmp.build.file}"/>
 			<arg line="-jar"/>
 			<arg path="tools/yuicompressor-2.4.7.jar"/>
 			<srcfile/>
@@ -114,7 +114,7 @@
 		</apply>
 
 		<delete>
-			<fileset dir="${build.dir}" includes="${build.file}" />
+			<fileset dir="${build.dir}" includes="${tmp.build.file}" />
 		</delete>
 
 		<echo>Finished</echo>

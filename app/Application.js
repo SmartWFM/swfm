@@ -40,17 +40,19 @@ Ext.application({
 		,'Archives'
 		,'Bookmarks'
 		,'Search'
+		/* AFS only
 		,'AFSActions'
+		*/
 	],
 
 	launch: function() {
+		// global access to application
+		SmartWFM.app = this;
 		SmartWFM.lib.Setting.load();
 		var conf = {remove: true, duration: 1500};
 		// fade out loading mask
 		Ext.get('loading').fadeOut(conf);
 		Ext.get('loading-mask').fadeOut(conf);
-		// global access to application
-		SmartWFM.app = this;
 		// initial tab
 		this.getController('Browser').addTab(undefined, true);
 

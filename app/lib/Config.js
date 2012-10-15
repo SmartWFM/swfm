@@ -28,7 +28,7 @@ Ext.define('SmartWFM.lib.Config', {
 												'SmartWFM.view.bookmarks.View'
 											],
 		'widget.browser.menu.context':		[
-												'afs.setACL',
+												/* AFS only 'afs.setACL', */
 												'base.upload',
 												'base.newFolder',
 												'|',
@@ -39,7 +39,7 @@ Ext.define('SmartWFM.lib.Config', {
 												'|',
 												'createNew',
 												'fileInfo',
-												'afs.setACL',
+												/* AFS only 'afs.setACL', */
 												'base.download',
 												'archives.create',
 												'|',
@@ -65,14 +65,14 @@ Ext.define('SmartWFM.lib.Config', {
 												'listview'
 											],
 		'menu.main.tools':					[
-												'afs.manageGroups'
+												/* AFS only 'afs.manageGroups' */
 											],
 		'menu.main.extras':					[
 												'setting.edit'
 											],
 		'lang':								'en',
 		'widget.browser.defaultView': 		1,
-		'widget.treeMenu.rootNodeName': 	'Root-Node',
+		'widget.treeMenu.rootNodeName': 	'root node',
 		'widget.treeMenu.excludeFolder': 	'',
 		'widget.treeMenu.context': 			[],
 		'plugin.subMenus.createNew': 		[],
