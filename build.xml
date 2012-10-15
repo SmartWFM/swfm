@@ -11,13 +11,13 @@
 	<!-- set properties for build -->
 	<property description="Build directory" name="build.dir" value="build" />
 	<property description="Build file name" name="build.file" value="SmartWFM.js" />
-	<property description="Build file name minified" name="build.file.min" value="SmartWFM.min.js" />
+	<property description="Build css file name" name="build.css.file" value="SmartWFM.css" />
 
 
 	<!-- perpare build directory -->
 	<target name="-init" description="Create build directory structure">
 		<!-- delete previous build directory -->
-		<delete dir="build" />
+		<delete dir="${build.dir}" />
 
 		<!-- recreate build directory -->
 		<mkdir dir="${build.dir}" />
@@ -26,14 +26,9 @@
 	</target>
 
 	<target name="-concat-js" depends="-init" description="Concatenate all js files">
-		<concat destfile="${build.dir}/${build.file}" encoding="UTF-8" outputencoding="UTF-8">
-			<fileset dir="." includes="app/**/*.js ux/**/*.js" />
+		<concat destfile="${build.dir}/tmp-date.js">
+			var SmartWFMBuildDate = '${build.date}';
 		</concat>
-
-		<echo>Finished</echo>
-	</target>
-
-	<target name="-copy-resources" depends="-init" description="Copy used resource files">
 		<concat destfile="${build.dir}/tmp-ux.js" encoding="UTF-8" outputencoding="UTF-8">
 			<fileset dir="ux">
 				<include name="**/*.js" />
@@ -59,6 +54,7 @@
 		</concat>
 		<concat destfile="${build.dir}/${build.file}" encoding="UTF-8" outputencoding="UTF-8">
 			<filelist dir=".">
+				<file name="${build.dir}/tmp-date.js" />
 				<file name="${build.dir}/tmp-ux.js" />
 				<file name="${build.dir}/tmp-lib.js" />
 				<file name="app/config/Icons.js" />
@@ -73,20 +69,122 @@
 			<fileset dir="${build.dir}" includes="tmp-*.js" />
 		</delete>
 
+		<echo>Finished</echo>
+	</target>
+
+	<target name="-concat-css" description="Concatenate all css files">
+		<concat destfile="${build.dir}/${build.css.file}" encoding="UTF-8" outputencoding="UTF-8">
+			<fileset dir="resources" includes="*.css" />
+		</concat>
+
+		<echo>Finished</echo>
+	</target>
+
+	<target name="-cleanup" depends="-concat-js" description="Removes unused code">
 		<echo message="Removing development-only stuff ..."/>
 		<replaceregexp match="// development-only-begin.*?// development-only-end" replace="" flags="gs" byline="false">
-			<fileset dir="${build.dir}" includes="SmartWFM.js" />
+			<fileset dir="${build.dir}" includes="${build.file}" />
 		</replaceregexp>
 
 		<echo message="Removing 'requires' stuff ..."/>
-		<replaceregexp match="requires.*?\]," replace="" flags="gs" byline="false">
-			<fileset dir="${build.dir}" includes="SmartWFM.js" />
+		<replaceregexp match="\s*requires:\s*\[.*?\]," replace="" flags="gs" byline="false">
+			<fileset dir="${build.dir}" includes="${build.file}" />
+		</replaceregexp>
+
+		<copy file="${build.dir}/${build.file}" tofile="${build.dir}/SmartWFM.dev.js" />
+		<echo message="Removing 'console' stuff ..."/>
+		<replaceregexp match="console\.([^ ]*?) *\(.*?\).*?;" replace="" flags="gs" byline="false">
+			<fileset dir="${build.dir}" includes="${build.file}" />
 		</replaceregexp>
 
 		<echo>Finished</echo>
 	</target>
 
-	<target name="prod" depends="-copy-resources">
-		<echo>${build.date}</echo>
+	<target name="-minify-js" depends="-cleanup" description="Minifies js file">
+		<!--Compress JavaScript-files with YUICompressor -->
+		<echo message="Compressing JavaScript files ..."/>
+		<apply executable="java" parallel="false" dest="${build.dir}">
+			<fileset dir="${build.dir}" includes="${build.file}"/>
+			<arg line="-jar"/>
+			<arg path="tools/yuicompressor-2.4.7.jar"/>
+			<srcfile/>
+			<arg line="-o"/>
+			<mapper type="glob" from="*.js" to="*.min.js"/>
+			<targetfile/>
+		</apply>
+
+		<delete>
+			<fileset dir="${build.dir}" includes="${build.file}" />
+		</delete>
+
+		<echo>Finished</echo>
+	</target>
+
+	<target name="-minify-css" depends="-concat-css" description="Minifies css file">
+		<!--Compress CSS-files with YUICompressor -->
+		<echo message="Compressing JavaScript files ..."/>
+		<apply executable="java" parallel="false" dest="${build.dir}">
+			<fileset dir="${build.dir}" includes="SmartWFM.css"/>
+			<arg line="-jar"/>
+			<arg path="tools/yuicompressor-2.4.7.jar"/>
+			<arg line="--line-break 0"/>
+			<srcfile/>
+			<arg line="-o"/>
+			<mapper type="glob" from="*.css" to="*.min.css"/>
+			<targetfile/>
+		</apply>
+
+		<echo>Finished</echo>
+	</target>
+
+	<target name="-copy-needed-files" depends="-cleanup">
+		<mkdir dir="${build.dir}/extjs" />
+		<copy file="extjs/ext-all.js" todir="${build.dir}/extjs" />
+
+		<mkdir dir="${build.dir}/extjs/resources/css" />
+		<copy file="extjs/resources/css/ext-all.css" todir="${build.dir}/extjs/resources/css" />
+
+		<copy todir="${build.dir}/extjs/resources/themes/images/default">
+			<fileset dir="extjs/resources/themes/images/default"/>
+		</copy>
+
+		<mkdir dir="${build.dir}/resources/themes" />
+		<copy todir="${build.dir}/resources/themes">
+			<fileset dir="resources/themes"/>
+		</copy>
+
+		<mkdir dir="${build.dir}/app/config" />
+		<copy todir="${build.dir}/app/config">
+			<fileset dir="app/config"/>
+		</copy>
+
+		<echo>Finished</echo>
+	</target>
+
+	<target name="-create-language-files" description="Concatenate json translation file">
+		<mkdir dir="${build.dir}/i18n" />
+		<exec executable="python2.7">
+			<arg value="I18nConcatenator.py"/>
+			<arg value="app/i18n"/>
+			<arg value="${build.dir}/i18n"/>
+		</exec>
+
+		<echo>Finished</echo>
+	</target>
+
+	<target name="dev" depends="-cleanup,-concat-css,-copy-needed-files,-create-language-files">
+		<copy file="index-dev.html" todir="${build.dir}" />
+
+		<echo>Finished</echo>
+	</target>
+
+	<target name="prod" depends="-minify-js,-minify-css,-copy-needed-files,-create-language-files">
+		<copy file="index-prod.html" todir="${build.dir}" />
+
+		<echo>Finished</echo>
+	</target>
+
+	<target name="all" depends="dev,prod">
+		<echo>Finished</echo>
 	</target>
 </project>
