@@ -47,7 +47,9 @@ Ext.define('SmartWFM.controller.Browser', {
 	},
 
 	init: function() {
+		// development-only-begin
 		SmartWFM.lib.Resource.loadCSS('resources', 'browser.css');
+		// development-only-end
 		this.registerSettings();
 		this.control({
 			'browser dataview': {

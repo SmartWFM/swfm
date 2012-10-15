@@ -112,6 +112,21 @@ Ext.define('SmartWFM.lib.I18n', {
 			this.set(userLang.substring(0,2));
 			console.debug('[SmartWFM.lib.I18n] Language setting successful loaded:', this.lang);
 		}
+
+		// dynamically load language file
+		Ext.Ajax.request({
+			async: false,
+			url: 'i18n/'+this.lang+'.json',
+			success: function(response) {
+				if (this.i18n[this.lang] === undefined)
+					this.i18n[this.lang] = {};
+				this.i18n[this.lang] = Ext.JSON.decode(response.responseText);
+			},
+			failure: function(response) {
+				console.warn('[SmartWFM.lib.I18n] translation for "' + this.lang + '" couldn\'t be loaded');
+			},
+			scope: this
+		});
 	},
 
 	/**

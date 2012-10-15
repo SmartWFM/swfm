@@ -19,7 +19,7 @@
 }
 
 #loading .loading-indicator {
-	background: url(../extjs/resources/themes/images/default/shared/blue-loading.gif) no-repeat;
+	background: url(extjs/resources/themes/images/default/shared/blue-loading.gif) no-repeat;
 	color:      #555;
 	font:       bold 13px tahoma,arial,helvetica;
 	padding:    8px 42px;

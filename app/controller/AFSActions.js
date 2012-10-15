@@ -38,7 +38,9 @@ Ext.define('SmartWFM.controller.AFSActions', {
 	}],
 
 	init: function() {
+		// development-only-begin
 		SmartWFM.lib.Resource.loadCSS('resources', 'afs.css');
+		// development-only-end
 		this.registerMenuItems();
 		this.registerComponents();
 		this.registerEvents();
