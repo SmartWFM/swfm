@@ -69,7 +69,7 @@ Ext.define('SmartWFM.lib.Setting', {
 	/**
 	 * Get the value of a setting object
 	 *
-	 * @param {String} name The name of the setting, it should be a unique name.
+	 * @param {String} name The name of the setting, it has to be a unique name.
 	 * @param {Mixed} defaultValue The default value returned if setting isn't available.
 	 *
 	 * @return {Mixed} The value of the setting object.
