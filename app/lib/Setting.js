@@ -83,7 +83,7 @@ Ext.define('SmartWFM.lib.Setting', {
 
 		if (this.setting[name] !== undefined) {
 			console.groupEnd();
-			return this.setting[name]['value'];
+			return this.setting[name]['value'] || this.setting[name]['default'];
 		}
 
 		console.groupEnd();

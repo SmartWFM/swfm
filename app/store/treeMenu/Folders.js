@@ -90,7 +90,7 @@ Ext.define('SmartWFM.store.treeMenu.Folders', {
 					'dir.list',
 					{
 						path: operation['node']['data']['path'],
-						showHidden: SmartWFM.lib.Setting.getValue('swfm.files.showHidden'),
+						showHidden: SmartWFM.lib.Setting.getValue('swfm.files.showHidden', false),
 						currentPath: currentPath
 					}
 				)
