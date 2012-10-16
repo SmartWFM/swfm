@@ -608,7 +608,8 @@ Ext.define('SmartWFM.controller.BaseActions', {
 			action = 'dir.list'; // only need folders to check)
 			params = {
 				path: item['destination']['path'],
-				showHidden: true
+				showHidden: true,
+				currentPath: SmartWFM.app.getController('Browser').getBrowserView().getActiveTab().getPath()
 			};
 			successCallback =
 				function(result) {
@@ -838,7 +839,8 @@ Ext.define('SmartWFM.controller.BaseActions', {
 			action = 'dir.list'; // only need folders to check)
 			params = {
 				path: item['destination']['path'],
-				showHidden: true
+				showHidden: true,
+				currentPath: SmartWFM.app.getController('Browser').getBrowserView().getActiveTab().getPath()
 			};
 			successCallback =
 				function(result) {

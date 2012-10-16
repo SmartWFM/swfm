@@ -81,57 +81,20 @@ Ext.define('SmartWFM.store.treeMenu.Folders', {
 
 	proxy: Ext.create('SmartWFM.lib.RPCProxy', {
 		generateExtraParams: function(me, operation) {
-			// node path
-			var path = operation['node']['data']['path'];
-			var exp = SmartWFM.lib.Config.get('widget.treeMenu.excludeFolder');
-			if(exp !== '') {
-				var re = new RegExp(exp, 'i');
-			} else {
-				var re = false;
+			currentPath = '/';
+			if(SmartWFM.app) {
+				currentPath = SmartWFM.app.getController('Browser').getBrowserView().getActiveTab().getPath();
 			}
-
-			if(re && re.exec(path)) { // fake request
-				// calculating folder name
-				// current working path
-				var browserPath = SmartWFM.app.getController('Browser').getBrowserView().getActiveTab().getPath();
-				var a = browserPath.substr(0, path.length);
-
-				if(a == path) {
-					a = browserPath.substr(path.length + 1); // trim first "/"
-					var i = a.indexOf('/');
-					switch(i) {
-						case -1:
-							var name = a;
-							break;
-						case 0:
-							var name = ''; // todo
-							break;
-						default:
-							var name = a.substr(0, i);
-							break;
+			me.extraParams = {
+				data : SmartWFM.lib.RPC.encode(
+					'dir.list',
+					{
+						path: operation['node']['data']['path'],
+						showHidden: SmartWFM.lib.Setting.getValue('swfm.files.showHidden'),
+						currentPath: currentPath
 					}
-				}
-
-				me.extraParams = {
-					data : SmartWFM.lib.RPC.encode(
-						'dir.list.fake',
-						{
-							path: path,
-							name: name
-						}
-					)
-				};
-			} else { // real request
-				me.extraParams = {
-					data : SmartWFM.lib.RPC.encode(
-						'dir.list',
-						{
-							path: path,
-							showHidden: false
-						}
-					)
-				};
-			}
+				)
+			};
 		}
 	}),
 
