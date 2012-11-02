@@ -13,6 +13,7 @@ Ext.define('SmartWFM.view.settings.Window', {
 	title: SmartWFM.lib.I18n.get('plugin.setting', 'Settings'),
 	layout: 'accordion',
 	width: 400,
+	height: 400,
 	maximizable: true,
 	constrain: true,
 	buttons: [
@@ -49,9 +50,6 @@ Ext.define('SmartWFM.view.settings.Window', {
 	],
 
 	initComponent: function() {
-		// see comment in ExtJS 4.1 doc for Ext.getBody()
-		this.height = Ext.getBody().getHeight() / 1.2;
-
 		var SettingMap = SmartWFM.lib.Setting.getSettingMap();
 		var components = [];
 		for(var cmpName in SettingMap) {
