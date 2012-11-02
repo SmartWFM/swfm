@@ -163,7 +163,7 @@
 
 	<target name="-create-language-files" description="Concatenate json translation file">
 		<mkdir dir="${build.dir}/i18n" />
-		<exec executable="python2.7">
+		<exec executable="python">
 			<arg value="I18nConcatenator.py"/>
 			<arg value="app/i18n"/>
 			<arg value="${build.dir}/i18n"/>
