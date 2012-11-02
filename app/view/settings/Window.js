@@ -16,7 +16,7 @@ Ext.define('SmartWFM.view.settings.Window', {
 	maximizable: true,
 	constrain: true,
 	buttons: [
-		Ext.create('Ext.button.Button', {
+		{
 			text: SmartWFM.lib.I18n.get('plugin.setting', 'Apply'),
 			action: 'apply',
 			handler: function(b) {
@@ -41,11 +41,11 @@ Ext.define('SmartWFM.view.settings.Window', {
 				}
 				b.up('window').close();
 			}
-		}),
-		Ext.create('Ext.button.Button', {
+		},
+		{
 			text: SmartWFM.lib.I18n.get('swfm.button', 'Cancel'),
 			action: 'cancel'
-		})
+		}
 	],
 
 	initComponent: function() {
