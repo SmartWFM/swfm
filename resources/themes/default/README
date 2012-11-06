@@ -4,7 +4,7 @@ Icons
 Name:        Default SmartWFM Icon Theme
 Date:        2009-11-20
 Description: This is the default Icon-Theme for the SmartWFM.
-             The Icons are created for the KDE project by 
+             The Icons are created for the KDE project by
              different people.
 
 
@@ -20,3 +20,8 @@ Orig. Name: Oxygen Icons from KDE Project
 Version:    4.4.5
 Copyright:  LGPL and CC
 Download:   http://download.kde.org/stable/4.4.5/src/oxygen-icons-4.4.5.tar.bz2
+
+Orig. Name: Oxygen Icons from KDE Project
+Version:    4.9.2
+Copyright:  LGPL and CC
+Download:   http://download.kde.org/stable/4.9.2/src/oxygen-icons-4.9.2.tar.xz

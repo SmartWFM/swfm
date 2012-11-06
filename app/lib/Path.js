@@ -39,5 +39,22 @@ Ext.define('SmartWFM.lib.Path', {
 			return cleanedSplittedPath[size-1];
 		else
 			return defaultValue;
+	},
+
+	/**
+	 * Get the basepath of the given file/directory
+	 *
+	 * @param {String} path Path to extract basepath
+	 *
+	 * @since 0.11
+	 */
+	getBasepath: function(path) {
+		// split path at '/', remove last element and join with '/'
+		var path = path.split('/').slice(0, -1).join('/');
+		if (path == '') {
+			return '/';
+		} else {
+			return path;
+		}
 	}
 });

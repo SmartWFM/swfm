@@ -37,7 +37,7 @@ Ext.define('SmartWFM.view.browser.Tab', {
 		// create all toolbar items
 		tb.add(
 			Ext.create('Ext.button.Split', {
-				text: SmartWFM.lib.I18n.get('widget.browser', 'Back'),
+				//text: SmartWFM.lib.I18n.get('widget.browser', 'Back'),
 				tooltip: SmartWFM.lib.I18n.get('widget.browser', 'Back'),
 				name: 'back',
 				menu: new Ext.menu.Menu(),
@@ -53,7 +53,7 @@ Ext.define('SmartWFM.view.browser.Tab', {
 
 			}),
 			Ext.create('Ext.button.Split', {
-				text: SmartWFM.lib.I18n.get('widget.browser', 'Forward'),
+				//text: SmartWFM.lib.I18n.get('widget.browser', 'Forward'),
 				tooltip: SmartWFM.lib.I18n.get('widget.browser', 'Forward'),
 				name: 'forward',
 				menu: new Ext.menu.Menu(),
@@ -82,11 +82,30 @@ Ext.define('SmartWFM.view.browser.Tab', {
 				}
 			}),
 			Ext.create('Ext.button.Button', {
-				text: SmartWFM.lib.I18n.get('widget.browser', 'Go'),
+				//text: SmartWFM.lib.I18n.get('widget.browser', 'Go'),
 				tooltip: SmartWFM.lib.I18n.get('widget.browser', 'Go'),
 				icon: SmartWFM.lib.Icon.get('go.location', 'action', '16x16'),
 				handler: function () {
 					var path = this.up('toolbar').down('textfield[name="path"]').getValue();
+					SmartWFM.lib.Event.fire('', 'activateFolder', path);
+				}
+			}),
+			'-',
+			Ext.create('Ext.button.Button', {
+				//text: SmartWFM.lib.I18n.get('widget.browser', 'Home'),
+				tooltip: SmartWFM.lib.I18n.get('widget.browser', 'Home'),
+				icon: SmartWFM.lib.Icon.get('go.home', 'action', '16x16'),
+				handler: function () {
+					var path = SmartWFM.lib.Config.get('homePath', '/');
+					SmartWFM.lib.Event.fire('', 'activateFolder', path);
+				}
+			}),
+			Ext.create('Ext.button.Button', {
+				//text: SmartWFM.lib.I18n.get('widget.browser', 'Up'),
+				tooltip: SmartWFM.lib.I18n.get('widget.browser', 'Up'),
+				icon: SmartWFM.lib.Icon.get('go.parent-folder', 'action', '16x16'),
+				handler: function () {
+					var path = SmartWFM.lib.Path.getBasepath(SmartWFM.app.getController('Browser').getBrowserView().getActiveTab().getPath());
 					SmartWFM.lib.Event.fire('', 'activateFolder', path);
 				}
 			}),

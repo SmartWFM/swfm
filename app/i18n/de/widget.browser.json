@@ -9,6 +9,7 @@
 	"Filter": "Filter",
 	"Forward": "Weiter",
 	"Go": "Los",
+	"Home": "Benutzerverzeichnis",
 	"Icon View": "Icon-Ansicht",
 	"Last modified": "Änderungsdatum",
 	"List View": "Listen-Ansicht",
@@ -16,6 +17,7 @@
 	"Path:": "Pfad:",
 	"Permissions": "Zugriffsrechte",
 	"Size": "Größe",
+	"Up": "Übergeordnetes Verzeichnis",
 	"Use RegEx": "als Regulären Ausdruck auswerten",
 	"View": "Ansicht"
 }

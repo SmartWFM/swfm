@@ -105,6 +105,15 @@ SmartWFM.lib.Icon.load(
 		},
 		"sourcecodeviewer.brackets": {
 			image: "code-context.png"
+		},
+		"sourcecodeviewer.brackets": {
+			image: "code-context.png"
+		},
+		"go.home": {
+			image: "go-home.png"
+		},
+		"go.parent-folder": {
+			image: "go-parent-folder.png"
 		}
 	},
 	["16x16", "32x32"]

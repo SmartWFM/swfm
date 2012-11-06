@@ -38,7 +38,7 @@ Ext.define('SmartWFM.view.StatusPanel', {
 		// Version
 		items.push(
 			SmartWFM.lib.I18n.get('swfm', 'Powered by') +
-			' <a href="http://swfm.sf.net/">SmartWFM</a> v' +
+			' <a href="https://github.com/SmartWFM/swfm">SmartWFM</a> v' +
 			SmartWFMMajorVersion + '.' + SmartWFMMinorVersion + ' (build: ' + SmartWFMBuildDate + ')'
 		);
 		this.bbar = items;
