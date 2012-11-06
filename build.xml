@@ -181,6 +181,7 @@
 
 	<target name="dev" depends="-cleanup,-concat-css,-copy-needed-files,-create-language-files,-copy-needed-files-dev">
 		<copy file="index-dev.html" todir="${build.dir}" />
+		<copy file="index-debug.html" todir="${build.dir}" />
 
 		<echo>Finished</echo>
 	</target>
