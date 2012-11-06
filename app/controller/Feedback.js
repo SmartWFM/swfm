@@ -5,7 +5,6 @@ Ext.define('SmartWFM.controller.Feedback', {
 	extend: 'Ext.app.Controller',
 	requires: [
 		'SmartWFM.lib.I18n',
-		'SmartWFM.lib.Icon',
 		'SmartWFM.view.feedback.Window'
 	],
 

@@ -40,8 +40,7 @@ Ext.application({
 		,'Archives'
 		,'Bookmarks'
 		,'Search'
-		/* AFS only */
-		,'AFSActions'
+		,'AFSActions' /* AFS only */
 	],
 
 	launch: function() {

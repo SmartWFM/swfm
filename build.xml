@@ -163,6 +163,7 @@
 
 	<target name="-copy-needed-files-dev">
 		<copy file="extjs/ext-all-dev.js" todir="${build.dir}/extjs" />
+		<copy file="extjs/ext-all-debug-w-comments.js" todir="${build.dir}/extjs" />
 
 		<echo>Finished</echo>
 	</target>
