@@ -53,7 +53,8 @@ Ext.define('SmartWFM.controller.SourceCodeViewer', {
 				controller.fileIndex = 0;
 			},
 			handler: function () {
-				Ext.create('SmartWFM.view.sourceCodeViewer.Window').show();
+				var window = Ext.create('SmartWFM.view.sourceCodeViewer.Window');
+				window.show();
 				var controller = SmartWFM.app.getController('SourceCodeViewer');
 				if(controller.sourceCodeFiles.length == 1) {
 					var previousButton = window.query('button[action=previous]')[0];
