@@ -162,12 +162,17 @@ Ext.define('SmartWFM.controller.AFSActions', {
 			action: 'quota.get',
 			params: path,
 			successCallback: function(result) {
-				var msg = Math.round(result.used/1000)+' MB '+
-						SmartWFM.lib.I18n.get('plugin.afsActions', 'of')+' '+
-						Math.round(result.total/1000)+' MB '+
-						SmartWFM.lib.I18n.get('plugin.afsActions', 'used')+
-						' ('+result.percent_used+')';
-				var percentage = result.used/result.total;
+				if(result) {
+					var msg = Math.round(result.used/1000)+' MB '+
+							SmartWFM.lib.I18n.get('plugin.afsActions', 'of')+' '+
+							Math.round(result.total/1000)+' MB '+
+							SmartWFM.lib.I18n.get('plugin.afsActions', 'used')+
+							' ('+result.percent_used+')';
+					var percentage = result.used/result.total;
+				} else {
+					var msg = SmartWFM.lib.I18n.get('plugin.afsActions', 'Quota unavailable for this directory.');
+					var percentage = 0;
+				}
 				this.getQuotaProgressBar().updateProgress(percentage, msg, true);
 			},
 			successScope: this

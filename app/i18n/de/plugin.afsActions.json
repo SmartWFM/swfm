@@ -6,6 +6,7 @@
 	"Rights": "Rechte",
 	"Show quota": "Zeige Quota",
 	"Quota": "Quota",
+	"Quota unavailable for this directory.": "Kein Speicherkontingent für diesen Ordner verfügbar.",
 	"Reset": "Zurücksetzen",
 	"Add new rule": "Neue Regel hinzufügen",
 	"full access with right managment":"Vollzugriff inkl. Rechte ändern",
