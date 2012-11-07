@@ -40,6 +40,7 @@ Ext.application({
 		,'Archives'
 		,'Bookmarks'
 		,'Search'
+		,'HelpOverlay'
 		,'AFSActions' /* AFS only */
 	],
 

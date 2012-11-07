@@ -83,6 +83,7 @@ Ext.define('SmartWFM.lib.Config', {
 											],
 		'statusbar.left': 					[],
 		'statusbar.right': 					[
+												'helpoverlay',
 												'feedback'
 											],
 		'widget.treeMenu.menu.context': 	[
