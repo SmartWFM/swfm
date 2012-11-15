@@ -179,6 +179,8 @@ Ext.define('SmartWFM.controller.ImageViewer', {
 		image.getEl().set({
 			onload: "SmartWFM.app.getController('ImageViewer').loadCallback();"}
 		);
+		// add image name to title
+		imageViewer.up('window').setTitle(SmartWFM.lib.I18n.get('plugin.imageViewer', 'Image Viewer') + ' - ' + imageMetadata['name']);
 	},
 
 	loadCallback: function() {
