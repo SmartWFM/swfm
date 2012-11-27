@@ -1,13 +1,12 @@
 {
 	"Bookmarks": "Lesezeichen",
-	"Browse trough your history": "Durchblättere deinen Verlauf",
-	"Current location": "Aktueller Ordner",
-	"Directory structure": "Verzeichnisstruktur",
-	"Filter your current view": "Grenze deine aktuelle Ansicht ein",
+	"Browse through history": "Verlauf durchblättern",
+	"Close help": "Hilfe schließen",
+	"Filter current view": "Aktuelle Ansicht eingrenzen",
 	"Help": "Hilfe",
 	"Menu": "Menü",
 	"Quota": "Speicherbelegung",
-	"Search": "Suche",
-	"Send feedback": "Schicke eine Rückmeldung",
-	"Try a right click": "Versuche einen Rechtsklick"
+	"Search & Bookmarks": "Suche & Lesezeichen",
+	"Send feedback": "Meinung schreiben",
+	"Try a right click": "Rechtsklick möglich"
 }

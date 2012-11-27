@@ -153,6 +153,11 @@
 			<fileset dir="resources/themes"/>
 		</copy>
 
+		<mkdir dir="${build.dir}/resources/help-overlay" />
+		<copy todir="${build.dir}/resources/help-overlay">
+			<fileset dir="resources/help-overlay"/>
+		</copy>
+
 		<mkdir dir="${build.dir}/app/config" />
 		<copy todir="${build.dir}/app/config">
 			<fileset dir="app/config"/>
