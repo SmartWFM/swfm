@@ -14,8 +14,8 @@
 	/* see http://stackoverflow.com/questions/806000/css-semi-transparent-background-but-not-text */
 	/* Fallback for web browsers that doesn't support RGBa */
 	background: rgb(0, 0, 0) transparent;
-	/* RGBa with 0.6 opacity */
-	background: rgba(0, 0, 0, 0.6);
+	/* RGBa with 0.8 opacity */
+	background: rgba(0, 0, 0, 0.8);
 	/* For IE 5.5 - 7*/
 	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000);
 	/* For IE 8*/
