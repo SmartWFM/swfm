@@ -14,6 +14,9 @@ Ext.define('SmartWFM.controller.SourceCodeViewer', {
 	refs: [{
 		ref: 'sourceCodeViewerIFrame',
 		selector: 'sourceCodeViewer > simpleiframe'
+	},{
+		ref: 'browserView',
+		selector: 'viewport > browser'
 	}],
 
 	init: function() {
@@ -39,17 +42,33 @@ Ext.define('SmartWFM.controller.SourceCodeViewer', {
 				var files = this.context.files;
 				var regex = new RegExp("(text/.*)|(application/(x(-empty|ml|-httpd-php|-shellscript))|javascript)");
 				var sourceCodeFiles = [];
+				var viewSourceCodeEntry = false;
 
 				for(var i in files) {
 					var file = files[i];
-					if(file.mimeType && file.mimeType.match(regex))
-						sourceCodeFiles.push(file);
+					if(file.mimeType && file.mimeType.match(regex)) {
+						viewSourceCodeEntry = true;
+						break;
+					}
+				}
+
+				var controller = SmartWFM.app.getController('SourceCodeViewer');
+
+				if(viewSourceCodeEntry) {
+					controller
+						.getBrowserView()
+						.getActiveTab()
+						.down('dataview, gridpanel')
+						.getStore()
+						.each(function(element){
+							var file = element.getData();
+							if(file.mimeType && file.mimeType.match(regex))
+								sourceCodeFiles.push(file);
+						});
 				}
 
 				if(sourceCodeFiles.length)
 					this.setDisabled(false);
-
-				var controller = SmartWFM.app.getController('SourceCodeViewer');
 
 				controller.sourceCodeFiles = sourceCodeFiles;
 				controller.fileIndex = 0;
