@@ -158,6 +158,11 @@
 			<fileset dir="resources/help-overlay"/>
 		</copy>
 
+		<mkdir dir="${build.dir}/resources/images" />
+		<copy todir="${build.dir}/resources/images">
+			<fileset dir="resources/images"/>
+		</copy>
+
 		<mkdir dir="${build.dir}/app/config" />
 		<copy todir="${build.dir}/app/config">
 			<fileset dir="app/config"/>
