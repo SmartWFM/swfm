@@ -188,6 +188,13 @@ Ext.define('SmartWFM.controller.BaseActions', {
 		var download = Ext.extend(Ext.menu.Item, {
 			text: SmartWFM.lib.I18n.get('plugin.baseActions', 'Download'),
 			icon: SmartWFM.lib.Icon.get('file.download', 'action', '32x32'),
+			initComponent: function() {
+				this.callParent();
+
+				// show only if one item is selected
+				if((this.context.files.length + this.context.dirs.length) != 1)
+					this.setDisabled(true);
+			},
 			handler: function(){
 				var selection = Ext.ComponentQuery.query('viewport > browser')[0].getActiveTab().down('dataview, gridpanel').getSelectionModel().getSelection();
 
