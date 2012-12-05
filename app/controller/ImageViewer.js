@@ -17,6 +17,9 @@ Ext.define('SmartWFM.controller.ImageViewer', {
 	},{
 		ref: 'imageViewer',
 		selector: 'imageViewer panel'
+	},{
+		ref: 'browserView',
+		selector: 'viewport > browser'
 	}],
 
 	init: function() {
@@ -52,18 +55,36 @@ Ext.define('SmartWFM.controller.ImageViewer', {
 				this.callParent();
 
 				var files = this.context.files;
-				var regex = new RegExp("image/(png|jpeg|gif)");
+				var regex = new RegExp("image/(png|jpeg|jpg|gif)");
 				var imageFiles = [];
+				var viewImageEntry = false;
 
 				for(var i in files) {
 					var file = files[i];
-					if(file.mimeType && file.mimeType.match(regex))
-						imageFiles.push(file);
+					if(file.mimeType && file.mimeType.match(regex)) {
+						viewImageEntry = true;
+						break;
+					}
 				}
+
+				var controller = SmartWFM.app.getController('ImageViewer');
+
+				if(viewImageEntry) {
+					controller
+						.getBrowserView()
+						.getActiveTab()
+						.down('dataview, gridpanel')
+						.getStore()
+						.each(function(element){
+							var file = element.getData();
+							if(file.mimeType && file.mimeType.match(regex))
+								imageFiles.push(file);
+						});
+				}
+
 				if(imageFiles.length)
 					this.setDisabled(false);
 
-				var controller = SmartWFM.app.getController('ImageViewer');
 				controller.imageFiles = imageFiles;
 				controller.imageIndex = 0;
 			},
