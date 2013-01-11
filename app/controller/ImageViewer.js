@@ -206,6 +206,10 @@ Ext.define('SmartWFM.controller.ImageViewer', {
 
 	loadCallback: function() {
 		this.size = this.getImage().getSize();
-		this.fit();
+		var ivSize = this.getImageViewer().getSize();
+		if(this.size.width >= ivSize.width || this.size.height >= ivSize.height)
+			this.fit();
+		else
+			this.reset();
 	}
 });
