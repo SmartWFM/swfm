@@ -92,9 +92,16 @@ Ext.define('SmartWFM.controller.HelpOverlay', {
 					cls: 'close-btn',
 					html: SmartWFM.lib.I18n.get('plugin.helpoverlay', 'Close help')
 				}]);
-				Ext.select('#help-close-btn').on("click", function(){
+				Ext.select('#help-close-btn').on('click', function(){
 					Ext.select('#help-overlay').remove();
 					Ext.select('#help-rightclick-image').remove();
+				});
+
+				Ext.getBody().on('keydown', function(e){
+					if(e.keyCode == e.ESC) {
+						Ext.select('#help-overlay').remove();
+						Ext.select('#help-rightclick-image').remove();
+					}
 				});
 			}
 		});
