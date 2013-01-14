@@ -126,12 +126,16 @@ Ext.define('SmartWFM.lib.RPC', {
 			// used for file proxy
 			var oldCallback = options['callback'];
 			var oldScope = options['scope'];
+			var oldErrorCallback = options['errorcallback'];
+			var oldErrorScope = options['errorscope'];
 			var config = options;
 			config['callback'] = this.callbackRequest;
 			config['scope'] = {
 				options: {
 					callback: oldCallback,
 					scope: oldScope,
+					errorcallback: oldErrorCallback,
+					errorscope: oldErrorScope,
 					specialCallback: true
 				}
 			}

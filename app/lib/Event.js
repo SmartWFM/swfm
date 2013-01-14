@@ -15,7 +15,7 @@ Ext.define('SmartWFM.lib.Event', {
 	 * @since 0.10
 	 */
 	events: {
-		'activateFolder': [],		// args: path, newHistoryIndex
+		'activateFolder': [],		// args: path, [newHistoryIndex]
 		'tabSwitched': [],			// args: path
 		'settingsChanged': [],		// args: [changed settings]
 		'newTab': [],				// args: path, activate
