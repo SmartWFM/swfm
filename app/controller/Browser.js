@@ -174,6 +174,20 @@ Ext.define('SmartWFM.controller.Browser', {
 			);
 		} else {
 			me.select(node);
+			var menu = SmartWFM.lib.Menu.get(
+				SmartWFM.lib.Config.get('widget.browser.menu.itemContext'),
+				{
+					dirs: [],
+					files: [node.data]
+				}
+			);
+
+			// call the first element
+			if (menu !== undefined) {
+				var firstElement = menu.items.items[0];
+				console.log(firstElement)
+				firstElement.handler();
+			}
 		}
 	},
 	dvContextmenuAction: function(me, index, node, e) {

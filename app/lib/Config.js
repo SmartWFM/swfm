@@ -37,10 +37,10 @@ Ext.define('SmartWFM.lib.Config', {
 		'widget.browser.menu.itemContext':	[
 												'openWith',
 												'|',
+												'base.download',
 												'createNew',
 												'fileInfo',
 												'afs.setACL', /* AFS only */
-												'base.download',
 												'archives.create',
 												'|',
 												'base.rename',
