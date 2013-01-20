@@ -185,7 +185,6 @@ Ext.define('SmartWFM.controller.Browser', {
 			// call the first element
 			if (menu !== undefined) {
 				var firstElement = menu.items.items[0];
-				console.log(firstElement)
 				firstElement.handler();
 			}
 		}
