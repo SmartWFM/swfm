@@ -40,12 +40,13 @@ Ext.define('SmartWFM.controller.SourceCodeViewer', {
 				this.callParent();
 
 				var files = this.context.files;
+				var file;
 				var regex = new RegExp("(text/.*)|(application/(x(-empty|ml|-httpd-php|-shellscript))|javascript)");
 				var sourceCodeFiles = [];
 				var viewSourceCodeEntry = false;
 
 				for(var i in files) {
-					var file = files[i];
+					file = files[i];
 					if(file.mimeType && file.mimeType.match(regex)) {
 						viewSourceCodeEntry = true;
 						break;
@@ -70,8 +71,18 @@ Ext.define('SmartWFM.controller.SourceCodeViewer', {
 				if(sourceCodeFiles.length)
 					this.setDisabled(false);
 
+				function indexOfObject(array, attribute, value) {
+					for(var i = 0; i < array.length; i += 1) {
+						if(array[i][attribute] === value) {
+							return i;
+						}
+					}
+				}
+
+				var index = indexOfObject(sourceCodeFiles, 'name', file.name);
+
 				controller.sourceCodeFiles = sourceCodeFiles;
-				controller.fileIndex = 0;
+				controller.fileIndex = index ? index : 0;
 			},
 			handler: function () {
 				var window = Ext.create('SmartWFM.view.sourceCodeViewer.Window');
