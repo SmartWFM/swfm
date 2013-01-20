@@ -55,12 +55,13 @@ Ext.define('SmartWFM.controller.ImageViewer', {
 				this.callParent();
 
 				var files = this.context.files;
+				var file;
 				var regex = new RegExp("image/(png|jpeg|jpg|gif)");
 				var imageFiles = [];
 				var viewImageEntry = false;
 
 				for(var i in files) {
-					var file = files[i];
+					file = files[i];
 					if(file.mimeType && file.mimeType.match(regex)) {
 						viewImageEntry = true;
 						break;
@@ -85,8 +86,17 @@ Ext.define('SmartWFM.controller.ImageViewer', {
 				if(imageFiles.length)
 					this.setDisabled(false);
 
+				function indexOfObject(array, attribute, value) {
+					for(var i = 0; i < array.length; i += 1) {
+						if(array[i][attribute] === value) {
+							return i;
+						}
+					}
+				}
+
+				var index = indexOfObject(imageFiles, 'name', file.name);
 				controller.imageFiles = imageFiles;
-				controller.imageIndex = 0;
+				controller.imageIndex = index ? index : 0;
 			},
 			handler: function () {
 				var window = Ext.create('SmartWFM.view.imageViewer.Window');
