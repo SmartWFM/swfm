@@ -3,6 +3,7 @@
 	"Apply": "Anwenden",
 	"Back": "Zurück",
 	"Browser": "Browser",
+	"Case sensitive": "Groß-/Kleinschreibung beachten",
 	"Clear": "Zurücksetzen",
 	"Created": "Erstellungsdatum",
 	"Default View": "Standardansicht",
@@ -18,6 +19,6 @@
 	"Permissions": "Zugriffsrechte",
 	"Size": "Größe",
 	"Up": "Übergeordnetes Verzeichnis",
-	"Use RegEx": "als Regulären Ausdruck auswerten",
+	"Use as RegEx": "als regulären Ausdruck auswerten",
 	"View": "Ansicht"
 }
