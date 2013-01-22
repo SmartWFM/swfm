@@ -42,6 +42,8 @@ Ext.define('SmartWFM.model.File', {
 		{ name: 'mtime', mapping: 'mtime', type: 'date', dateFormat: 'U' },
 		{ name: 'perms', mapping: 'perms',
 			convert: function(v, record) {
+				if(!v)
+					return '---';
 				var r = '';
 				v = v.slice(-3);
 
