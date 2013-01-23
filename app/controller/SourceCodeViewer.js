@@ -79,7 +79,9 @@ Ext.define('SmartWFM.controller.SourceCodeViewer', {
 					}
 				}
 
-				var index = indexOfObject(sourceCodeFiles, 'name', file.name);
+				var  index = 0;
+				if(file)
+					index = indexOfObject(sourceCodeFiles, 'name', file.name);
 
 				controller.sourceCodeFiles = sourceCodeFiles;
 				controller.fileIndex = index ? index : 0;
