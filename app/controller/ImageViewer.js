@@ -94,7 +94,9 @@ Ext.define('SmartWFM.controller.ImageViewer', {
 					}
 				}
 
-				var index = indexOfObject(imageFiles, 'name', file.name);
+				var index = 0;
+				if(file)
+					index = indexOfObject(imageFiles, 'name', file.name);
 				controller.imageFiles = imageFiles;
 				controller.imageIndex = index ? index : 0;
 			},
