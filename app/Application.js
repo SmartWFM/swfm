@@ -9,8 +9,8 @@ SmartWFM is a web based file manager. It is highly extensible by plugins and wid
 Ext.Loader.setConfig({enabled:true});
 
 // Version
-SmartWFMMajorVersion = 0;
-SmartWFMMinorVersion = 12;
+SmartWFMMajorVersion = 1;
+SmartWFMMinorVersion = 0;
 
 /**
  * @class SmartWFM
