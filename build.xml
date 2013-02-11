@@ -173,7 +173,6 @@
 
 	<target name="-copy-needed-files-dev">
 		<copy file="extjs/ext-all-dev.js" todir="${build.dir}/extjs" />
-		<copy file="extjs/ext-all-debug-w-comments.js" todir="${build.dir}/extjs" />
 
 		<echo>Finished</echo>
 	</target>
@@ -191,13 +190,12 @@
 
 	<target name="dev" depends="-cleanup,-concat-css,-copy-needed-files,-create-language-files,-copy-needed-files-dev">
 		<copy file="index-dev.html" todir="${build.dir}" />
-		<copy file="index-debug.html" todir="${build.dir}" />
 
 		<echo>Finished</echo>
 	</target>
 
 	<target name="prod" depends="-minify-js,-minify-css,-copy-needed-files,-create-language-files">
-		<copy file="index-prod.html" todir="${build.dir}" />
+		<copy file="index.html" todir="${build.dir}" />
 
 		<echo>Finished</echo>
 	</target>
