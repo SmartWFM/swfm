@@ -134,7 +134,8 @@ Ext.define('SmartWFM.controller.TreeMenu', {
 				node: node
 			}
 		);
-		menu.showAt(e.getXY());
+		if(menu)
+			menu.showAt(e.getXY());
 	},
 
 	onActivateFolder: function(path) {
