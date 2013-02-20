@@ -114,7 +114,7 @@ Ext.define('SmartWFM.lib.Icon', {
 	 */
 	load: function(type, icons, sizes) {
 		if (this.icons[type] === undefined) {
-			console.warning('No icons given');
+			console.warn('No icons given');
 			return false;
 		}
 

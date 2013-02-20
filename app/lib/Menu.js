@@ -59,7 +59,7 @@ Ext.define('SmartWFM.lib.Menu', {
 		var i;
 
 		if (actions === undefined || typeof(actions) !== 'object') {
-			console.warning('Wrong actions type or actions not given');
+			console.warn('Wrong actions type or actions not given');
 			console.groupEnd();
 
 			return undefined;
@@ -69,7 +69,7 @@ Ext.define('SmartWFM.lib.Menu', {
 
 			// Wrong type? Continue with next one.
 			if (actionName === undefined || typeof(actionName) !== 'string') {
-				console.warning("Name of the action not given or not a string: ", actionName);
+				console.warng("Name of the action not given or not a string: ", actionName);
 				continue;
 			}
 
