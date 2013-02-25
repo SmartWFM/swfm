@@ -31,7 +31,7 @@ Ext.define('SmartWFM.view.browser.IconView', {
 
 	prepareData: function(data) {
 		Ext.apply(data, {
-			shortName: Ext.util.Format.ellipsis(data.name, 12)
+			shortName: Ext.util.Format.ellipsis(data.name, 10)
 		});
 		return data;
 	},

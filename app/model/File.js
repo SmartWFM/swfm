@@ -20,6 +20,7 @@ Ext.define('SmartWFM.model.File', {
 		{ name: 'shortName', mapping: 'name',
 			convert: function (v, record) {
 				//return Ext.util.Format.ellipsis(v, 12);
+				//overwritten in app/view/browser/IconView.js:34 (prepareData function)
 				var w = v;
 				if(v.length > 12) {
 					w = v.substr(0, 3);
