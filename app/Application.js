@@ -53,7 +53,11 @@ Ext.application({
 		Ext.get('loading').fadeOut(conf);
 		Ext.get('loading-mask').fadeOut(conf);
 		// initial tab
-		this.getController('Browser').addTab(undefined, true);
+		var path = undefined;
+		var hash = window.location.hash;
+		if(hash !== "")
+			path = hash.substring(1)
+		this.getController('Browser').addTab(path, true);
 
 	}
 });
