@@ -95,7 +95,7 @@ Ext.define('SmartWFM.controller.Browser', {
 			text: SmartWFM.lib.I18n.get('plugin.baseActions', 'New Tab'),
 			icon: SmartWFM.lib.Icon.get('tab.new', 'action', '32x32'),
 			handler: function(){
-				SmartWFM.lib.Event.fire('', 'newTab', undefined, true);
+				SmartWFM.lib.Event.fire('', 'newTab', SmartWFM.lib.Config.get('homePath'), true);
 			}
 		});
 		SmartWFM.lib.Menu.add('newtab', newTab);
