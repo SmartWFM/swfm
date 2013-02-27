@@ -10,17 +10,12 @@ Ext.define('SmartWFM.view.feedback.Window', {
 	title: SmartWFM.lib.I18n.get('plugin.feedback', 'Feedback'),
 	layout: 'fit',
 	width: 400,
+	height: 400,
 	maximizable: true,
 	border: false,
 	plain: true,
 	autoScroll: true,
 	constrain: true,
-
-	initComponent: function() {
-		// see comment in ExtJS 4.1 doc for Ext.getBody()
-		this.height 	= Ext.getBody().getHeight() / 1.2;
-		this.callParent(arguments);
-	},
 
 	items: {
 		xtype: 'form',
