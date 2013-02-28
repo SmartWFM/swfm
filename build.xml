@@ -168,6 +168,11 @@
 			<fileset dir="app/config"/>
 		</copy>
 
+		<mkdir dir="${build.dir}/codemirror-2.38" />
+		<copy todir="${build.dir}/codemirror-2.38">
+			<fileset dir="codemirror-2.38"/>
+		</copy>
+
 		<echo>Finished</echo>
 	</target>
 

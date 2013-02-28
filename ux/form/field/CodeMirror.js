@@ -369,6 +369,9 @@ Ext.define('Ext.ux.form.field.CodeMirror', {
         text: 'CSS',
         mime: 'text/css'
     },{
+        text: 'Python',
+        mime: 'text/x-python'
+    },{
         text: 'Plain text',
         mime: 'text/plain'
     }],
@@ -391,6 +394,9 @@ Ext.define('Ext.ux.form.field.CodeMirror', {
     },{
         mime:           ['text/css'],
         dependencies:   ['css/css.js']
+    },{
+        mime:           ['text/x-python'],
+        dependencies:   ['python/python.js']
     }],
 
     /**

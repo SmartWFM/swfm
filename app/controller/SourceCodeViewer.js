@@ -6,14 +6,16 @@ Ext.define('SmartWFM.controller.SourceCodeViewer', {
 	requires: [
 		'Ext.util.KeyNav',
 		'SmartWFM.lib.Menu',
+		'SmartWFM.lib.Mimetype',
 		'SmartWFM.lib.I18n',
 		'SmartWFM.lib.Icon',
+		'SmartWFM.lib.Resource',
 		'SmartWFM.view.sourceCodeViewer.Window'
 	],
 
 	refs: [{
-		ref: 'sourceCodeViewerIFrame',
-		selector: 'sourceCodeViewer > simpleiframe'
+		ref: 'sourceCodeViewerTextArea',
+		selector: 'sourceCodeViewer > codemirror'
 	},{
 		ref: 'browserView',
 		selector: 'viewport > browser'
@@ -29,6 +31,8 @@ Ext.define('SmartWFM.controller.SourceCodeViewer', {
 				click: this.next
 			}
 		});
+		SmartWFM.lib.Resource.loadJS('codemirror-2.38/lib/codemirror.js');
+		SmartWFM.lib.Resource.loadCSS('codemirror-2.38/lib/codemirror.css');
 	},
 
 	registerMenuItems: function() {
@@ -126,17 +130,25 @@ Ext.define('SmartWFM.controller.SourceCodeViewer', {
 	},
 
 	load: function() {
-		var scViewerIFrame = this.getSourceCodeViewerIFrame();
+		var scViewerTextArea = this.getSourceCodeViewerTextArea();
 		var fileMetadata = this.sourceCodeFiles[this.fileIndex];
 		var url = SmartWFM.lib.Url.encode(
 			SmartWFM.lib.Config.get('commandUrl'),
 			{
-				command: 'source_highlight',
+				command: 'download',
 				path: fileMetadata['path'],
 				name: fileMetadata['name']
 			}
 		);
-		scViewerIFrame.setSrc(url);
-		scViewerIFrame.up('window').setTitle(SmartWFM.lib.I18n.get('plugin.sourceCodeViewer', 'Source Code Viewer') + ' - ' + fileMetadata['name']);
+		Ext.Ajax.request({
+			url: url,
+			success: function(response){
+				scViewerTextArea.setValue(response.responseText);
+				scViewerTextArea.setMode(SmartWFM.lib.Mimetype.normalize(this.sourceCodeFiles[this.fileIndex].mimeType));
+			},
+			scope: this
+		});
+		//scViewerIFrame.setSrc(url);
+		scViewerTextArea.up('window').setTitle(SmartWFM.lib.I18n.get('plugin.sourceCodeViewer', 'Source Code Viewer') + ' - ' + fileMetadata['name']);
 	}
 });

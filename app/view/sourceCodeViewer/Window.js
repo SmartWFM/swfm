@@ -7,7 +7,7 @@ Ext.define('SmartWFM.view.sourceCodeViewer.Window', {
 
 	requires: [
 		'SmartWFM.lib.I18n',
-		'Ext.ux.SimpleIFrame'
+		'Ext.ux.form.field.CodeMirror'
 	],
 	title: SmartWFM.lib.I18n.get('plugin.sourceCodeViewer', 'Source Code Viewer'),
 	layout: 'fit',
@@ -15,6 +15,9 @@ Ext.define('SmartWFM.view.sourceCodeViewer.Window', {
 	border: false,
 	plain: true,
 	constrain: true,
+	bodyStyle: {
+		background: '#fff'
+	},
 
 	initComponent: function() {
 		// see comment in ExtJS 4.1 doc for Ext.getBody()
@@ -37,6 +40,9 @@ Ext.define('SmartWFM.view.sourceCodeViewer.Window', {
 	],
 
 	items: [{
-		xtype: 'simpleiframe'
+		xtype: 			'codemirror',
+		pathModes: 		'codemirror-2.38/mode',
+		pathExtensions: 'codemirror-2.38/lib/util',
+		mode: 			'text/plain'
 	}]
 });
