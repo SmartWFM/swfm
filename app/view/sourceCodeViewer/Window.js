@@ -36,13 +36,22 @@ Ext.define('SmartWFM.view.sourceCodeViewer.Window', {
 		{
 			text: SmartWFM.lib.I18n.get('swfm.button', 'Next'),
 			action: 'next'
+		},
+		{
+			text: SmartWFM.lib.I18n.get('swfm.button', 'Save'),
+			action: 'save'
 		}
 	],
 
 	items: [{
-		xtype: 			'codemirror',
-		pathModes: 		'codemirror-2.38/mode',
-		pathExtensions: 'codemirror-2.38/lib/util',
-		mode: 			'text/plain'
+		xtype: 	'form',
+		layout: 'fit',
+		items: 	[{
+			xtype: 			'codemirror',
+			name: 			'content',
+			pathModes: 		'codemirror-2.38/mode',
+			pathExtensions: 'codemirror-2.38/lib/util',
+			mode: 			'text/plain'
+		}]
 	}]
 });

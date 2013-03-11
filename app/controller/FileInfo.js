@@ -43,7 +43,7 @@ Ext.define('SmartWFM.controller.FileInfo', {
 			var data = selectedNode['data'];
 			var path = SmartWFM.lib.Path.join(data['path'], data['name']);
 			// show loading mask
-			Ext.ComponentQuery.query('fileInfoWindow > gridpanel')[0].getView().setLoading(true);
+			Ext.ComponentQuery.query('fileInfoWindow > gridpanel')[0].getView().setLoading({msg: SmartWFM.lib.I18n.get('swfm', 'Loading ...')});
 			SmartWFM.lib.RPC.request({
 				action: 'file.info',
 				params: path,

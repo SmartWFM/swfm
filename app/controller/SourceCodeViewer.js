@@ -14,8 +14,11 @@ Ext.define('SmartWFM.controller.SourceCodeViewer', {
 	],
 
 	refs: [{
-		ref: 'sourceCodeViewerTextArea',
-		selector: 'sourceCodeViewer > codemirror'
+		ref: 'sourceCodeViewerForm',
+		selector: 'sourceCodeViewer > form'
+	},{
+		ref: 'sourceCodeViewerEditor',
+		selector: 'sourceCodeViewer > form > codemirror'
 	},{
 		ref: 'browserView',
 		selector: 'viewport > browser'
@@ -29,6 +32,9 @@ Ext.define('SmartWFM.controller.SourceCodeViewer', {
 			},
 			'sourceCodeViewer button[action=next]': {
 				click: this.next
+			},
+			'sourceCodeViewer button[action=save]': {
+				click: this.save
 			}
 		});
 		SmartWFM.lib.Resource.loadJS('codemirror-2.38/lib/codemirror.js');
@@ -129,8 +135,25 @@ Ext.define('SmartWFM.controller.SourceCodeViewer', {
 		this.load();
 	},
 
+	save: function() {
+		var scViewerForm = this.getSourceCodeViewerForm();
+		scViewerForm.up('window').setLoading({msg: SmartWFM.lib.I18n.get('swfm', 'Save ...')});
+		var fileMetadata = this.sourceCodeFiles[this.fileIndex];
+		SmartWFM.lib.RPC.request({
+			action: 		'new_file.save',
+			params: {
+				path: 		fileMetadata['path'],
+				name: 		fileMetadata['name'],
+				content: 	scViewerForm.getForm().getValues()['content']
+			},
+			callback: function() {
+				scViewerForm.up('window').setLoading(false);
+			}
+		});
+	},
+
 	load: function() {
-		var scViewerTextArea = this.getSourceCodeViewerTextArea();
+		var scViewerEditor = this.getSourceCodeViewerEditor();
 		var fileMetadata = this.sourceCodeFiles[this.fileIndex];
 		var url = SmartWFM.lib.Url.encode(
 			SmartWFM.lib.Config.get('commandUrl'),
@@ -143,12 +166,11 @@ Ext.define('SmartWFM.controller.SourceCodeViewer', {
 		Ext.Ajax.request({
 			url: url,
 			success: function(response){
-				scViewerTextArea.setValue(response.responseText);
-				scViewerTextArea.setMode(SmartWFM.lib.Mimetype.normalize(this.sourceCodeFiles[this.fileIndex].mimeType));
+				scViewerEditor.setValue(response.responseText);
+				scViewerEditor.setMode(SmartWFM.lib.Mimetype.normalize(this.sourceCodeFiles[this.fileIndex].mimeType));
 			},
 			scope: this
 		});
-		//scViewerIFrame.setSrc(url);
-		scViewerTextArea.up('window').setTitle(SmartWFM.lib.I18n.get('plugin.sourceCodeViewer', 'Source Code Viewer') + ' - ' + fileMetadata['name']);
+		scViewerEditor.up('window').setTitle(SmartWFM.lib.I18n.get('plugin.sourceCodeViewer', 'Source Code Viewer') + ' - ' + fileMetadata['name']);
 	}
 });
