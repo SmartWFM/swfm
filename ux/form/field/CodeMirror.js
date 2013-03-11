@@ -354,26 +354,35 @@ Ext.define('Ext.ux.form.field.CodeMirror', {
     * @cfg {Array} listModes Define here what modes do you want to show in the selection list of the toolbar
     */
     listModes: [{
-        text: 'PHP',
-        mime: 'text/x-php'
-    },{
-        text: 'JSON',
-        mime: 'application/json'
-    },{
-        text: 'Javascript',
-        mime: 'text/javascript'
-    },{
-        text: 'HTML mixed',
-        mime: 'text/html'
+        text: 'C/C++/C#/Java',
+        mime: 'text/x-c'
     },{
         text: 'CSS',
         mime: 'text/css'
     },{
-        text: 'Python',
-        mime: 'text/x-python'
+        text: 'HTML mixed',
+        mime: 'text/html'
+    },{
+        text: 'Javascript',
+        mime: 'text/javascript'
+    },{
+        text: 'JSON',
+        mime: 'application/json'
+    },{
+        text: 'Perl',
+        mime: 'text/x-perl'
+    },{
+        text: 'PHP',
+        mime: 'text/x-php'
     },{
         text: 'Plain text',
         mime: 'text/plain'
+    },{
+        text: 'Python',
+        mime: 'text/x-python'
+    },{
+        text: 'Shell',
+        mime: 'text/x-sh'
     }],
 
     /**
@@ -395,8 +404,17 @@ Ext.define('Ext.ux.form.field.CodeMirror', {
         mime:           ['text/css'],
         dependencies:   ['css/css.js']
     },{
+        mime:           ['text/x-perl'],
+        dependencies:   ['perl/perl.js']
+    },{
+        mime:           ['text/x-sh'],
+        dependencies:   ['shell/shell.js']
+    },{
         mime:           ['text/x-python'],
         dependencies:   ['python/python.js']
+    },{
+        mime:           ['text/x-c'],
+        dependencies:   ['clike/clike.js']
     }],
 
     /**
