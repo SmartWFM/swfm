@@ -41,7 +41,8 @@ Ext.define('SmartWFM.controller.Browser', {
 			browser.setActiveTab(tab);
 			if(this.initialCall) {
 				this.initialCall = false;
-				tab.fireEvent('activate');
+				// dirty fix of race condition on initialization
+				setTimeout(function(){tab.fireEvent('activate');}, 50);
 			}
 		}
 	},
