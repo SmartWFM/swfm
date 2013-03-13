@@ -146,6 +146,9 @@ Ext.define('SmartWFM.controller.SourceCodeViewer', {
 				name: 		fileMetadata['name'],
 				content: 	scViewerForm.getForm().getValues()['content']
 			},
+			successCallback: function() {
+				scViewerForm.up('window').down('button[action=save]').disable();
+			},
 			callback: function() {
 				scViewerForm.up('window').setLoading(false);
 			}
