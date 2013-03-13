@@ -373,7 +373,7 @@ Ext.define('Ext.ux.form.field.CodeMirror', {
         mime: 'text/x-perl'
     },{
         text: 'PHP',
-        mime: 'text/x-php'
+        mime: 'application/x-httpd-php'
     },{
         text: 'Plain text',
         mime: 'text/plain'
