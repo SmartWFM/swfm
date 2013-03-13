@@ -219,6 +219,5 @@ Ext.define('SmartWFM.lib.RPC', {
 				[result]
 			);
 		}
-
 	 }
 });

@@ -21,9 +21,10 @@ Ext.define('SmartWFM.view.browser.Tab', {
 	header: false,
 
 	initComponent: function() {
-		if (this.path === undefined)
+		if (this.path === undefined) {
 			this.path = SmartWFM.lib.Config.get('homePath');
 			console.warn('new tab: path missing');
+		}
 
 		this.history = new Array();
 		this.history.push(this.path);
