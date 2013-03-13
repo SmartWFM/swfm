@@ -55,9 +55,20 @@ Ext.application({
 		// initial tab
 		var path = undefined;
 		var hash = window.location.hash;
-		if(hash !== "")
-			path = hash.substring(1)
-		this.getController('Browser').addTab(path, true);
+		if(hash !== "") {
+			paths = hash.substring(1).split(';')
+			var active = true // activate the first tab
+			for(i in paths) {
+				var path = paths[i].replace(/%3B/gi, ';'); // replace encoded ";"
+				path = path.replace(/%25/gi, '%'); // replace encoded "%"
+				this.getController('Browser').addTab(path, active);
+				active = false;
+			}
+		} else {
+			if(path === undefined)
+				path = SmartWFM.lib.Config.get('homePath');
+			this.getController('Browser').addTab(path, true);
+		}
 
 	}
 });
