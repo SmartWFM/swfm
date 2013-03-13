@@ -430,6 +430,8 @@ Ext.define('Ext.ux.form.field.CodeMirror', {
     scriptsLoaded: [],
     lastMode: '',
 
+    modified: false,
+
     initComponent : function(){
         var me = this;
 
@@ -1069,6 +1071,7 @@ Ext.define('Ext.ux.form.field.CodeMirror', {
         me.rawValue = value;
         if(me.editor)
             me.editor.setValue(value);
+        me.modified = false;
         return me;
     },
 
@@ -1130,7 +1133,20 @@ Ext.define('Ext.ux.form.field.CodeMirror', {
             text: 'Show line numbers.',
             cls: Ext.baseCSSPrefix + 'html-editor-tip'
         }
-    }
+    },
 
+    /**
+    * Get the state of the editor value (modified or not)
+    * @return {Boolean} modified
+    */
+    getModifiedState: function(){
+        var me = this;
+        if(!me.modified && me.editor) {
+            var current = me.editor.getValue();
+            if(current !== me.rawValue)
+                me.modified = true;
+        }
+        return me.modified;
+    }
 
 });

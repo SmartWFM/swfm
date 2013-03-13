@@ -39,6 +39,7 @@ Ext.define('SmartWFM.view.sourceCodeViewer.Window', {
 		},
 		{
 			text: SmartWFM.lib.I18n.get('swfm.button', 'Save'),
+			disabled: true,
 			action: 'save'
 		}
 	],
@@ -51,7 +52,18 @@ Ext.define('SmartWFM.view.sourceCodeViewer.Window', {
 			name: 			'content',
 			pathModes: 		'codemirror-2.38/mode',
 			pathExtensions: 'codemirror-2.38/lib/util',
-			mode: 			'text/plain'
+			mode: 			'text/plain',
+			checkChange: 	function() {
+				var me = this,
+					w = me.up('window');
+				if(w){
+					// wait some time to pass the initialization of the editor
+					setTimeout(function() {
+						var b = me.getModifiedState();
+						w.down('button[action=save]').setDisabled(!b);
+					}, 100);
+				}
+			},
 		}]
-	}]
+	}],
 });
