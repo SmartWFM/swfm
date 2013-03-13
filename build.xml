@@ -141,11 +141,8 @@
 		<mkdir dir="${build.dir}/extjs" />
 		<copy file="extjs/ext-all.js" todir="${build.dir}/extjs" />
 
-		<mkdir dir="${build.dir}/extjs/resources/css" />
-		<copy file="extjs/resources/css/ext-all.css" todir="${build.dir}/extjs/resources/css" />
-
-		<copy todir="${build.dir}/extjs/resources/themes/images/default">
-			<fileset dir="extjs/resources/themes/images/default"/>
+		<copy todir="${build.dir}/extjs/resources">
+			<fileset dir="extjs/resources"/>
 		</copy>
 
 		<mkdir dir="${build.dir}/resources/themes" />

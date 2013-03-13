@@ -53,7 +53,6 @@ Ext.application({
 		Ext.get('loading').fadeOut(conf);
 		Ext.get('loading-mask').fadeOut(conf);
 		// initial tab
-		var path = undefined;
 		var hash = window.location.hash;
 		if(hash !== "") {
 			paths = hash.substring(1).split(';')
@@ -65,9 +64,8 @@ Ext.application({
 				active = false;
 			}
 		} else {
-			if(path === undefined)
-				path = SmartWFM.lib.Config.get('homePath');
-			this.getController('Browser').addTab(path, true);
+			this.getController('Browser')
+			    .addTab(SmartWFM.lib.Config.get('homePath'), true);
 		}
 
 	}
