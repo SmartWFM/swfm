@@ -450,7 +450,7 @@ Ext.define('SmartWFM.controller.AFSActions', {
 			action: 'acl.set',
 			params: {
 				path: values['path'],
-				subdirs: values['subfolders'] || false,
+				subdirs: values['subfolders'] ? true : false,
 				acl: acls
 			},
 			successCallback: function(result) { // called on success

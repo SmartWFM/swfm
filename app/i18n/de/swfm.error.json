@@ -2,6 +2,6 @@
 	"An error occured": "Es ist ein Fehler aufgetreten",
 	"Couldn't write to file": "Es konnte nicht in die Datei geschrieben werden",
 	"Couldn't open file": "Die Datei konnte nicht geöffnet werden",
-	"Permission denied": "Zugriff verweigert",
+	"Permission denied.": "Zugriff verweigert.",
 	"Method not found": "Methode wurde nicht gefunden"
 }
