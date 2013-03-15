@@ -136,5 +136,23 @@ Ext.define('SmartWFM.lib.Config', {
 			}
 		});
 		return me;
+	},
+
+	/**
+	 * Appends config option of type array with recieved option
+	 *
+	 * @param {String} id The name of the config option
+	 * @param {Mixed} value The value to append
+	 *
+	 * @protected
+	 * @since 1.0
+	 */
+	append: function(id, value) {
+		var me = this,
+		    current = me.config[id] || [];
+
+		current.push(value);
+
+		me.config[id] = current;
 	}
 });

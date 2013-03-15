@@ -43,6 +43,15 @@ Ext.define('SmartWFM.lib.I18n', {
 		this.lang = lang;
 	},
 
+	/**
+	 * Get the language.
+	 *
+	 * @since 1.0
+	 */
+	getLanguage: function() {
+		return this.lang;
+	},
+
 	constructor: function() {
 		this.callParent();
 
@@ -140,31 +149,11 @@ Ext.define('SmartWFM.lib.I18n', {
 	 * @since 0.10
 	 */
 	get: function(group, text) {
-		// development
-		// loads dynamically missing translation
-		// many (!!!) requests
-		// todo
-		if ( this.lang != 'en' && group != '' && (
-				this.i18n[this.lang] === undefined ||
-				this.i18n[this.lang][group] === undefined
-			) ) {
-			// dynamically load language file
-			Ext.Ajax.request({
-				async: false,
-				url: 'app/i18n/'+this.lang+'/'+group+'.json',
-				success: function(response) {
-					if (this.i18n[this.lang] === undefined)
-						this.i18n[this.lang] = {};
-					this.i18n[this.lang][group] = Ext.JSON.decode(response.responseText);
-				},
-				failure: function(response) {
-					console.warn('[SmartWFM.lib.I18n] translation for "' + group + '" couldn\'t be loaded');
-				},
-				scope: SmartWFM.lib.I18n
-			});
-		}
-		// development end
-		return (group != '' && this.i18n[this.lang] !== undefined && this.i18n[this.lang][group] !== undefined) ? this.i18n[this.lang][group][text] || text : text;
+		return (group != '' &&
+				this.i18n[this.lang] !== undefined &&
+				this.i18n[this.lang][group] !== undefined)
+					? this.i18n[this.lang][group][text] || text
+					: text;
 	},
 
 	/**
