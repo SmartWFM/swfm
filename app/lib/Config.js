@@ -31,6 +31,7 @@ Ext.define('SmartWFM.lib.Config', {
 												'afs.setACL', /* AFS only */
 												'base.upload',
 												'base.newFolder',
+												'createNew',
 												'|',
 												'base.paste'
 											],
@@ -38,7 +39,6 @@ Ext.define('SmartWFM.lib.Config', {
 												'openWith',
 												'|',
 												'base.download',
-												'createNew',
 												'fileInfo',
 												'afs.setACL', /* AFS only */
 												'archives.create',
@@ -75,7 +75,7 @@ Ext.define('SmartWFM.lib.Config', {
 		'widget.treeMenu.rootNodeName': 	'root node',
 		'widget.treeMenu.excludeFolder': 	'',
 		'widget.treeMenu.context': 			[],
-		'plugin.subMenus.createNew': 		[],
+		'plugin.subMenus.createNew': 		[], // automatically extented by 'new file' controller
 		'plugin.subMenus.openWith': 		[
 												'imageViewer',
 												'sourceCodeViewer',

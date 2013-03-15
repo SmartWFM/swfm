@@ -42,6 +42,7 @@ Ext.application({
 		,'Search'
 		,'HelpOverlay'
 		,'AFSActions' /* AFS only */
+		,'NewFile'
 	],
 
 	launch: function() {

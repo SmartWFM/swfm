@@ -36,7 +36,7 @@ Ext.define('SmartWFM.controller.SubMenus', {
 		// "create new ..."
 		var createNew = Ext.extend(Ext.menu.Item, {
 			text: SmartWFM.lib.I18n.get('plugin.subMenus', 'Create new ...'),
-			// icon: SmartWFM.lib.Icon.get('', '', ''), // todo
+			icon: SmartWFM.lib.Icon.get('file.new', 'action', '16x16'),
 			disabled: true,
 			initComponent: function (context) {
 				this.callParent();

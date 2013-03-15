@@ -114,6 +114,9 @@ SmartWFM.lib.Icon.load(
 		},
 		"go.parent-folder": {
 			image: "go-parent-folder.png"
+		},
+		"file.new": {
+			image: "vcs-added.png"
 		}
 	},
 	["16x16", "32x32"]
