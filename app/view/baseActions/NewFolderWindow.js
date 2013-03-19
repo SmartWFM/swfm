@@ -18,7 +18,7 @@ Ext.define('SmartWFM.view.baseActions.NewFolderWindow', {
 		bodyStyle: {'background-color': 'transparent'}, // only way not to have a white background
 		items: {
 			xtype: 'textfield',
-			fieldLabel: SmartWFM.lib.I18n.get('plugin.baseActions', 'Please enter the name of the new folder'),
+			fieldLabel: SmartWFM.lib.I18n.get('plugin.baseActions', 'Name of the new folder'),
 			labelAlign: 'top',
 			name: 'folderName',
 			anchor: '100%',

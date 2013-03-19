@@ -57,7 +57,10 @@ Ext.define('SmartWFM.lib.Config', {
 												{ name: 'Extras',	config: 'menu.main.extras' }
 											],
 		'menu.main.file':					[
-												'newtab'
+												'newtab',
+												'base.newFolder',
+												'createNew',
+												'base.upload'
 											],
 		'menu.main.edit':					[],
 		'menu.main.view':					[

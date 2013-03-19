@@ -11,6 +11,8 @@ Ext.define('SmartWFM.view.baseActions.RenameWindow', {
 	plain: true,
 	border: false,
 	constrain: true,
+	modal: true,
+	width: 200,
 
 	items: {
 		xtype: 'form',
@@ -18,7 +20,7 @@ Ext.define('SmartWFM.view.baseActions.RenameWindow', {
 		bodyStyle: {'background-color': 'transparent'}, // only way not to have a white background
 		items: [{
 			xtype: 'textfield',
-			fieldLabel: SmartWFM.lib.I18n.get('plugin.baseActions', 'Please enter the new name'),
+			fieldLabel: SmartWFM.lib.I18n.get('plugin.baseActions', 'Name of the new file'),
 			labelAlign: 'top',
 			name: 'name',
 			anchor: '100%',
