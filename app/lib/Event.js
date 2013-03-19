@@ -21,7 +21,8 @@ Ext.define('SmartWFM.lib.Event', {
 		'newTab': [],				// args: path, activate
 		'clearFilter': [],
 		'applyFilter': [],			// args: useAsRegex, caseSensitive
-		'refresh': []				// args: path
+		'refresh': [],				// args: path
+		'newFile': []				// args: path, filename, mime-type
 	},
 
 	/**

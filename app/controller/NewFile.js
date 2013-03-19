@@ -71,7 +71,13 @@ Ext.define('SmartWFM.controller.NewFile', {
 				name: name
 			},
 			successCallback: function(result) {
+				var name = result['name'],
+					mimeType = result['mime-type'];
+				name = name.substr(name.lastIndexOf('/') + 1);
+
 				Ext.ComponentQuery.query('newFile')[0].close();
+				// dirty race conditions fix
+				setTimeout(function(){SmartWFM.lib.Event.fire('', 'newFile', path, name, mimeType);}, 500);
 				SmartWFM.lib.Event.fire('', 'refresh', path);
 			},
 			scope: this

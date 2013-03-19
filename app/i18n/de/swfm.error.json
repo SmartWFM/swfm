@@ -6,5 +6,6 @@
 	"File already exists": "Datei existiert bereits",
 	"Permission denied.": "Zugriff verweigert.",
 	"Method not found": "Methode wurde nicht gefunden",
-	"Template file doesn't exists": "Template-Datei existiert nicht"
+	"Template file doesn't exists": "Template-Datei existiert nicht",
+	"Wrong filename": "Dateiname ungültig"
 }
