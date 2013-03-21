@@ -10,7 +10,7 @@ Ext.Loader.setConfig({enabled:true});
 
 // Version
 SmartWFMMajorVersion = 1;
-SmartWFMMinorVersion = 0;
+SmartWFMMinorVersion = 1;
 
 /**
  * @class SmartWFM
