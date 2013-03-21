@@ -54,7 +54,7 @@ Ext.define('SmartWFM.controller.NewFile', {
 					SmartWFM.lib.Config.append('plugin.subMenus.createNew', name);
 				}
 			}
-		});
+		}, false, false);
 	},
 
 	create: function() {

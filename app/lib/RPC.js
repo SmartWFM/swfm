@@ -116,11 +116,13 @@ Ext.define('SmartWFM.lib.RPC', {
 	 *
 	 * @since 0.10
 	 */
-	request: function (options, merge) {
+	request: function (options, merge, async) {
 		console.groupCollapsed('SmartWFM.lib.RPC.request()');
 		console.debug('Arguments: ', arguments);
 
 		merge = merge || false;
+		if(async === undefined)
+			async = true;
 
 		if(merge) {
 			// used for file proxy
@@ -148,7 +150,8 @@ Ext.define('SmartWFM.lib.RPC', {
 				callback:	this.callbackRequest,
 				scope:		{
 								options: options
-							}
+							},
+				async: 		async
 			};
 		}
 

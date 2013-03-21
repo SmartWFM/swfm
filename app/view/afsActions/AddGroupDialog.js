@@ -11,6 +11,8 @@ Ext.define('SmartWFM.view.afsActions.AddGroupDialog', {
 	plain: true,
 	border: false,
 	constrain: true,
+	modal: true,
+	width: 200,
 
 	items: {
 		xtype: 'form',
@@ -18,7 +20,7 @@ Ext.define('SmartWFM.view.afsActions.AddGroupDialog', {
 		bodyStyle: {'background-color': 'transparent'}, // only way not to have a white background
 		items: [{
 			xtype: 'textfield',
-			fieldLabel: SmartWFM.lib.I18n.get('plugin.afsActions', 'Please enter the name of the new group'),
+			fieldLabel: SmartWFM.lib.I18n.get('plugin.afsActions', 'Name of the new group'),
 			labelAlign: 'top',
 			name: 'name',
 			anchor: '100%',

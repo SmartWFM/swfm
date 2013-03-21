@@ -11,6 +11,8 @@ Ext.define('SmartWFM.view.baseActions.NewFolderWindow', {
 	plain: true,
 	border: false,
 	constrain: true,
+	modal: true,
+	width: 200,
 
 	items: {
 		xtype: 'form',

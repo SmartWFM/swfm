@@ -217,7 +217,6 @@ Ext.define('SmartWFM.controller.SourceCodeViewer', {
 
 		function indexOfObject(array, attribute, value) {
 			for(var i = 0; i < array.length; i += 1) {
-				console.warn(array[i][attribute], value)
 				if(array[i][attribute] === value) {
 					return i;
 				}

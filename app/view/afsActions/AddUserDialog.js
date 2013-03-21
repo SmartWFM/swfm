@@ -11,6 +11,8 @@ Ext.define('SmartWFM.view.afsActions.AddUserDialog', {
 	plain: true,
 	border: false,
 	constrain: true,
+	modal: true,
+	width: 300,
 
 	items: {
 		xtype: 'form',
@@ -18,7 +20,7 @@ Ext.define('SmartWFM.view.afsActions.AddUserDialog', {
 		bodyStyle: {'background-color': 'transparent'}, // only way not to have a white background
 		items: [{
 			xtype: 'textfield',
-			fieldLabel: SmartWFM.lib.I18n.get('plugin.afsActions', 'Please enter the name of the user (space-separated for several)'),
+			fieldLabel: SmartWFM.lib.I18n.get('plugin.afsActions', 'Name of the user (space-separated for several)'),
 			labelAlign: 'top',
 			name: 'user',
 			anchor: '100%',
