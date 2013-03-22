@@ -159,10 +159,40 @@ Ext.define('SmartWFM.controller.BaseActions', {
 			handler: function(){
 				var selection = Ext.ComponentQuery.query('viewport > browser')[0].getActiveTab().down('dataview, gridpanel').getSelectionModel().getSelection();
 
+
 				if(selection.length) {
+					var folders = 0;
+					var files = 0;
+					var message = '';
+
+					// count selected folders and files
+					for(var i in selection) {
+						if(selection[i].data.isDir === true)
+							folders++;
+						else
+							files++;
+					}
+
+					if(folders !== 0) {
+						message += folders + ' ';
+						if(folders === 1)
+							message += SmartWFM.lib.I18n.get('plugin.baseActions', 'folder');
+						else
+							message += SmartWFM.lib.I18n.get('plugin.baseActions', 'folders');
+						message += '<br />';
+					}
+
+					if(files !== 0) {
+						message += files + ' ';
+						if(files === 1)
+							message += SmartWFM.lib.I18n.get('plugin.baseActions', 'file');
+						else
+							message += SmartWFM.lib.I18n.get('plugin.baseActions', 'files');
+					}
+
 					Ext.Msg.show({
 						title: SmartWFM.lib.I18n.get('plugin.baseActions', 'Delete files?'),
-						msg: SmartWFM.lib.I18n.get('plugin.baseActions', 'Remove all selected files?'),
+						msg: SmartWFM.lib.I18n.get('plugin.baseActions', 'Remove all selected files?') + '<br /><span style="font-weight: bold">' + message + '</span>',
 						buttons: Ext.Msg.YESNO,
 						icon: Ext.Msg.WARNING,
 						fn: function(btn) {
