@@ -539,9 +539,9 @@ Ext.define('SmartWFM.controller.BaseActions', {
 		}
 
 		var percentage = processedCount / totalCount;
-		var text = item['name'] + ' (' + Math.round(percentage * 100) + '%)';
 
-		window.down('progressbar').updateProgress(percentage, text, false);
+		window.setTitle(SmartWFM.lib.I18n.get('plugin.baseActions', 'Copying files ...') + ' - ' + Math.round(percentage * 100) + '%');
+		window.down('progressbar').updateProgress(percentage, item['name'], false);
 
 		// RPC base variables
 		var action = 'file.copy';
