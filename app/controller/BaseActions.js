@@ -218,29 +218,20 @@ Ext.define('SmartWFM.controller.BaseActions', {
 		var download = Ext.extend(Ext.menu.Item, {
 			text: SmartWFM.lib.I18n.get('plugin.baseActions', 'Download'),
 			icon: SmartWFM.lib.Icon.get('file.download', 'action', '32x32'),
-			initComponent: function() {
-				this.callParent();
-
-				// show only if one item is selected
-				if((this.context.files.length + this.context.dirs.length) != 1)
-					this.setDisabled(true);
-			},
 			handler: function(){
 				var selection = Ext.ComponentQuery.query('viewport > browser')[0].getActiveTab().down('dataview, gridpanel').getSelectionModel().getSelection();
 
-				if(selection.length == 1) {
+				if(selection.length >= 1) {
 					window.open(
 						SmartWFM.lib.Url.encode(
 							SmartWFM.lib.Config.get('commandUrl'),
 							{
 								'command': 'download',
 								'path': selection[0].data['path'],
-								'name': selection[0].data['name']
+								'files[]': selection.map(function(node){return node.data['name']})
 							}
 						)
 					);
-				} else if (selection.length > 1) {
-					SmartWFM.app.getController('BaseActions').downloadMultipleFiles();
 				} else {
 					// should never occur
 					SmartWFM.app.getController('BaseActions').noFilesSelected();
@@ -295,15 +286,6 @@ Ext.define('SmartWFM.controller.BaseActions', {
 		Ext.Msg.show({
 			title: msg,
 			msg: msg,
-			buttons: Ext.Msg.OK,
-			icon: Ext.Msg.INFO
-		});
-	},
-
-	downloadMultipleFiles: function() {
-		Ext.Msg.show({
-			title: SmartWFM.lib.I18n.get('plugin.baseActions', 'Download'),
-			msg: SmartWFM.lib.I18n.get('plugin.baseActions.error', 'Directories and multiple files couldn\'t be downloaded, archive it first and then download this file.'),
 			buttons: Ext.Msg.OK,
 			icon: Ext.Msg.INFO
 		});

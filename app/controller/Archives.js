@@ -218,7 +218,7 @@ Ext.define('SmartWFM.controller.Archives', {
 	create: function(button) {
 		var browserView = this.getBrowserView();
 		browserView.setLoading({msg: SmartWFM.lib.I18n.get('swfm', 'Loading ...')});
-		var values = this.getCreateArchiveForm().getForm().getValues();
+		var values = this.getCreateArchiveForm().getForm().getFieldValues();
 		this.createArchiveData['archiveName'] = values['name'];
 		this.createArchiveData['archiveType'] = values['type'];
 		this.createArchiveData['fullPath'] = values['absolutePaths'] || false;

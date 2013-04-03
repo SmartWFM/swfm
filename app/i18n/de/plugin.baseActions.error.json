@@ -5,7 +5,6 @@
 	"Can't open dir.": "Verzeichnis konnte nicht geöffnet werden",
 	"Destination exists": "Ziel existiert",
 	"Destination is inside source path.": "Ziel ist innerhalb der Quelle",
-	"Directories couldn't be downloaded, archive it first and then download this file.": "Verzeichnisse können nicht direkt heruntergeladen werden, packe das Verzeichnis in ein Archiv und lade diese dann herunter.",
 	"Directory doesn't exists": "Ordner existiert nicht",
 	"Error deleting file ...": "Fehler beim Löschen ...",
 	"File exists ...": "Datei existiert ...",
