@@ -11,14 +11,40 @@ Ext.define('Ext.ux.upload.Button', {
     requires: ['Ext.ux.upload.Basic'],
     disabled: true,
 
+    config: {
+        text: SmartWFM.lib.I18n.get('plugin.baseActions', 'Upload'),
+        plugins: [{
+            ptype: 'ux.upload.window',
+            title: SmartWFM.lib.I18n.get('plugin.baseActions', 'Upload'),
+            width: 520,
+            height: 350
+        }],
+        uploader: {
+            url: 'asd.json',
+            uploadpath: '/asdasd',
+            autoStart: false,
+            max_file_size: '512mb',
+            statusQueuedText: SmartWFM.lib.I18n.get('plugin.baseActions', 'Ready to upload'),
+            statusUploadingText: SmartWFM.lib.I18n.get('plugin.baseActions', 'Uploading ({0}%)'),
+            statusFailedText: '<span style="color: red">' + SmartWFM.lib.I18n.get('plugin.baseActions.errors', 'Error') + '</span>',
+            statusDoneText: '<span style="color: green">' + SmartWFM.lib.I18n.get('plugin.baseActions', 'Complete') + '</span>',
+            statusInvalidSizeText: SmartWFM.lib.I18n.get('plugin.baseActions.errors', 'File too large'),
+            statusInvalidExtensionText: SmartWFM.lib.I18n.get('plugin.baseActions.errors', 'Invalid file type')
+        },
+        addButtonText: SmartWFM.lib.I18n.get('plugin.baseActions', 'Add files'),
+        uploadButtonText: SmartWFM.lib.I18n.get('swfm.button', 'Start'),
+        cancelButtonText: SmartWFM.lib.I18n.get('swfm.button', 'Cancel'),
+        deleteUploadedText: SmartWFM.lib.I18n.get('plugin.baseActions', 'Remove uploaded'),
+        deleteAllText: SmartWFM.lib.I18n.get('plugin.baseActions', 'Remove all'),
+    },
+
     constructor: function(config)
     {
         var me = this;
-        config = config || {};
-        Ext.applyIf(config.uploader, {
-            browse_button: config.id || Ext.id(me)
+        Ext.applyIf(me.config.uploader, {
+            browse_button: me.config.id || Ext.id(me)
         });
-        me.callParent([config]);
+        me.callParent([me.config]);
     },
 
     initComponent: function()

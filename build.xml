@@ -34,8 +34,6 @@
 				<file name="plupload.js" />
 				<file name="plupload.html4.js" />
 				<file name="plupload.html5.js" />
-				<file name="plupload.flash.js" />
-				<file name="plupload.silverlight.js" />
 			</filelist>
 		</concat>
 		<concat destfile="${build.dir}/tmp-upload.js" encoding="UTF-8" outputencoding="UTF-8">

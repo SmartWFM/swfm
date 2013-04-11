@@ -1,4 +1,6 @@
 {
+	"Add files": "Dateien hinzufügen",
+	"Complete": "Fertig",
 	"Copy": "Kopieren",
 	"Copying files ...": "Kopiere ...",
 	"Create": "Erstellen",
@@ -25,10 +27,15 @@
 	"Paste": "Einfügen",
 	"Name of the new folder": "Name des neuen Ordners",
 	"Name of the new file": "Name der neuen Datei",
+	"Ready to upload": "Bereit zum Hochladen",
+	"Remove all": "Alle entfernen",
 	"Remove all selected files?": "Alle ausgewählten Objekte löschen?",
+	"Remove uploaded": "Hochgeladene entfernen",
 	"Rename": "Umbenennen",
 	"Upload": "Hochladen",
+	"Upload {0}% ({1} of {2})": "Hochladen {0}% ({1} of {2})",
 	"Uploading ...": "Lade hoch ...",
+	"Uploading ({0}%)": "Lade hoch ({0}%)",
 	"Write in": "Zusammenfügen",
 	"Write in all": "Alle zusammenfügen"
 }
