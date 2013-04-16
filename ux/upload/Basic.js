@@ -93,11 +93,6 @@ Ext.define('Ext.ux.upload.Basic', {
                 disabled: false,
                 handler: function() {console.warn('sadas')}
             }),
-            bla: Ext.create('Ext.Action', {
-                text: config.addButtonText2 || 'Add files2',
-                disabled: false,
-                handler: function() {console.warn('sadas2')}
-            }),
             start: Ext.create('Ext.Action', {
                 text: config.uploadButtonText || 'Start',
                 disabled: true,
@@ -376,7 +371,7 @@ Ext.define('Ext.ux.upload.Basic', {
 
         me.actions.removeUploaded.setDisabled(false);
         me.actions.removeAll.setDisabled(false);
-        me.actions.start.setDisabled(uploader.state == 2);
+        me.actions.start.setDisabled(uploader.state == plupload.STARTED);
         Ext.each(files, function(v)
         {
             me.updateStore(v);
@@ -385,7 +380,7 @@ Ext.define('Ext.ux.upload.Basic', {
 
         if(me.fireEvent('filesadded', me, files) !== false)
         {
-            if(me.autoStart && uploader.state != 2)
+            if(me.autoStart && uploader.state != plupload.STARTED)
                 Ext.defer(function()
                 {
                     me.start();
@@ -445,7 +440,7 @@ Ext.define('Ext.ux.upload.Basic', {
 
     _StateChanged: function(uploader)
     {
-        if(uploader.state == 2)
+        if(uploader.state == plupload.STARTED)
         {
             this.fireEvent('uploadstarted', this);
             this.actions.cancel.setDisabled(false);

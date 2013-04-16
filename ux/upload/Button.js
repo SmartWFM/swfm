@@ -20,9 +20,8 @@ Ext.define('Ext.ux.upload.Button', {
             height: 350
         }],
         uploader: {
-            url: 'asd.json',
-            uploadpath: '/asdasd',
-            autoStart: false,
+            url: '/', // will be set in "beforeUpload"
+            uploadpath: '/', // will be set in "beforeUpload"
             max_file_size: '512mb',
             statusQueuedText: SmartWFM.lib.I18n.get('plugin.baseActions', 'Ready to upload'),
             statusUploadingText: SmartWFM.lib.I18n.get('plugin.baseActions', 'Uploading ({0}%)'),
@@ -36,6 +35,15 @@ Ext.define('Ext.ux.upload.Button', {
         cancelButtonText: SmartWFM.lib.I18n.get('swfm.button', 'Cancel'),
         deleteUploadedText: SmartWFM.lib.I18n.get('plugin.baseActions', 'Remove uploaded'),
         deleteAllText: SmartWFM.lib.I18n.get('plugin.baseActions', 'Remove all'),
+        listeners: {
+            beforeupload: function(me, uploader, file) {
+                var path = SmartWFM.app.getController('Browser').getBrowserView().getActiveTab().getPath();
+                uploader.settings.url = SmartWFM.lib.Config.get('commandUrl') + '?command=upload&path=' + path;
+            },
+            uploadcomplete: function() {
+                SmartWFM.lib.Event.fire('', 'refresh');
+            }
+        }
     },
 
     constructor: function(config)
