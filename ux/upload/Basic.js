@@ -1,7 +1,7 @@
 /**
  * @class Ext.ux.upload.Basic
  * @extends Ext.util.Observable
- * 
+ *
  * @author Harald Hanek (c) 2011-2012
  * @license http://harrydeluxe.mit-license.org
  */
@@ -9,14 +9,14 @@ Ext.define('Ext.ux.upload.Basic', {
     extend: 'Ext.util.Observable',
     autoStart: true,
     autoRemoveUploaded: true,
-    
+
     statusQueuedText: 'Ready to upload',
     statusUploadingText: 'Uploading ({0}%)',
     statusFailedText: 'Error',
     statusDoneText: 'Complete',
     statusInvalidSizeText: 'File too large',
     statusInvalidExtensionText: 'Invalid file type',
-    
+
 
     configs: {
         uploader: {
@@ -39,7 +39,7 @@ Ext.define('Ext.ux.upload.Basic', {
             required_features: null
         }
     },
-    
+
     constructor: function(owner, config)
     {
         var me = this;
@@ -48,7 +48,7 @@ Ext.define('Ext.ux.upload.Basic', {
         me.failed = [];
         Ext.apply(me, config.listeners);
         me.uploaderConfig = Ext.apply(me, config.uploader, me.configs.uploader);
-        
+
         me.addEvents('beforestart',
                 'uploadready',
                 'uploadstarted',
@@ -59,8 +59,8 @@ Ext.define('Ext.ux.upload.Basic', {
                 'fileuploaded',
                 'updateprogress',
                 'uploadprogress',
-                'storeempty');      
-        
+                'storeempty');
+
         Ext.define('Ext.ux.upload.Model', {
             extend: 'Ext.data.Model',
             fields: ['id',
@@ -71,7 +71,7 @@ Ext.define('Ext.ux.upload.Basic', {
                     'status',
                     'msg']
         });
-        
+
         me.store = Ext.create('Ext.data.JsonStore', {
             model: 'Ext.ux.upload.Model',
             listeners: {
@@ -81,16 +81,22 @@ Ext.define('Ext.ux.upload.Basic', {
                 scope: me
             }
         });
-        
+
         me.actions = {
-            
+
             textStatus: Ext.create('Ext.Action', {
                 text: '<i>uploader not initialized</i>'
             }),
             add: Ext.create('Ext.Action', {
                 text: config.addButtonText || 'Add files',
                 iconCls: config.addButtonCls,
-                disabled: false
+                disabled: false,
+                handler: function() {console.warn('sadas')}
+            }),
+            bla: Ext.create('Ext.Action', {
+                text: config.addButtonText2 || 'Add files2',
+                disabled: false,
+                handler: function() {console.warn('sadas2')}
             }),
             start: Ext.create('Ext.Action', {
                 text: config.uploadButtonText || 'Start',
@@ -122,7 +128,7 @@ Ext.define('Ext.ux.upload.Basic', {
 
         me.callParent();
     },
-    
+
     /**
      * @private
      */
@@ -135,7 +141,7 @@ Ext.define('Ext.ux.upload.Basic', {
             me.initializeUploader();
         }
     },
-    
+
     /**
      * Destroys this object.
      */
@@ -143,12 +149,12 @@ Ext.define('Ext.ux.upload.Basic', {
     {
         this.clearListeners();
     },
-    
+
     setUploadPath: function(path)
     {
         this.uploadpath = path;
     },
-    
+
     removeAll: function()
     {
         this.store.data.each(function(record)
@@ -156,7 +162,7 @@ Ext.define('Ext.ux.upload.Basic', {
             this.removeFile(record.get('id'));
         }, this);
     },
-    
+
     removeUploaded: function()
     {
         //console.log(this.store);
@@ -169,25 +175,25 @@ Ext.define('Ext.ux.upload.Basic', {
             }
         }, this);
     },
-    
+
     removeFile: function(id)
     {
         var me = this,
             file = me.uploader.getFile(id);
-        
+
         if(file)
             me.uploader.removeFile(file);
         else
             me.store.remove(me.store.getById(id));
     },
-    
+
     cancel: function()
     {
         var me = this;
         me.uploader.stop();
         me.actions.start.setDisabled(me.store.data.length == 0);
     },
-    
+
     start: function()
     {
         var me = this;
@@ -199,14 +205,14 @@ Ext.define('Ext.ux.upload.Basic', {
         me.uploader.start();
         //console.log(me.uploader);
     },
-    
+
     initializeUploader: function()
     {
         var me = this;
 
         if (!me.uploaderConfig.runtimes) {
             var runtimes = ['html5'];
-            
+
             me.uploaderConfig.flash_swf_url && runtimes.push('flash');
             me.uploaderConfig.silverlight_xap_url && runtimes.push('silverlight');
 
@@ -216,7 +222,7 @@ Ext.define('Ext.ux.upload.Basic', {
         }
 
         me.uploader = Ext.create('plupload.Uploader', me.uploaderConfig);
-        
+
         Ext.each(['Init',
                 'ChunkUploaded',
                 'FilesAdded',
@@ -232,10 +238,10 @@ Ext.define('Ext.ux.upload.Basic', {
                 'Error'], function(v){
                     me.uploader.bind(v, eval("me._" + v), me);
                 }, me);
-        
+
         me.uploader.init();
     },
-    
+
     updateProgress: function()
     {
         var me = this,
@@ -247,15 +253,15 @@ Ext.define('Ext.ux.upload.Basic', {
             sent = failed + success,
             queued = total - success - failed,
             percent = t.percent;
-        
+
         me.fireEvent('updateprogress', me, total, percent, sent, success, failed, queued, speed);
     },
-    
+
     updateStore: function(v)
     {
         var me = this,
             data = me.store.getById(v.id);
-        
+
         if(!v.msg)
         {
             v.msg = '';
@@ -270,12 +276,12 @@ Ext.define('Ext.ux.upload.Basic', {
             me.store.loadData([v], true);
         }
     },
-    
+
     onStoreLoad: function(store, record, operation)
     {
         this.updateProgress();
     },
-    
+
     onStoreRemove: function(store, record, operation)
     {
         var me = this;
@@ -287,29 +293,29 @@ Ext.define('Ext.ux.upload.Basic', {
             me.uploader.total.reset();
             me.fireEvent('storeempty', me);
         }
-        
+
         var id = record.get('id');
         Ext.each(me.success, function(v)
         {
             if(v && v.id == id)
                 Ext.Array.remove(me.success, v);
         }, me);
-        
+
         Ext.each(me.failed, function(v)
         {
             if(v && v.id == id)
                 Ext.Array.remove(me.failed, v);
         }, me);
-        
+
         me.updateProgress();
     },
-    
+
     onStoreUpdate: function(store, record, operation)
     {
         record.data = this.fileMsg(record.data);
         this.updateProgress();
     },
-    
+
     fileMsg: function(file)
     {
         var me = this;
@@ -333,7 +339,7 @@ Ext.define('Ext.ux.upload.Basic', {
         }
         return file;
     },
-    
+
     /**
      * Plupload EVENTS
      */
@@ -343,38 +349,38 @@ Ext.define('Ext.ux.upload.Basic', {
         this.owner.enable(true); // button aktiv schalten
         this.fireEvent('uploadready', this);
     },
-    
+
     // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     _BeforeUpload: function(uploader, file)
     {
         this.fireEvent('beforeupload', this, uploader, file);
     },
-    
+
     _ChunkUploaded: function()
     {
     },
-    
+
     _FilesAdded: function(uploader, files)
     {
         var me = this;
-        
-        if(me.uploaderConfig.multi_selection != true) 
+
+        if(me.uploaderConfig.multi_selection != true)
         {
             if(me.store.data.length == 1)
             //if(uploader.files.length == 1)
                 return false;
-            
+
             files = [files[0]];
-            uploader.files = [files[0]];  
-        }   
-         
+            uploader.files = [files[0]];
+        }
+
         me.actions.removeUploaded.setDisabled(false);
         me.actions.removeAll.setDisabled(false);
         me.actions.start.setDisabled(uploader.state == 2);
         Ext.each(files, function(v)
         {
             me.updateStore(v);
-            
+
         }, me);
 
         if(me.fireEvent('filesadded', me, files) !== false)
@@ -386,7 +392,7 @@ Ext.define('Ext.ux.upload.Basic', {
                 }, 300);
         }
     },
-    
+
     _FilesRemoved: function(uploader, files)
     {
         Ext.each(files, function(file)
@@ -394,12 +400,12 @@ Ext.define('Ext.ux.upload.Basic', {
             this.store.remove(this.store.getById(file.id));
         }, this);
     },
-    
+
     _FileUploaded: function(uploader, file, status)
     {
         var me = this,
             response = Ext.JSON.decode(status.response);
-        
+
         if(response.success == true)
         {
             file.server_error = 0;
@@ -420,15 +426,15 @@ Ext.define('Ext.ux.upload.Basic', {
         }
         this.updateStore(file);
     },
-    
+
     _PostInit: function(uploader)
     {
     },
-    
+
     _QueueChanged: function(uploader)
     {
     },
-    
+
     _Refresh: function(uploader)
     {
         Ext.each(uploader.files, function(v)
@@ -436,7 +442,7 @@ Ext.define('Ext.ux.upload.Basic', {
             this.updateStore(v);
         }, this);
     },
-    
+
     _StateChanged: function(uploader)
     {
         if(uploader.state == 2)
@@ -454,26 +460,26 @@ Ext.define('Ext.ux.upload.Basic', {
             this.actions.start.setDisabled(this.store.data.length == 0);
         }
     },
-    
+
     _UploadFile: function(uploader, file)
     {
     },
-    
+
     _UploadProgress: function(uploader, file)
     {
         var me = this,
             name = file.name,
             size = file.size,
-            percent = file.percent; 
-    
+            percent = file.percent;
+
         me.fireEvent('uploadprogress', me, file, name, size, percent);
 
         if(file.server_error)
             file.status = 4;
-        
+
         me.updateStore(file);
     },
-    
+
     _Error: function(uploader, data)
     {
         if(data.file)

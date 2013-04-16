@@ -77,34 +77,34 @@ Ext.define('Ext.ux.upload.plugin.Window', {
                 sortable: false,
                 dataIndex: 'name'
             },
-                    {
-                        text: 'Size',
-                        width: 90,
-                        sortable: true,
-                        align: 'right',
-                        renderer: Ext.util.Format.fileSize,
-                        dataIndex: 'size'
-                    },
-                    {
-                        text: 'Change',
-                        width: 75,
-                        sortable: true,
-                        hidden: true,
-                        dataIndex: 'percent'
-                    },
-                    {
-                        text: 'status',
-                        width: 75,
-                        hidden: true,
-                        sortable: true,
-                        dataIndex: 'status'
-                    },
-                    {
-                        text: 'msg',
-                        width: 175,
-                        sortable: true,
-                        dataIndex: 'msg'
-                    }],
+            {
+                text: 'Size',
+                width: 90,
+                sortable: true,
+                align: 'right',
+                renderer: Ext.util.Format.fileSize,
+                dataIndex: 'size'
+            },
+            {
+                text: 'Change',
+                width: 75,
+                sortable: true,
+                hidden: true,
+                dataIndex: 'percent'
+            },
+            {
+                text: 'status',
+                width: 75,
+                hidden: true,
+                sortable: true,
+                dataIndex: 'status'
+            },
+            {
+                text: 'msg',
+                width: 175,
+                sortable: true,
+                dataIndex: 'msg'
+            }],
             viewConfig: {
                 stripeRows: true,
                 enableTextSelection: false
@@ -131,7 +131,7 @@ Ext.define('Ext.ux.upload.plugin.Window', {
                     scope: me
                 }
             },
-                    me.statusbar]
+            me.statusbar]
         });
 
         me.window = new Ext.Window({

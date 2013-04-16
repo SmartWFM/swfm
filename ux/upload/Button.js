@@ -63,7 +63,8 @@ Ext.define('Ext.ux.upload.Button', {
                 {
                     single: true,
                     scope: me
-                });
+                }
+            );
         }
         else
         {
