@@ -411,7 +411,7 @@ Ext.define('Ext.ux.upload.Basic', {
         {
             if(response.message)
             {
-                file.msg = '<span style="color: red">' + response.message + '</span>';
+                file.msg = '<span style="color: red">' + SmartWFM.lib.I18n.get('swfm.error', response.message) + '</span>';
             }
             file.server_error = 1;
             me.failed.push(file);
