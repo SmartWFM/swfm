@@ -29,9 +29,24 @@
 		<concat destfile="${build.dir}/tmp-date.js">
 			var SmartWFMBuildDate = '${build.date}';
 		</concat>
+		<concat destfile="${build.dir}/tmp-plupload.js" encoding="UTF-8" outputencoding="UTF-8">
+			<filelist dir="ux/upload/plupload/js">
+				<file name="plupload.js" />
+				<file name="plupload.html4.js" />
+				<file name="plupload.html5.js" />
+			</filelist>
+		</concat>
+		<concat destfile="${build.dir}/tmp-upload.js" encoding="UTF-8" outputencoding="UTF-8">
+			<filelist dir="ux/upload/">
+				<file name="Basic.js" />
+				<file name="Button.js" />
+				<file name="plugin/Window.js" />
+			</filelist>
+		</concat>
 		<concat destfile="${build.dir}/tmp-ux.js" encoding="UTF-8" outputencoding="UTF-8">
 			<fileset dir="ux">
 				<include name="**/*.js" />
+				<exclude name="upload/**/*.js" />
 			</fileset>
 		</concat>
 		<concat destfile="${build.dir}/tmp-lib.js" encoding="UTF-8" outputencoding="UTF-8">
@@ -55,8 +70,10 @@
 		<concat destfile="${build.dir}/${tmp.build.file}" encoding="UTF-8" outputencoding="UTF-8">
 			<filelist dir=".">
 				<file name="${build.dir}/tmp-date.js" />
+				<file name="${build.dir}/tmp-plupload.js" />
 				<file name="${build.dir}/tmp-ux.js" />
 				<file name="${build.dir}/tmp-lib.js" />
+				<file name="${build.dir}/tmp-upload.js" />
 				<file name="app/config/Icons.js" />
 				<file name="app/view/baseActions/ErrorWindow.js" />
 				<file name="app/view/baseActions/ProgressWindow.js" />

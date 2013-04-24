@@ -7,5 +7,6 @@
 	"Permission denied.": "Zugriff verweigert.",
 	"Method not found": "Methode wurde nicht gefunden",
 	"Template file doesn't exists": "Template-Datei existiert nicht",
+	"Write permission denied.": "Schreib-Zugriff verweigert.",
 	"Wrong filename": "Dateiname ungültig"
 }
