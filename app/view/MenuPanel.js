@@ -31,6 +31,9 @@ Ext.define('SmartWFM.view.MenuPanel', {
 				});
 			}
 		}
+		items.push(
+			Ext.create('Ext.ux.upload.Button')
+		);
 		if(items.length > 0) {
 			this.tbar = items;
 		}
