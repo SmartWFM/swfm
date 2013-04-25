@@ -183,7 +183,8 @@ Ext.define('SmartWFM.controller.TreeMenu', {
 			},
 			{					//scope
 				rootNode: rootNode,
-				selectionModel: selectionModel
+				selectionModel: selectionModel,
+				treeView: view
 			}
 		);
 	}
