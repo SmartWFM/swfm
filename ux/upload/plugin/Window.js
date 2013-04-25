@@ -145,6 +145,7 @@ Ext.define('Ext.ux.upload.plugin.Window', {
             border: false,
             layout: 'fit',
             items: me.view,
+            closeAction: 'hide',
             listeners: {
                 hide: function(window)
                 {
