@@ -90,8 +90,7 @@ Ext.define('Ext.ux.upload.Basic', {
             add: Ext.create('Ext.Action', {
                 text: config.addButtonText || 'Add files',
                 iconCls: config.addButtonCls,
-                disabled: false,
-                handler: function() {console.warn('sadas')}
+                disabled: false
             }),
             start: Ext.create('Ext.Action', {
                 text: config.uploadButtonText || 'Start',
