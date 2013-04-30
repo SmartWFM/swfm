@@ -22,7 +22,7 @@ Ext.define('SmartWFM.view.treeMenu.TreeMenu', {
 				// nd.store.indexOf(nd) didn't work, I want to know
 				// the 'global' row id of the whole treeview ....
 				this.getView().focusRow(
-					this.getView().store.indexOf(nd) // return
+					this.getView().store.indexOf(nd) + nd.childNodes.length
 				);
 			}
 		}
