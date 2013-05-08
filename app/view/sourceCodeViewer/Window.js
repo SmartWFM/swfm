@@ -60,7 +60,9 @@ Ext.define('SmartWFM.view.sourceCodeViewer.Window', {
 					// wait some time to pass the initialization of the editor
 					setTimeout(function() {
 						var b = me.getModifiedState();
-						w.down('button[action=save]').setDisabled(!b);
+						var button = w.down('button[action=save]');
+						if(button !== null)
+							button.setDisabled(!b);
 					}, 100);
 				}
 			},

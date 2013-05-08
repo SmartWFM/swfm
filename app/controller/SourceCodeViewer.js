@@ -37,6 +37,9 @@ Ext.define('SmartWFM.controller.SourceCodeViewer', {
 			},
 			'sourceCodeViewer button[action=save]': {
 				click: this.save
+			},
+			'sourceCodeViewer': {
+				beforeclose: this.beforeclose
 			}
 		});
 		SmartWFM.lib.Resource.loadJS('codemirror-2.38/lib/codemirror.js');
@@ -135,18 +138,58 @@ Ext.define('SmartWFM.controller.SourceCodeViewer', {
 		SmartWFM.lib.Menu.add('sourceCodeViewer', sourceCodeViewer);
 	},
 
+	unsavedChangesMessage: function(callback, scope) {
+		Ext.Msg.show({
+			title: SmartWFM.lib.I18n.get('plugin.sourceCodeViewer', 'Unsaved Changes'),
+			msg: SmartWFM.lib.I18n.get('plugin.sourceCodeViewer', 'There are unsaved changes. Continue anyway?'),
+			buttons: Ext.Msg.YESNO,
+			icon: Ext.Msg.WARNING,
+			fn: function(btn) {
+				if(btn === 'yes') {
+					callback.apply(scope);
+				}
+			}
+		});
+	},
+
 	previous: function() {
-		this.fileIndex--;
-		if(this.fileIndex < 0)
-			this.fileIndex = this.sourceCodeFiles.length - 1;
-		this.load();
+		var previous = function() {
+			this.fileIndex--;
+			if(this.fileIndex < 0)
+				this.fileIndex = this.sourceCodeFiles.length - 1;
+			this.load();
+		}
+		if(this.getSourceCodeViewerEditor().getModifiedState()){
+			this.unsavedChangesMessage(previous, this);
+		} else {
+			previous.call(this);
+		}
 	},
 
 	next: function() {
-		this.fileIndex++;
-		if(this.fileIndex >= this.sourceCodeFiles.length)
-			this.fileIndex = 0;
-		this.load();
+		var next = function() {
+			this.fileIndex++;
+			if(this.fileIndex >= this.sourceCodeFiles.length)
+				this.fileIndex = 0;
+			this.load();
+		}
+		if(this.getSourceCodeViewerEditor().getModifiedState()){
+			this.unsavedChangesMessage(next, this);
+		} else {
+			next.call(this);
+		}
+	},
+
+	beforeclose: function() {
+		var close = function() {
+			var form = this.getSourceCodeViewerEditor();
+			form.resetModifiedState();
+			form.up('window').close();
+		}
+		if(this.getSourceCodeViewerEditor().getModifiedState()){
+			this.unsavedChangesMessage(close, this);
+			return false;
+		}
 	},
 
 	save: function() {
@@ -162,6 +205,7 @@ Ext.define('SmartWFM.controller.SourceCodeViewer', {
 			},
 			successCallback: function() {
 				scViewerForm.up('window').down('button[action=save]').disable();
+				scViewerForm.down('codemirror').resetModifiedState();
 			},
 			callback: function() {
 				scViewerForm.up('window').setLoading(false);
@@ -177,7 +221,7 @@ Ext.define('SmartWFM.controller.SourceCodeViewer', {
 			{
 				command: 'download',
 				path: fileMetadata['path'],
-				name: fileMetadata['name']
+				'files[]': fileMetadata['name']
 			}
 		);
 		Ext.Ajax.request({

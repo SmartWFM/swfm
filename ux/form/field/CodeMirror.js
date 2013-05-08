@@ -1142,11 +1142,22 @@ Ext.define('Ext.ux.form.field.CodeMirror', {
     getModifiedState: function(){
         var me = this;
         if(!me.modified && me.editor) {
+            if(typeof(me.editor.getValue) === 'undefined')
+                return false;
             var current = me.editor.getValue();
             if(current !== me.rawValue)
                 me.modified = true;
         }
         return me.modified;
+    },
+
+    /**
+    * Reset the state of the editor value
+    */
+    resetModifiedState: function(){
+        var me = this;
+        me.modified = false;
+        me.setValue(me.editor.getValue());
     }
 
 });
