@@ -54,9 +54,19 @@ Ext.application({
 		Ext.get('loading').fadeOut(conf);
 		Ext.get('loading-mask').fadeOut(conf);
 		// initial tab
-		var hash = window.location.hash;
-		if(hash !== "") {
-			paths = hash.substring(1).split(';')
+		var hash = null;
+		if(window.location.search !== "") {
+			search = window.location.search.substr(1).split('&')
+			for(var i in search) {
+				// extract query parameter "p" which contain the paths to open
+				if(search[i].substr(0, 2) === 'p=') {
+					hash = search[i].substr(2);
+					break;
+				}
+			}
+		}
+		if(hash !== null) {
+			paths = hash.split(';')
 			var active = true // activate the first tab
 			for(i in paths) {
 				var path = paths[i].replace(/%3B/gi, ';'); // replace encoded ";"
