@@ -29,7 +29,6 @@ Ext.define('SmartWFM.lib.Config', {
 											],
 		'widget.browser.menu.context':		[
 												'afs.setACL', /* AFS only */
-												'base.upload',
 												'base.newFolder',
 												'createNew',
 												'|',
@@ -59,8 +58,7 @@ Ext.define('SmartWFM.lib.Config', {
 		'menu.main.file':					[
 												'newtab',
 												'base.newFolder',
-												'createNew',
-												'base.upload'
+												'createNew'
 											],
 		'menu.main.edit':					[],
 		'menu.main.view':					[

@@ -19,8 +19,7 @@ Ext.define('SmartWFM.controller.BaseActions', {
 		'baseActions.DeleteErrorWindow',
 		'baseActions.DeleteWindow',
 		'baseActions.MoveWindow',
-		'baseActions.NewFolderWindow',
-		'baseActions.UploadWindow'
+		'baseActions.NewFolderWindow'
 	],
 
 	refs: [{
@@ -239,18 +238,6 @@ Ext.define('SmartWFM.controller.BaseActions', {
 			}
 		});
 		SmartWFM.lib.Menu.add('base.download', download);
-
-		// upload
-		var upload = Ext.extend(Ext.menu.Item, {
-			text: SmartWFM.lib.I18n.get('plugin.baseActions', 'Upload'),
-			icon: SmartWFM.lib.Icon.get('file.upload', 'action', '32x32'),
-			handler: function(){
-				var win = Ext.create('SmartWFM.view.baseActions.UploadWindow');
-				win.down('hiddenfield[name=path]').setValue(Ext.ComponentQuery.query('viewport > browser')[0].getActiveTab().path);
-				win.show();
-			}
-		});
-		SmartWFM.lib.Menu.add('base.upload', upload);
 
 		// rename
 		var rename = Ext.extend(Ext.menu.Item, {
