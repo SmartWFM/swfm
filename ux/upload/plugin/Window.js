@@ -121,7 +121,6 @@ Ext.define('Ext.ux.upload.plugin.Window', {
                 listeners: {
                     beforerender: function(toolbar)
                     {
-                        toolbar.add(uploader.actions.add);
                         if(uploader.autoStart == false)
                             toolbar.add(uploader.actions.start);
                         toolbar.add(uploader.actions.cancel);
