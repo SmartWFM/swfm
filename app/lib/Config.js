@@ -80,6 +80,7 @@ Ext.define('SmartWFM.lib.Config', {
 		'plugin.subMenus.openWith': 		[
 												'imageViewer',
 												'sourceCodeViewer',
+												'ckeditorViewer',
 												'archives.viewer'
 											],
 		'statusbar.left': 					[],

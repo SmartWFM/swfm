@@ -1,88 +1,56 @@
 /**
- * This plugin uses the backend to highlight source code.
+ * This is a plugin for the CKEditor. It adds a menu item to open a file in CKEditor
  */
-Ext.define('SmartWFM.controller.SourceCodeViewer', {
+Ext.define('SmartWFM.controller.CKEditor', {
 	extend: 'Ext.app.Controller',
 	requires: [
-		'Ext.util.KeyNav',
-		'SmartWFM.lib.Menu',
-		'SmartWFM.lib.Mimetype',
 		'SmartWFM.lib.I18n',
-		'SmartWFM.lib.Icon',
-		'SmartWFM.lib.Resource',
-		'SmartWFM.view.sourceCodeViewer.Window'
+		'SmartWFM.view.feedback.Window'
 	],
 
 	refs: [{
-		ref: 'sourceCodeViewerForm',
-		selector: 'sourceCodeViewer > form'
+		ref: 'ckeditorForm',
+		selector: 'ckeditor > form'
 	},{
-		ref: 'sourceCodeViewerEditor',
-		selector: 'sourceCodeViewer > form > codemirror'
+		ref: 'ckeditorEditor',
+		selector: 'ckeditor > form > ckeditorField'
 	},{
 		ref: 'browserView',
 		selector: 'viewport > browser'
 	}],
 
-	fileRegexString: "(text/.*)|(application/(x(-empty|ml|-httpd-php|-shellscript))|javascript)",
+	fileRegexString: "text/.*",
 
 	init: function() {
 		this.registerMenuItems();
-		this.control({
-			'sourceCodeViewer button[action=previous]': {
-				click: this.previous
-			},
-			'sourceCodeViewer button[action=next]': {
-				click: this.next
-			},
-			'sourceCodeViewer button[action=save]': {
-				click: this.save
-			},
-			'sourceCodeViewer': {
-				beforeclose: this.beforeclose
-			}
-		});
-		SmartWFM.lib.Resource.loadJS('codemirror-2.38/lib/codemirror.js');
-		SmartWFM.lib.Resource.loadCSS('codemirror-2.38/lib/codemirror.css');
-		this.registerEvents();
-	},
-
-	registerEvents: function() {
-		SmartWFM.lib.Event.register(
-			'pluginSourceCodeEditor',
-			'newFile',
-			{
-				callback: this.openFile,
-				scope: this
-			}
-		);
+		SmartWFM.lib.Resource.loadJS('ckeditor/ckeditor.js');
 	},
 
 	registerMenuItems: function() {
-		var sourceCodeViewer = Ext.extend(Ext.menu.Item, {
-			text: SmartWFM.lib.I18n.get('plugin.sourceCodeViewer', 'Source Code Viewer'),
+		var ckeditorViewer = Ext.extend(Ext.menu.Item, {
+			text: SmartWFM.lib.I18n.get('plugin.ckeditor', 'CKEditor'),
 			icon: SmartWFM.lib.Icon.get('sourcecodeviewer.brackets', 'action', '32x32'),
 			disabled: true,
 			initComponent: function() {
 				this.callParent();
 
-				var controller = SmartWFM.app.getController('SourceCodeViewer');
+				var controller = SmartWFM.app.getController('CKEditor');
 
 				var files = this.context.files;
 				var file;
 				var regex = new RegExp(controller.fileRegexString);
-				var sourceCodeFiles = [];
-				var viewSourceCodeEntry = false;
+				var ckeditorFiles = [];
+				var viewCkeditorEntry = false;
 
 				for(var i in files) {
 					file = files[i];
 					if(file.mimeType && file.mimeType.match(regex)) {
-						viewSourceCodeEntry = true;
+						viewCkeditorEntry = true;
 						break;
 					}
 				}
 
-				if(viewSourceCodeEntry) {
+				if(viewCkeditorEntry) {
 					controller
 						.getBrowserView()
 						.getActiveTab()
@@ -91,11 +59,11 @@ Ext.define('SmartWFM.controller.SourceCodeViewer', {
 						.each(function(element){
 							var file = element.getData();
 							if(file.mimeType && file.mimeType.match(regex))
-								sourceCodeFiles.push(file);
+								ckeditorFiles.push(file);
 						});
 				}
 
-				if(sourceCodeFiles.length)
+				if(ckeditorFiles.length)
 					this.setDisabled(false);
 
 				function indexOfObject(array, attribute, value) {
@@ -108,16 +76,16 @@ Ext.define('SmartWFM.controller.SourceCodeViewer', {
 
 				var  index = 0;
 				if(file)
-					index = indexOfObject(sourceCodeFiles, 'name', file.name);
+					index = indexOfObject(ckeditorFiles, 'name', file.name);
 
-				controller.sourceCodeFiles = sourceCodeFiles;
+				controller.files = ckeditorFiles;
 				controller.fileIndex = index ? index : 0;
 			},
 			handler: function () {
-				var window = Ext.create('SmartWFM.view.sourceCodeViewer.Window');
+				var window = Ext.create('SmartWFM.view.ckeditor.Window');
 				window.show();
-				var controller = SmartWFM.app.getController('SourceCodeViewer');
-				if(controller.sourceCodeFiles.length == 1) {
+				var controller = SmartWFM.app.getController('CKEditor');
+				if(controller.files.length == 1) {
 					var previousButton = window.query('button[action=previous]')[0];
 					var nextButton = window.query('button[action=next]')[0];
 					previousButton.destroy();
@@ -135,7 +103,7 @@ Ext.define('SmartWFM.controller.SourceCodeViewer', {
 				controller.load();
 			}
 		});
-		SmartWFM.lib.Menu.add('sourceCodeViewer', sourceCodeViewer);
+		SmartWFM.lib.Menu.add('ckeditorViewer', ckeditorViewer);
 	},
 
 	unsavedChangesMessage: function(callback, scope) {
@@ -156,10 +124,10 @@ Ext.define('SmartWFM.controller.SourceCodeViewer', {
 		var previous = function() {
 			this.fileIndex--;
 			if(this.fileIndex < 0)
-				this.fileIndex = this.sourceCodeFiles.length - 1;
+				this.fileIndex = this.files.length - 1;
 			this.load();
 		}
-		if(this.getSourceCodeViewerEditor().getModifiedState()){
+		if(this.getCkeditorEditor().getModifiedState()){
 			this.unsavedChangesMessage(previous, this);
 		} else {
 			previous.call(this);
@@ -169,11 +137,11 @@ Ext.define('SmartWFM.controller.SourceCodeViewer', {
 	next: function() {
 		var next = function() {
 			this.fileIndex++;
-			if(this.fileIndex >= this.sourceCodeFiles.length)
+			if(this.fileIndex >= this.files.length)
 				this.fileIndex = 0;
 			this.load();
 		}
-		if(this.getSourceCodeViewerEditor().getModifiedState()){
+		if(this.getCkeditorEditor().getModifiedState()){
 			this.unsavedChangesMessage(next, this);
 		} else {
 			next.call(this);
@@ -182,40 +150,40 @@ Ext.define('SmartWFM.controller.SourceCodeViewer', {
 
 	beforeclose: function() {
 		var close = function() {
-			var form = this.getSourceCodeViewerEditor();
+			var form = this.getCkeditorEditor();
 			form.resetModifiedState();
 			form.up('window').close();
 		}
-		if(this.getSourceCodeViewerEditor().getModifiedState()){
+		if(this.getCkeditorEditor().getModifiedState()){
 			this.unsavedChangesMessage(close, this);
 			return false;
 		}
 	},
 
 	save: function() {
-		var scViewerForm = this.getSourceCodeViewerForm();
-		scViewerForm.up('window').setLoading({msg: SmartWFM.lib.I18n.get('swfm', 'Save ...')});
-		var fileMetadata = this.sourceCodeFiles[this.fileIndex];
+		var ckeditorForm = this.getCkeditorForm();
+		ckeditorForm.up('window').setLoading({msg: SmartWFM.lib.I18n.get('swfm', 'Save ...')});
+		var fileMetadata = this.files[this.fileIndex];
 		SmartWFM.lib.RPC.request({
 			action: 		'new_file.save',
 			params: {
 				path: 		fileMetadata['path'],
 				name: 		fileMetadata['name'],
-				content: 	scViewerForm.getForm().getValues()['content']
+				content: 	ckeditorForm.getForm().getValues()['content']
 			},
 			successCallback: function() {
-				scViewerForm.up('window').down('button[action=save]').disable();
-				scViewerForm.down('codemirror').resetModifiedState();
+				ckeditorForm.up('window').down('button[action=save]').disable();
+				TODO ckeditorForm.down('ckeditor').resetModifiedState();
 			},
 			callback: function() {
-				scViewerForm.up('window').setLoading(false);
+				ckeditorForm.up('window').setLoading(false);
 			}
 		});
 	},
 
 	load: function() {
-		var scViewerEditor = this.getSourceCodeViewerEditor();
-		var fileMetadata = this.sourceCodeFiles[this.fileIndex];
+		var ckeditor = this.getCkeditorEditor();
+		var fileMetadata = this.files[this.fileIndex];
 		var url = SmartWFM.lib.Url.encode(
 			SmartWFM.lib.Config.get('commandUrl'),
 			{
@@ -227,12 +195,11 @@ Ext.define('SmartWFM.controller.SourceCodeViewer', {
 		Ext.Ajax.request({
 			url: url,
 			success: function(response){
-				scViewerEditor.setValue(response.responseText);
-				scViewerEditor.setMode(SmartWFM.lib.Mimetype.normalize(this.sourceCodeFiles[this.fileIndex].mimeType));
+				ckeditor.setValue(response.responseText);
 			},
 			scope: this
 		});
-		scViewerEditor.up('window').setTitle(SmartWFM.lib.I18n.get('plugin.sourceCodeViewer', 'Source Code Viewer') + ' - ' + fileMetadata['name']);
+		ckeditor.up('window').setTitle(SmartWFM.lib.I18n.get('plugin.ckeditor', 'CKEditor') + ' - ' + fileMetadata['name']);
 	},
 
 	openFile: function(path, name, mimeType) {
@@ -241,7 +208,7 @@ Ext.define('SmartWFM.controller.SourceCodeViewer', {
 
 		var file;
 		var regex = new RegExp(this.fileRegexString);
-		var sourceCodeFiles = [];
+		var files = [];
 
 		if(!mimeType.match(me.fileRegexString)) {
 			return;
@@ -255,7 +222,7 @@ Ext.define('SmartWFM.controller.SourceCodeViewer', {
 			.each(function(element){
 				var file = element.getData();
 				if(file.mimeType && file.mimeType.match(regex))
-					sourceCodeFiles.push(file);
+					files.push(file);
 			});
 
 		function indexOfObject(array, attribute, value) {
@@ -268,16 +235,16 @@ Ext.define('SmartWFM.controller.SourceCodeViewer', {
 
 		var  index = 0;
 
-		index = indexOfObject(sourceCodeFiles, 'name', name);
+		index = indexOfObject(files, 'name', name);
 
-		me.sourceCodeFiles = sourceCodeFiles;
+		me.files = files;
 		me.fileIndex = index ? index : 0;
 
 		// load and open window
 
-		var window = Ext.create('SmartWFM.view.sourceCodeViewer.Window');
+		var window = Ext.create('SmartWFM.view.ckeditor.Window');
 		window.show();
-		if(sourceCodeFiles.length == 1) {
+		if(files.length == 1) {
 			var previousButton = window.query('button[action=previous]')[0];
 			var nextButton = window.query('button[action=next]')[0];
 			previousButton.destroy();

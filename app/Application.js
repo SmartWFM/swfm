@@ -43,6 +43,7 @@ Ext.application({
 		,'HelpOverlay'
 		,'AFSActions' /* AFS only */
 		,'NewFile'
+		,'CKEditor'
 	],
 
 	launch: function() {

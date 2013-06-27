@@ -187,6 +187,11 @@
 			<fileset dir="codemirror-2.38"/>
 		</copy>
 
+		<mkdir dir="${build.dir}/ckeditor" />
+		<copy todir="${build.dir}/ckeditor">
+			<fileset dir="ckeditor"/>
+		</copy>
+
 		<echo>Finished</echo>
 	</target>
 
