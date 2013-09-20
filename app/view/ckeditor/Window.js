@@ -3,7 +3,7 @@
  */
 Ext.define('SmartWFM.view.ckeditor.Window', {
 	extend: 'Ext.window.Window',
-	alias: 'widget.ckeditor',
+	alias: 'widget.ckeditorViewer',
 
 	requires: [
 		'SmartWFM.lib.I18n',
@@ -22,14 +22,6 @@ Ext.define('SmartWFM.view.ckeditor.Window', {
 	buttonAlign: 'center',
 	buttons: [
 		{
-			text: SmartWFM.lib.I18n.get('swfm.button', 'Previous'),
-			action: 'previous'
-		},
-		{
-			text: SmartWFM.lib.I18n.get('swfm.button', 'Next'),
-			action: 'next'
-		},
-		{
 			text: SmartWFM.lib.I18n.get('swfm.button', 'Save'),
 			disabled: true,
 			action: 'save'
@@ -42,14 +34,14 @@ Ext.define('SmartWFM.view.ckeditor.Window', {
 		this.height 	= body.getHeight() / 1.2;
 		this.width 		= body.getWidth() / 1.2;
 		this.callParent(arguments);
-		console.log('sad')
 	},
 
 	items: [{
 		xtype: 	'form',
 		layout: 'fit',
 		items: 	[{
-			xtype:	'ckeditorField'
+			xtype:	'ckeditorField',
+			name: 	'content'
 		}]
 	}],
 });

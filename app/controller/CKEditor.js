@@ -10,10 +10,10 @@ Ext.define('SmartWFM.controller.CKEditor', {
 
 	refs: [{
 		ref: 'ckeditorForm',
-		selector: 'ckeditor > form'
+		selector: 'ckeditorViewer > form'
 	},{
-		ref: 'ckeditorEditor',
-		selector: 'ckeditor > form > ckeditorField'
+		ref: 'ckeditorField',
+		selector: 'ckeditorViewer > form > ckeditorField'
 	},{
 		ref: 'browserView',
 		selector: 'viewport > browser'
@@ -23,6 +23,14 @@ Ext.define('SmartWFM.controller.CKEditor', {
 
 	init: function() {
 		this.registerMenuItems();
+		this.control({
+			'ckeditorViewer button[action=save]': {
+				click: this.save
+			},
+			'ckeditorViewer': {
+				beforeclose: this.beforeclose
+			}
+		});
 		SmartWFM.lib.Resource.loadJS('ckeditor/ckeditor.js');
 	},
 
@@ -85,21 +93,6 @@ Ext.define('SmartWFM.controller.CKEditor', {
 				var window = Ext.create('SmartWFM.view.ckeditor.Window');
 				window.show();
 				var controller = SmartWFM.app.getController('CKEditor');
-				if(controller.files.length == 1) {
-					var previousButton = window.query('button[action=previous]')[0];
-					var nextButton = window.query('button[action=next]')[0];
-					previousButton.destroy();
-					nextButton.destroy();
-				} else {
-					Ext.create('Ext.util.KeyNav', {
-						target: window.getEl(),
-						left: controller.previous,
-						right: controller.next,
-						pageUp: controller.previous,
-						pageDown: controller.next,
-						scope: controller
-					});
-				}
 				controller.load();
 			}
 		});
@@ -120,41 +113,13 @@ Ext.define('SmartWFM.controller.CKEditor', {
 		});
 	},
 
-	previous: function() {
-		var previous = function() {
-			this.fileIndex--;
-			if(this.fileIndex < 0)
-				this.fileIndex = this.files.length - 1;
-			this.load();
-		}
-		if(this.getCkeditorEditor().getModifiedState()){
-			this.unsavedChangesMessage(previous, this);
-		} else {
-			previous.call(this);
-		}
-	},
-
-	next: function() {
-		var next = function() {
-			this.fileIndex++;
-			if(this.fileIndex >= this.files.length)
-				this.fileIndex = 0;
-			this.load();
-		}
-		if(this.getCkeditorEditor().getModifiedState()){
-			this.unsavedChangesMessage(next, this);
-		} else {
-			next.call(this);
-		}
-	},
-
 	beforeclose: function() {
 		var close = function() {
-			var form = this.getCkeditorEditor();
+			var form = this.getCkeditorField();
 			form.resetModifiedState();
 			form.up('window').close();
 		}
-		if(this.getCkeditorEditor().getModifiedState()){
+		if(this.getCkeditorField().getModifiedState()){
 			this.unsavedChangesMessage(close, this);
 			return false;
 		}
@@ -162,6 +127,7 @@ Ext.define('SmartWFM.controller.CKEditor', {
 
 	save: function() {
 		var ckeditorForm = this.getCkeditorForm();
+		var ckeditorField = this.getCkeditorField();
 		ckeditorForm.up('window').setLoading({msg: SmartWFM.lib.I18n.get('swfm', 'Save ...')});
 		var fileMetadata = this.files[this.fileIndex];
 		SmartWFM.lib.RPC.request({
@@ -169,11 +135,11 @@ Ext.define('SmartWFM.controller.CKEditor', {
 			params: {
 				path: 		fileMetadata['path'],
 				name: 		fileMetadata['name'],
-				content: 	ckeditorForm.getForm().getValues()['content']
+				content: 	ckeditorField.getRawValue()
 			},
 			successCallback: function() {
 				ckeditorForm.up('window').down('button[action=save]').disable();
-				TODO ckeditorForm.down('ckeditor').resetModifiedState();
+				ckeditorField.resetModifiedState();
 			},
 			callback: function() {
 				ckeditorForm.up('window').setLoading(false);
@@ -182,7 +148,7 @@ Ext.define('SmartWFM.controller.CKEditor', {
 	},
 
 	load: function() {
-		var ckeditor = this.getCkeditorEditor();
+		var ckeditor = this.getCkeditorField();
 		var fileMetadata = this.files[this.fileIndex];
 		var url = SmartWFM.lib.Url.encode(
 			SmartWFM.lib.Config.get('commandUrl'),
@@ -195,7 +161,11 @@ Ext.define('SmartWFM.controller.CKEditor', {
 		Ext.Ajax.request({
 			url: url,
 			success: function(response){
-				ckeditor.setValue(response.responseText);
+				// I have no glue why, but for the second file which is opened, we have to delay the dataloading
+				var delay = function() {
+					ckeditor.setValue(response.responseText);
+				}
+				setTimeout(delay, 200);
 			},
 			scope: this
 		});
@@ -244,21 +214,6 @@ Ext.define('SmartWFM.controller.CKEditor', {
 
 		var window = Ext.create('SmartWFM.view.ckeditor.Window');
 		window.show();
-		if(files.length == 1) {
-			var previousButton = window.query('button[action=previous]')[0];
-			var nextButton = window.query('button[action=next]')[0];
-			previousButton.destroy();
-			nextButton.destroy();
-		} else {
-			Ext.create('Ext.util.KeyNav', {
-				target: window.getEl(),
-				left: me.previous,
-				right: me.next,
-				pageUp: me.previous,
-				pageDown: me.next,
-				scope: me
-			});
-		}
 		me.load();
 	}
 });
