@@ -16,7 +16,7 @@ Ext.define('SmartWFM.lib.Setting', {
 	 * list with all config options:
 	 * config key => value
 	 *
-	 * @private
+	 * @protected
 	 * @type Object
 	 *
 	 * @since 0.10
@@ -27,7 +27,7 @@ Ext.define('SmartWFM.lib.Setting', {
 	 * list with all config options:
 	 * config key => value
 	 *
-	 * @private
+	 * @protected
 	 * @type Object
 	 *
 	 * @since 0.10

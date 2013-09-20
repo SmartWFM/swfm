@@ -1,5 +1,5 @@
 /**
- * TODO
+ * This class manages components. You can register components and then define in the config, where they should placed.
  *
  * @author Morris Jobke
  * @since 0.10
@@ -47,7 +47,6 @@ Ext.define('SmartWFM.lib.Component', {
 	 *
 	 * @return {Boolean} True if everything went fine, else false
 	 *
-	 * @protected
 	 * @since 0.10
 	 */
 	register: function (cmpType, cmpName, cmp) {

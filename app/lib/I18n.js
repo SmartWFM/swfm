@@ -15,7 +15,7 @@ Ext.define('SmartWFM.lib.I18n', {
 	/**
 	 * The current language - will be overwritten by receiveLanguage
 	 *
-	 * @private
+	 * @protected
 	 * @type String
 	 *
 	 * @since 0.10
@@ -25,7 +25,7 @@ Ext.define('SmartWFM.lib.I18n', {
 	/**
 	 * An array to hold all the language strings
 	 *
-	 * @private
+	 * @protected
 	 * @type Array
 	 *
 	 * @since 0.10
@@ -52,6 +52,13 @@ Ext.define('SmartWFM.lib.I18n', {
 		return this.lang;
 	},
 
+
+	/**
+	 * Constructor
+	 *
+	 * @protected
+	 * @since 0.10
+	 */
 	constructor: function() {
 		this.callParent();
 
@@ -62,7 +69,7 @@ Ext.define('SmartWFM.lib.I18n', {
 	/**
 	 * Getting language setting
 	 *
-	 * @private
+	 * @protected
 	 * @since 0.10
 	 */
 	receiveLanguage: function() {
@@ -159,7 +166,7 @@ Ext.define('SmartWFM.lib.I18n', {
 	/**
 	 * Translates the text of the initial loading mask
 	 *
-	 * @private
+	 * @protected
 	 *
 	 * @since 0.10
 	 */
@@ -171,7 +178,7 @@ Ext.define('SmartWFM.lib.I18n', {
 	/**
 	 * Translates the buttontext of the Ext.MessageBox
 	 *
-	 * @private
+	 * @protected
 	 *
 	 * @since 0.10
 	 */

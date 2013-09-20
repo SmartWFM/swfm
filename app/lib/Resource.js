@@ -1,5 +1,5 @@
 /**
- * TODO
+ * This class is responsible for loading CSS and JS at run time.
  *
  * @author Morris Jobke
  * @since 0.11

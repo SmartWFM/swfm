@@ -1,3 +1,8 @@
+/**
+ * This provides a RPC proxy for a ExtJS store
+ *
+ * @author Morris Jobke
+ */
 Ext.define('SmartWFM.lib.RPCProxy', {
 	extend: 'Ext.data.proxy.Ajax',
 	requires: [
@@ -5,16 +10,47 @@ Ext.define('SmartWFM.lib.RPCProxy', {
 		'SmartWFM.lib.RPC'
 	],
 
+
+	/**
+	 * The limit parameter
+	 *
+	 * @type String
+	 */
 	limitParam: false,
+	/**
+	 * The Start parameter
+	 *
+	 * @type String
+	 */
 	startParam: false,
+	/**
+	 * The sort parameter
+	 *
+	 * @type String
+	 */
 	sortParam: false,
+	/**
+	 * The page parameter
+	 *
+	 * @type String
+	 */
 	pageParam: false,
+	/**
+	 * The reader
+	 *
+	 * @type Object
+	 */
 	reader: {
 		type: 'json',
 		root: 'result',
 		success: 'success'
 	},
 
+	/*
+	 * Constructor
+	 *
+	 * @protected
+	 */
 	constructor: function(config) {
 		this.url = SmartWFM.lib.Config.get('commandUrl');
 		config = config || {};
@@ -51,8 +87,6 @@ Ext.define('SmartWFM.lib.RPCProxy', {
 
 	/**
 	 * need to be specified to pass parameter to the request
-	 *
-	 * @required
 	 *
 	 * @param {Object} me "this" variable
 	 * @param {Object} operation currently performed operation

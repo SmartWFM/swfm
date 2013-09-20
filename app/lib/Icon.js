@@ -109,8 +109,6 @@ Ext.define('SmartWFM.lib.Icon', {
 	 * @return {Boolean} true = everything is ok | false = an error occurs
 	 *
 	 * @since 0.10
-	 *
-	 * @todo adding some checks
 	 */
 	load: function(type, icons, sizes) {
 		if (this.icons[type] === undefined) {
@@ -118,7 +116,7 @@ Ext.define('SmartWFM.lib.Icon', {
 			return false;
 		}
 
-		/* ToDo adding some checks */
+		/* TODO adding some checks */
 		this.icons[type]['size'] = sizes;
 		this.icons[type]['icons'] = icons;
 

@@ -1,0 +1,12 @@
+{
+	"--": [
+		"app/lib",
+		"app/view",
+		"app",
+		"extjs/src",
+		"extjs/ext-all-dev.js"
+	],
+	"--warnings": [
+		"-all:extjs/ext-all-dev.js"
+	]
+}

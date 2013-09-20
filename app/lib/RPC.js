@@ -1,5 +1,5 @@
 /**
- * TODO
+ * This handles the encoding, decoding of RPC data and provides a RPC request handler with error handling.
  *
  * @author Morris Jobke
  * @since 0.10
@@ -14,6 +14,7 @@ Ext.define('SmartWFM.lib.RPC', {
 	 * @param {String} encodedData The response data from an ajax request
 	 *
 	 * @return {Object} The response object
+	 *
 	 *
 	 * @since 0.10
 	 */
@@ -62,7 +63,7 @@ Ext.define('SmartWFM.lib.RPC', {
 		}
 
 		console.groupEnd();
-		//ToDo:
+		//TODO:
 		return {
 			success: false,
 			result: undefined,
@@ -168,6 +169,7 @@ Ext.define('SmartWFM.lib.RPC', {
 	 * @param {Boolean} success
 	 * @param {Object} response
 	 *
+	 * @protected
 	 * @since 0.10
 	 */
 	 callbackRequest: function(callbackOptions, success, response) {

@@ -1,3 +1,6 @@
+/**
+ * This plugin handles everything corresponding to AFS
+ */
 Ext.define('SmartWFM.model.File', {
 	extend: 'Ext.data.Model',
 	requires: [
