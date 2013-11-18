@@ -1,4 +1,6 @@
-// needed to don't cause error on Ext.Loader loading - yeah it's bad :(
+/*
+ * needed to don't cause error on Ext.Loader loading - yeah it's bad :(
+ */
 Ext.define('SmartWFM.config.Icons', {});
 
 SmartWFM.lib.Icon.load(
