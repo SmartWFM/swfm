@@ -1,4 +1,6 @@
 {
+	"--title": "SmartWFM Docs",
+	"-o": "docs",
 	"--": [
 		"app/lib",
 		"app/view",

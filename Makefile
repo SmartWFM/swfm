@@ -1,4 +1,4 @@
-.PHONY: archive
+.PHONY: archive docs
 
 ARCHIVE_VERSION=master
 ARCHIVE_PREFIX=swfm-${ARCHIVE_VERSION}
@@ -12,3 +12,6 @@ archive:
 
 clean:
 	rm -rf ${ARCHIVE_PATH}
+
+docs:
+	jsduck --config doc-conf.json
