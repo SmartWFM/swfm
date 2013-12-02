@@ -4,7 +4,7 @@
 }
 
 .icon-view .thumb{
-	//background: #dddddd;
+	/* background: #dddddd; */
 	padding: 3px;
 }
 
@@ -24,7 +24,7 @@
 	display: block;
 	overflow: hidden;
 	text-align: center;
-	width: 72px; // for ie to ensure that the text is centered
+	width: 72px; /* for ie to ensure that the text is centered */
 }
 
 .icon-view .x-item-over{
@@ -41,7 +41,7 @@
 
 .icon-view .loading-indicator {
 	font-size:11px;
-	// background-image:url('../test/resources/themes/images/default/grid/loading.gif');
+	background-image:url('extjs/resources/ext-theme-classic/images/grid/loading.gif');
 	background-repeat: no-repeat;
 	background-position: left;
 	padding-left:20px;

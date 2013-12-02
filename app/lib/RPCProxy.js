@@ -64,13 +64,14 @@ Ext.define('SmartWFM.lib.RPCProxy', {
 		// <- added
 
 		var writer  = this.getWriter(),
-			request = this.buildRequest(operation, callback, scope);
+			request = this.buildRequest(operation);
 
 		if (operation.allowWrite()) {
 			request = writer.write(request);
 		}
 
 		Ext.apply(request, {
+			binary        : this.binary,
 			headers       : this.headers,
 			timeout       : this.timeout,
 			scope         : this,
