@@ -4,7 +4,8 @@ Ext.define('SmartWFM.model.treeMenu.Folder', { // todo seperate file
 		'name',
 		'path',
 		'hasSubDirs',
-		{ 	name: 'leaf',
+		{
+			name: 'leaf',
 			mapping: 'hasSubDirs',
 			convert: function (v) {
 				return (v == 1) ? false : true;
@@ -68,35 +69,10 @@ Ext.define('SmartWFM.store.treeMenu.Folders', {
 
 	model: 'SmartWFM.model.treeMenu.Folder',
 
-	root: {
-		expanded: true,
-		expandable: true,
-		children: [],
-		path: '/',
-		name: SmartWFM.lib.Config.get('widget.treeMenu.rootNodeName')
-	},
-
 	// just for checking if it's the initial call
 	initialCall: true,
 
-	proxy: Ext.create('SmartWFM.lib.RPCProxy', {
-		generateExtraParams: function(me, operation) {
-			currentPath = '/';
-			if(SmartWFM.app) {
-				currentPath = SmartWFM.app.getController('Browser').getBrowserView().getActiveTab().getPath();
-			}
-			me.extraParams = {
-				data : SmartWFM.lib.RPC.encode(
-					'dir.list',
-					{
-						path: operation['node']['data']['path'],
-						showHidden: SmartWFM.lib.Setting.getValue('swfm.files.showHidden', false),
-						currentPath: currentPath
-					}
-				)
-			};
-		}
-	}),
+	proxy: Ext.create('SmartWFM.lib.RPCProxy'),
 
 	sorters: [{
 		direction: 'ASC',
@@ -110,6 +86,21 @@ Ext.define('SmartWFM.store.treeMenu.Folders', {
 		beforeappend: function(me, node, refNode, eOpts) {
 			// setting custom icon in tree view
 			node.data.icon = SmartWFM.lib.Icon.get('folder', 'place', '16x16');
+		},
+		beforeload: function(me, operation){
+			var currentPath = '/',
+				rootNode = this.getRootNode();
+			if(SmartWFM.app) {
+				currentPath = SmartWFM.app.getController('Browser').getBrowserView().getActiveTab().getPath();
+			}
+			// add extra params to pass path, showhidden and current path arguments
+			me.getProxy().setExtraParam('data', SmartWFM.lib.RPC.encode('dir.list', {
+				path: operation['node']['data']['path'],
+				showHidden: SmartWFM.lib.Setting.getValue('swfm.files.showHidden', false),
+				currentPath: currentPath
+			}));
+			// set root node name
+			rootNode.data.name = SmartWFM.lib.Config.get('widget.treeMenu.rootNodeName');
 		}
 	}
 });

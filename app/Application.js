@@ -80,5 +80,7 @@ Ext.application({
 			    .addTab(SmartWFM.lib.Config.get('homePath'), true);
 		}
 
+		// initial loading of the tree menu
+		Ext.getStore('treeMenuStore').load();
 	}
 });

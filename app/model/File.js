@@ -7,12 +7,7 @@ Ext.define('SmartWFM.model.File', {
 		'SmartWFM.lib.Icon',
 		'SmartWFM.lib.RPCProxy'
 	],
-	proxy: Ext.create('SmartWFM.lib.RPCProxy', {
-		generateExtraParams: function(me) {
-			var path = SmartWFM.app.getController('Browser').getBrowserView().getActiveTab().getPath();
-			me.extraParams = {data : SmartWFM.lib.RPC.encode('file.list', {path: path, showHidden: SmartWFM.lib.Setting.getValue('swfm.files.showHidden')})};
-		}
-	}),
+	proxy: Ext.create('SmartWFM.lib.RPCProxy'),
 
 	fields: [
 		'name',

@@ -58,5 +58,15 @@ Ext.define('SmartWFM.store.Files', {
 			anyMatch: true,
 			caseSensitive: caseSensitive
 		}]);
+	},
+
+	listeners: {
+		beforeload: function(me){
+			// add extra params to pass path and showhidden
+			me.getProxy().setExtraParam('data', SmartWFM.lib.RPC.encode('file.list', {
+				path: SmartWFM.app.getController('Browser').getBrowserView().getActiveTab().getPath(),
+				showHidden: SmartWFM.lib.Setting.getValue('swfm.files.showHidden', false)
+			}));
+		}
 	}
 });

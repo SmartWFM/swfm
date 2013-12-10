@@ -46,6 +46,14 @@ Ext.define('SmartWFM.lib.RPCProxy', {
 		success: 'success'
 	},
 
+	// copy of parent array
+	actionMethods: {
+        create : 'POST',
+        read   : 'POST',	// modified: GET -> POST
+        update : 'POST',
+        destroy: 'POST'
+	},
+
 	/*
 	 * Constructor
 	 *
@@ -59,10 +67,6 @@ Ext.define('SmartWFM.lib.RPCProxy', {
 
 	// copy of parent function
 	doRequest: function(operation, callback, scope) {
-		// added ->
-		this.generateExtraParams(this, operation);
-		// <- added
-
 		var writer  = this.getWriter(),
 			request = this.buildRequest(operation);
 
@@ -76,7 +80,7 @@ Ext.define('SmartWFM.lib.RPCProxy', {
 			timeout       : this.timeout,
 			scope         : this,
 			callback      : this.createRequestCallback(request, operation, callback, scope),
-			method        : 'POST',			// modified
+			method        : this.getMethod(request),
 			disableCaching: false // explicitly set it to false, ServerProxy handles caching
 		});
 
@@ -84,17 +88,5 @@ Ext.define('SmartWFM.lib.RPCProxy', {
 		SmartWFM.lib.RPC.request(request, true);
 
 		return request;
-	},
-
-	/**
-	 * need to be specified to pass parameter to the request
-	 *
-	 * @param {Object} me "this" variable
-	 * @param {Object} operation currently performed operation
-	 *
-	 * @since 0.10
-	 */
-	generateExtraParams: function(me, operation) {
-		// do something
 	}
 });
