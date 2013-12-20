@@ -189,7 +189,9 @@
 
 		<mkdir dir="${build.dir}/ckeditor" />
 		<copy todir="${build.dir}/ckeditor">
-			<fileset dir="ckeditor"/>
+			<fileset dir="ckeditor">
+				<exclude name="samples/" />
+			</fileset>
 		</copy>
 
 		<echo>Finished</echo>
